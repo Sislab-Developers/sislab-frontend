@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+}
+
+.header {
+    user-select: none;
+    width: 100%;
+    height: 50px;
+    background: #00C795;
+    position: fixed;
+    z-index: 3;
+}
+
+.headerWrapper {
+    width: 100%;
+    position: relative;
+}
+.logo{
+    text-align: center;
+}
+.logo img {
+    
+    width: 2.5rem;
+    transform: translateY(10%);
+    text-align: center;
+}
+.menu img {
+    display: flex;
+    display: none;
+}
+.menu img:hover{
+    cursor: pointer;
+}
+
+
+.nav{
+    user-select: none;
+    background:  white;
+    width: 20rem;
+    height: 100vh;
+    position: fixed;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.nav_active{
+    user-select: none;
+    background: white;
+    width: 20rem;
+    height: 100vh;
+    position: fixed;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.overlayOff{
+    display: none;
+}
+.overlay{
+    position: fixed;
+    display: block;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.accordion{
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.userName{
+    margin-top: 5rem;
+    margin-left: 2.2rem;
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: #333333;
+}
+
+.nav a{
+    color: #333333;
+}
+
+.nav-sections{
+    margin-top: 2rem;
+}
+.nav ul{
+    font-size: 1rem;
+    color: #333333;  
+}
+.nav ul li{
+    padding-top: 1rem;
+    margin-left: 4rem;
+    padding-bottom: 1rem;
+}
+.nav ul i {
+    color: #00C795;
+    position: absolute;
+    margin-top: 0.14rem;
+    margin-left: -1.2rem;
+
+}
+/* Contenido después del Header */
+
+.title{
+    user-select: none;
+    margin-left: 8rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+
+}
+.title h1{
+    font-weight: 500;
+    font-size: 1.5rem;
+
+}
+.subtitle{
+    user-select: none;
+    text-align: center;
+}
+.subtitle h1{     
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.content{
+    margin-top: 50px;
+    width: 100%;
+    margin-left: 20rem;
+    
+}
+
+.contentWrapper h1{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.contentWrapper{
+    min-width: 400px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    user-select: none;
+    margin-top: 2rem;
+}
+
+.centerComboBox{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.centerComboBox h1{
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    color: #333333;
+}
+
+.centerComboBox i{
+    color: #03a9f4;
+    margin-top: 0.14rem;
+    margin-left: 0.14rem;
+}
+
+.color_en_texto{
+    color:#00C795;
+}
+
+#boton-confirmar{
+    text-align: center;
+}
+
+/* ARREGLAR QUE EL BOTON DE CERRAR SESIÓN SE AUTO POSICIONE */
+
+#mis-grupos-color li{
+    color:#00C795;
+}
+#nueva-solicitud-color li{
+    color:#00C795;
+}
+#solicitudes-color li{
+    color:#00C795;
+}
+#informacion-color li{
+    color:#00C795;
+}
+
+
+.cerrar-sesion li{
+    margin-top: 30vh;
+}
+
+.mis-grupos{
+    transition: background 0.2s ease-in-out;
+}
+
+.nueva-solicitud{
+    transition: background 0.2s ease-in-out;
+}
+
+.solicitudes{
+    transition: background 0.2s ease-in-out;
+}
+
+.informacion{
+    transition: background 0.2s ease-in-out;
+}
+
+.cerrar-sesion{
+    transition: background 0.2s ease-in-out;
+}
+
+
+.mis-grupos:hover{
+    background: #ececec;
+    cursor: pointer;
+}
+.nueva-solicitud:hover{
+    background:#ececec;
+    cursor: pointer;
+}
+.solicitudes:hover{
+    background-color: #ececec;
+    cursor: pointer;
+}
+.informacion:hover{
+    background-color: #ececec;
+    cursor: pointer;
+}
+.cerrar-sesion:hover{
+    background-color: #ececec;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 576px) {
+    .accordion{
+        width: 100%;
+        margin-left: 0;
+    }
+    .title{
+        margin-left: 0rem;
+        margin-top: 2rem;
+        text-align: center;
+    }
+    .content{
+        margin-left: 0;
+    }
+    .nav{
+        transform: translateX(-100%);
+        transition: 0.2s ease-out;
+        z-index: 2;
+    }
+    .nav_active{
+        transition: 0.2s ease-in;
+        transform: translateX(0%);
+        z-index: 2;
+
+    }
+    .menu img {
+        position: absolute;
+        padding: 13px;
+        display: flex;
+        margin-left: 12px;
+    }
+    .cerrar-sesion li{
+        margin-top: 20vh;
+    }
+
+    
+ 
+}

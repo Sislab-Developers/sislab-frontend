@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/*=============== Fondo ===============*/
+
+.backquimica {
+  background-image: url("../assets/img/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.backgroundWhiteSmoke {
+  margin-top: 50vh;
+  width: 100%;
+  height: 50vh;
+  background: white;
+}
+
+.fondo {
+  background-image: url("../assets/img/background.jpg");
+  width: 100%;
+  height: 50vh;
+  background-size: cover;
+  display: flex;
+}
+
+/*=============== Logo ===============*/
+
+.logoLogin {
+  text-align: center;
+}
+
+
+/*=============== Caja ===============*/
+
+.box {
+  position: absolute;
+  width: 380px;
+  min-height: 620px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 32px;
+  padding-top: 3rem;
+  padding-bottom: 1rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Roboto", sans-serif;
+
+}
+.box h1 {
+  text-align: center;
+  font-size: 35px;
+  font-weight: 500;
+  color: #00c795;
+}
+.box h2 {
+  padding-left: 1.2rem;
+  font-size: 24px;
+  font-weight: 500;
+}
+.box p{
+  font-weight: 500;
+  font-size: 18px;
+  padding-top: 10px;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  color: #666666;
+}
+.espacioTexto{
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+#espacioEnlaceAyuda{
+  padding-left: 1.2rem;
+  font-size: 18px;
+}
+#espacioIniciarSesion{
+  padding-top: 12px;
+  padding-bottom: 4px;
+}
+.botonesRecuperar{
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+.confirmarDatos{
+  text-align: center;
+}
+.recuperar {
+  padding-top: 0.2rem;
+  padding-left: 11rem;
+  padding-bottom: 1.2rem;
+  font-size: 16px;
+  font-weight: 400;
+}
+.ayuda {
+  padding-top: 3.2rem;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+}
+.ayuda a{
+  color: #00c795;
+}
+.recuperar a{
+  color: #00c795;
+}
+#espacioEnlaceAyuda a{
+  color: #00c795;
+}
+
+a:-webkit-any-link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/*=============== Inputs ===============*/
+
+.inputCorreo {
+  text-align: center;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.inputPass {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.checkBox {
+  padding-left: 1.4rem;
+}
+
+#botonSiguiente {
+  padding-top: 10px;
+  text-align: center;
+}
+
+/*=============== Sección de ayuda ===============*/
+
+#recuperarContraseña {
+  font-weight: 500;
+  font-size: 24px;
+  padding-left: 1.2rem;
+  color: #333333;
+}
+
+#recuperarContraseñaDescripcion {
+  font-weight: 500;
+  font-size: 18px;
+  padding-top: 10px;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  color: #666666;
+}
+
+.inputCorreoRecuperar {
+  text-align: center;
+  padding-top: 1.4rem;
+  padding-bottom: 0.4rem;
+}
+
+.botonesRecuperar .boton {
+  float: left;
+  text-align: center;
+  padding: 1.2rem;
+}
