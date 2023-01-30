@@ -22,8 +22,6 @@ export const MainRoutes = () => {
         <Route element={logged ? <Layout /> : <Navigate to="/login" />}>
           <Route index path="/*" element={<Navigate to="/" />} />
           <Route index path="/" element={<MaestroDashBoard />} />
-          <Route index path="/ayuda" element={<Ayuda />} />
-          <Route index path="/recuperacion" element={<Recuperacion />} />
           <Route
             index
             path="/nueva-solicitud"
@@ -40,6 +38,8 @@ export const MainRoutes = () => {
 
         <Route path="/">
           <Route exact path="login" element={<Login />} />
+          <Route exact path="/recuperacion" element={<Recuperacion />} />
+          <Route index path="/ayuda" element={<Ayuda />} />
         </Route>
 
         <Route path="/*">

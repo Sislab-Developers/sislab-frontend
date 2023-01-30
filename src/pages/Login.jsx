@@ -7,6 +7,8 @@ import { useLoading } from "../context/hooks/useLoading";
 import { LoginForm } from "../components";
 
 export const Login = () => {
+  const API_URL = "https://sislab-backend.vercel.app";
+
   const { run } = useLoading();
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -23,7 +25,7 @@ export const Login = () => {
     const { value: password } = passwordRef.current;
 
     await axios
-      .post("https://sf-rest-server.vercel.app/api/maestros/auth/login", {
+      .post(`${API_URL}/api/maestros/auth/login/`, {
         correo,
         password,
       })

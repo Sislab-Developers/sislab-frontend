@@ -122,7 +122,7 @@ export const LoginForm = ({
               />
             </div>
             <div className="recuperar">
-              <Link to="/recuperar-contraseña">¿Olvidaste tu contraseña?</Link>
+              <Link to="/recuperacion">¿Olvidaste tu contraseña?</Link>
             </div>
             <div className="confirmarDatos">
               <Button

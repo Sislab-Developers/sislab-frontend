@@ -10,18 +10,18 @@ import { getToken } from "../utils/authServices";
 import axios from "axios";
 
 export const MaestroHeader = (props) => {
+  const API_URL = "https://sislab-backend.vercel.app";
+
   const { stop } = useLoading();
   const uid = getToken("decode").uid;
   const [user, setUser] = useState(" ");
 
   useEffect(() => {
-    axios
-      .get(`https://sf-rest-server.vercel.app/api/maestros/${uid}`)
-      .then((response) => {
-        setUser(response.data);
-      });
+    axios.get(`${API_URL}/api/maestros/${uid}`).then((response) => {
+      setUser(response.data);
+    });
     stop();
-  }, [stop]);
+  }, [stop, uid]);
 
   const [active, setActive] = useState("nav");
   const [activeOverlay, setActiveOverlay] = useState("overlayOff");

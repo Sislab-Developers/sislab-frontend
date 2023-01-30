@@ -23,7 +23,7 @@ export const Ayuda = () => {
         <div className="espacioTexto">
           <p>Si necesitas recuperar tu contraseña</p>
           <div id="espacioEnlaceAyuda">
-            <Link to="/recuperar-contraseña">haz click aquí</Link>
+            <Link to="/recuperaracion">haz click aquí</Link>
           </div>
           <p>
             Si presentas problemas para iniciar sesión puedes mandar un correo a
