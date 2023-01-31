@@ -10,6 +10,9 @@ import Logo from "../assets/img/logoLogin.svg";
 import { Link } from "react-router-dom";
 import { FormControlLabel, Checkbox, Button } from "@mui/material";
 
+
+
+
 export const LoginForm = ({
   handleSubmit,
   correoRef,
@@ -56,27 +59,50 @@ export const LoginForm = ({
                 id="email"
                 margin="dense"
                 error={error}
-                style={{ width: 340 }}
+                style={{ width: 340}}
+                sx={{
+                  "& label.Mui-focused": {
+                    color: "#00C795",
+                  },
+                  "& .MuiInput-underline:after": {
+                    borderBottomColor: "#00C795",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "light",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "black",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#00C795",
+                    },
+                  }}}
               />
             </div>
 
             <div className="inputPass">
               <FormControl variant="outlined">
-                <InputLabel
+                <TextField
+                  style={{ width: 340 }}
                   sx={{
-                    "&.Mui-focused": {
+                    "& label.Mui-focused": {
                       color: "#00C795",
                     },
-                  }}
-                  htmlFor="outlined-adornment- password"
-                ></InputLabel>
-                <TextField
-                  sx={{
-                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "#00C795",
+                    "& .MuiInput-underline:after": {
+                      borderBottomColor: "#00C795",
                     },
-                  }}
-                  style={{ width: 340 }}
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "light",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "black",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#00C795",
+                      },
+                    }}}
                   margin="dense"
                   id="outlined-adornment-password"
                   type={values.showPassword ? "text" : "password"}
@@ -86,7 +112,7 @@ export const LoginForm = ({
                   error={error}
                   required
                   helperText={errorMessage}
-                  placeholder="123unison123"
+                  placeholder="Contraseña"
                   autoComplete="new-password"
                   InputProps={{
                     endAdornment: (
@@ -126,15 +152,15 @@ export const LoginForm = ({
             </div>
             <div className="confirmarDatos">
               <Button
-                style={{
+                 style={{
                   borderRadius: 13,
                   backgroundColor: "#00C795",
-                  padding: "10px 42px",
-                  fontSize: "18px",
+                  padding: "10px 32px",
+                  fontSize: "16px",
                   textTransform: "none",
                   fontWeight: "regular",
-                  width: 150,
-                  height: 50,
+                  width: 140,
+                  height: 45,
                 }}
                 variant="contained"
                 size="large"

@@ -6,12 +6,12 @@ export const CustomButton = (props) => {
       style={{
         borderRadius: 13,
         backgroundColor: "#00C795",
-        padding: "10px 42px",
-        fontSize: "18px",
+        padding: "10px 32px",
+        fontSize: "16px",
         textTransform: "none",
         fontWeight: "regular",
-        width: 150,
-        height: 50,
+        width: 140,
+        height: 40,
       }}
       variant="contained"
       size="large"

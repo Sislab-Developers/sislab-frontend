@@ -138,6 +138,13 @@ a:-webkit-any-link {
   text-align: center;
 }
 
+.inputPass p{
+  padding: 0px;
+  margin: 0px;
+  padding-left: 5px;
+  font-size: 14px;
+}
+
 .checkBox {
   padding-left: 1.4rem;
 }
