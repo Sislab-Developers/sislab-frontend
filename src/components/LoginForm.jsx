@@ -1,12 +1,13 @@
 import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
-import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import TextField from "@mui/material/TextField";
 import Logo from "../assets/img/logoLogin.svg";
+import LogoCSIPRO from "../assets/img/logo-csipro.png";
+
 import { Link } from "react-router-dom";
 import { FormControlLabel, Checkbox, Button } from "@mui/material";
 
@@ -35,7 +36,14 @@ export const LoginForm = ({
   return (
     <>
       <div className="fondo">
-        <div className="backgroundWhiteSmoke"></div>
+        <div className="backgroundWhiteSmoke">
+        <div className = "copyright">
+               <h1>Desarrollado por © CSI PRO 2023</h1>
+        </div>
+        <div className = "copyright">
+               <img src={LogoCSIPRO} alt="" />
+        </div>
+        </div>
         <div className="box">
           <div className="logoLogin">
             <img src={Logo} alt="Logo de sislab" />
@@ -175,7 +183,9 @@ export const LoginForm = ({
             </div>
           </form>
         </div>
+        
       </div>
+
     </>
   );
 };

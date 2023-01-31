@@ -153,6 +153,27 @@ a:-webkit-any-link {
   padding-top: 10px;
   text-align: center;
 }
+.copyright{
+  white-space: nowrap;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.copyright h1{
+  font-size: 14px;
+  font-weight: 200;
+  margin-top: -10px;
+  color: #888888;
+}
+.copyright img{
+  margin-bottom: -25px;
+  width: 20%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 /*=============== Sección de ayuda ===============*/
 

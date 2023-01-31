@@ -9,7 +9,7 @@ const MainComponent = () => {
   return (
     <>
       <Loading />
-      <MainRoutes />;
+      <MainRoutes />
     </>
   );
 };
