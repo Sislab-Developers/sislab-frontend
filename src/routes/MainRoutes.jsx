@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { getToken } from "../utils/authServices";
 import { Layout } from "../components";
+import { useEffect } from "react";
 
 import {
   CrearNuevaSolicitud,
@@ -14,8 +15,9 @@ import {
 } from "../pages";
 
 export const MainRoutes = () => {
-  const logged = getToken();
 
+  const logged = getToken();
+   
   return (
     <BrowserRouter>
       <Routes>
