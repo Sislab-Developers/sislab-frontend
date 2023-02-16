@@ -1,39 +1,38 @@
-import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import Logo from '../assets/img/logowhite.svg';
-import Menu from '../assets/img/menu.svg';
-import '../styles/MaestroDashBoard.css';
-import { getToken, useLogout } from '../utils/authServices';
-import { useLoading } from '../context/hooks';
-import axios from 'axios';
+import "../styles/MaestroDashBoard.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Logo from "../assets/img/logowhite.svg";
+import Menu from "../assets/img/menu.svg";
+import { getToken, removeToken } from "../utils/authServices";
+import { useAuth, useLoading } from "../context/hooks";
 
 export const MaestroHeader = (props) => {
-  const API_URL = 'https://sislab-backend.vercel.app';
+  const API_URL = "https://sislab-backend.vercel.app";
 
   const { stop } = useLoading();
+  const { logout } = useAuth();
 
-  const logout = useLogout();
-
-  const uid = getToken('decode').uid;
-  const [user, setUser] = useState(' ');
+  const uid = getToken("decode").uid;
+  const [user, setUser] = useState(" ");
 
   useEffect(() => {
     axios.get(`${API_URL}/api/usuarios/${uid}`).then((response) => {
       setUser(response.data);
     });
     stop();
-  }, [stop, uid]);
+  }, []);
 
-  const [active, setActive] = useState('nav');
-  const [activeOverlay, setActiveOverlay] = useState('overlayOff');
+  const [active, setActive] = useState("nav");
+  const [activeOverlay, setActiveOverlay] = useState("overlayOff");
 
   const navToggle = () => {
-    active === 'nav' ? setActive('nav nav_active') : setActive('nav');
+    active === "nav" ? setActive("nav nav_active") : setActive("nav");
 
-    activeOverlay === 'overlayOff'
-      ? setActiveOverlay('overlayOff overlay')
-      : setActiveOverlay('overlayOff');
+    activeOverlay === "overlayOff"
+      ? setActiveOverlay("overlayOff overlay")
+      : setActiveOverlay("overlayOff");
   };
 
   const content = (
@@ -90,6 +89,7 @@ export const MaestroHeader = (props) => {
             <NavLink
               to="/login"
               onClick={() => {
+                removeToken();
                 logout();
               }}
             >

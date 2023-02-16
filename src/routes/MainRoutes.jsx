@@ -1,6 +1,6 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { Layout } from '../components';
-import { useAuth } from '../context/hooks';
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Layout } from "../components";
+import { useAppContext } from "../context/AppContext";
 
 import {
   CrearNuevaSolicitud,
@@ -11,15 +11,19 @@ import {
   Ayuda,
   Login,
   MaestroDashBoard,
-} from '../pages';
+} from "../pages";
 
 export const MainRoutes = () => {
-  const { login } = useAuth();
+  const {
+    state: { logged },
+  } = useAppContext();
+
+  console.log("estado del usuario: " + logged);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={login ? <Layout /> : <Navigate to="/login" />}>
+        <Route element={logged ? <Layout /> : <Navigate to="/login" />}>
           <Route index path="/*" element={<Navigate to="/" />} />
           <Route index path="/" element={<MaestroDashBoard />} />
           <Route

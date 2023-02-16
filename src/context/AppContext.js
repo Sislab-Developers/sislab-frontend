@@ -1,29 +1,28 @@
-import { createContext, useReducer, useContext } from 'react';
+import { createContext, useReducer, useContext } from "react";
 
 const initialState = {
   loading: false,
-  login: false,
-  alerts: [],
+  logged: false,
 };
 
 const reducers = (state, action) => {
   switch (action.type) {
-    case 'LOADING_RUN':
+    case "LOADING_RUN":
       return {
         ...state,
         loading: true,
       };
-    case 'LOADING_STOP':
+    case "LOADING_STOP":
       return {
         ...state,
         loading: false,
       };
-    case 'LOGGED_IN':
+    case "LOGGED_IN":
       return {
         ...state,
         logged: true,
       };
-    case 'LOGGED_OUT':
+    case "LOGGED_OUT":
       return {
         ...state,
         logged: false,
