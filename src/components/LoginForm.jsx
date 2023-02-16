@@ -1,18 +1,15 @@
-import { useState } from "react";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import TextField from "@mui/material/TextField";
-import Logo from "../assets/img/logoLogin.svg";
-import LogoCSIPRO from "../assets/img/logo-csipro.png";
+import { useState } from 'react';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import TextField from '@mui/material/TextField';
+import Logo from '../assets/img/logoLogin.svg';
+import LogoCSIPRO from '../assets/img/logo-csipro.png';
 
-import { Link } from "react-router-dom";
-import { FormControlLabel, Checkbox, Button } from "@mui/material";
-
-
-
+import { Link } from 'react-router-dom';
+import { FormControlLabel, Checkbox, Button } from '@mui/material';
 
 export const LoginForm = ({
   handleSubmit,
@@ -22,7 +19,7 @@ export const LoginForm = ({
   errorMessage,
 }) => {
   const [values, setValues] = useState({
-    password: "",
+    password: '',
     showPassword: false,
   });
 
@@ -37,12 +34,12 @@ export const LoginForm = ({
     <>
       <div className="fondo">
         <div className="backgroundWhiteSmoke">
-        <div className = "copyright">
-               <h1>Desarrollado por © CSI PRO 2023</h1>
-        </div>
-        <div className = "copyright">
-               <img src={LogoCSIPRO} alt="" />
-        </div>
+          <div className="copyright">
+            <h1>Desarrollado por © CSI PRO 2023</h1>
+          </div>
+          <div className="copyright">
+            <img src={LogoCSIPRO} alt="" />
+          </div>
         </div>
         <div className="box">
           <div className="logoLogin">
@@ -67,25 +64,26 @@ export const LoginForm = ({
                 id="email"
                 margin="dense"
                 error={error}
-                style={{ width: 340}}
+                style={{ width: 340 }}
                 sx={{
-                  "& label.Mui-focused": {
-                    color: "#00C795",
+                  '& label.Mui-focused': {
+                    color: '#00C795',
                   },
-                  "& .MuiInput-underline:after": {
-                    borderBottomColor: "#00C795",
+                  '& .MuiInput-underline:after': {
+                    borderBottomColor: '#00C795',
                   },
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor: "light",
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: 'light',
                     },
-                    "&:hover fieldset": {
-                      borderColor: "black",
+                    '&:hover fieldset': {
+                      borderColor: 'black',
                     },
-                    "&.Mui-focused fieldset": {
-                      borderColor: "#00C795",
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#00C795',
                     },
-                  }}}
+                  },
+                }}
               />
             </div>
 
@@ -94,26 +92,27 @@ export const LoginForm = ({
                 <TextField
                   style={{ width: 340 }}
                   sx={{
-                    "& label.Mui-focused": {
-                      color: "#00C795",
+                    '& label.Mui-focused': {
+                      color: '#00C795',
                     },
-                    "& .MuiInput-underline:after": {
-                      borderBottomColor: "#00C795",
+                    '& .MuiInput-underline:after': {
+                      borderBottomColor: '#00C795',
                     },
-                    "& .MuiOutlinedInput-root": {
-                      "& fieldset": {
-                        borderColor: "light",
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': {
+                        borderColor: 'light',
                       },
-                      "&:hover fieldset": {
-                        borderColor: "black",
+                      '&:hover fieldset': {
+                        borderColor: 'black',
                       },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "#00C795",
+                      '&.Mui-focused fieldset': {
+                        borderColor: '#00C795',
                       },
-                    }}}
+                    },
+                  }}
                   margin="dense"
                   id="outlined-adornment-password"
-                  type={values.showPassword ? "text" : "password"}
+                  type={values.showPassword ? 'text' : 'password'}
                   inputRef={passwordRef}
                   label="Contraseña"
                   variant="outlined"
@@ -145,12 +144,12 @@ export const LoginForm = ({
             <div className="checkBox">
               <FormControlLabel
                 label={
-                  <span style={{ fontSize: "14px", color: "#333333" }}>
-                    {"Mantener sesión iniciada"}
+                  <span style={{ fontSize: '14px', color: '#333333' }}>
+                    {'Mantener sesión iniciada'}
                   </span>
                 }
                 sx={{
-                  "& .MuiSvgIcon-root": { fontSize: 18, color: "#00C795" },
+                  '& .MuiSvgIcon-root': { fontSize: 18, color: '#00C795' },
                 }}
                 control={<Checkbox />}
               />
@@ -160,13 +159,13 @@ export const LoginForm = ({
             </div>
             <div className="confirmarDatos">
               <Button
-                 style={{
+                style={{
                   borderRadius: 13,
-                  backgroundColor: "#00C795",
-                  padding: "10px 32px",
-                  fontSize: "16px",
-                  textTransform: "none",
-                  fontWeight: "regular",
+                  backgroundColor: '#00C795',
+                  padding: '10px 32px',
+                  fontSize: '16px',
+                  textTransform: 'none',
+                  fontWeight: 'regular',
                   width: 140,
                   height: 45,
                 }}
@@ -175,7 +174,7 @@ export const LoginForm = ({
                 id="Btn_login"
                 type="submit"
               >
-                {"Siguiente"}
+                {'Siguiente'}
               </Button>
             </div>
             <div className="ayuda">
@@ -183,9 +182,7 @@ export const LoginForm = ({
             </div>
           </form>
         </div>
-        
       </div>
-
     </>
   );
 };

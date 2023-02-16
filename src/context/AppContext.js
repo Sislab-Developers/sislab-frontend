@@ -2,7 +2,7 @@ import { createContext, useReducer, useContext } from "react";
 
 const initialState = {
   loading: false,
-  alerts: [],
+  logged: false,
 };
 
 const reducers = (state, action) => {
@@ -16,6 +16,16 @@ const reducers = (state, action) => {
       return {
         ...state,
         loading: false,
+      };
+    case "LOGGED_IN":
+      return {
+        ...state,
+        logged: true,
+      };
+    case "LOGGED_OUT":
+      return {
+        ...state,
+        logged: false,
       };
     default:
       return { ...state };

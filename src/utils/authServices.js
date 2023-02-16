@@ -13,6 +13,6 @@ export const getToken = (decode = false) => {
   return token;
 };
 
-export const logout = () => {
+export const removeToken = () => {
   localStorage.removeItem("token");
 };

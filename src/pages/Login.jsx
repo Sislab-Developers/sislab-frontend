@@ -2,14 +2,16 @@ import axios from "axios";
 import { useRef, useState } from "react";
 import { storeToken } from "../utils/authServices";
 import { useNavigate } from "react-router-dom";
-import { useLoading } from "../context/hooks/useLoading";
-
+import { useLoading, useAuth } from "../context/hooks";
 import { LoginForm } from "../components";
 
 export const Login = () => {
   const API_URL = "https://sislab-backend.vercel.app";
 
+  const { login } = useAuth();
+
   const { run } = useLoading();
+
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -31,13 +33,13 @@ export const Login = () => {
       })
       .then((response) => {
         storeToken(response.data.token);
+        login();
         run();
         setTimeout(() => {
           navigate("/nueva-solicitud");
-        }, 1000);
+        }, 1500);
       })
       .catch((err) => {
-        console.log(err.response.data);
         setError(true);
         setErrorMessage(err.response.data.msg);
       });
