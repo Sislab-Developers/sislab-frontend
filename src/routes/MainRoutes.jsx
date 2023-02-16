@@ -1,6 +1,6 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { getToken } from "../utils/authServices";
-import { Layout } from "../components";
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Layout } from '../components';
+import { useAuth } from '../context/hooks';
 
 import {
   CrearNuevaSolicitud,
@@ -11,15 +11,15 @@ import {
   Ayuda,
   Login,
   MaestroDashBoard,
-} from "../pages";
+} from '../pages';
 
 export const MainRoutes = () => {
-  const logged = getToken();
+  const { login } = useAuth();
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={logged ? <Layout /> : <Navigate to="/login" />}>
+        <Route element={login ? <Layout /> : <Navigate to="/login" />}>
           <Route index path="/*" element={<Navigate to="/" />} />
           <Route index path="/" element={<MaestroDashBoard />} />
           <Route

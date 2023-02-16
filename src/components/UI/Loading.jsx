@@ -1,6 +1,6 @@
-import style from "../../styles/Loading.css";
-import { useAppContext } from "../../context/AppContext";
-import { Ripples } from "@uiball/loaders";
+import '../../styles/Loading.css';
+import { useAppContext } from '../../context/AppContext';
+import { Ripples } from '@uiball/loaders';
 
 export const Loading = () => {
   const {
