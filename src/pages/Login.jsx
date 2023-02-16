@@ -1,24 +1,24 @@
-import axios from 'axios';
-import { useRef, useState } from 'react';
-import { storeToken } from '../utils/authServices';
-import { useNavigate } from 'react-router-dom';
-import { useLoading, useAuth } from '../context/hooks';
-import { LoginForm } from '../components';
+import axios from "axios";
+import { useRef, useState } from "react";
+import { storeToken } from "../utils/authServices";
+import { useNavigate } from "react-router-dom";
+import { useLoading, useAuth } from "../context/hooks";
+import { LoginForm } from "../components";
 
 export const Login = () => {
-  const API_URL = 'https://sislab-backend.vercel.app';
+  const API_URL = "https://sislab-backend.vercel.app";
 
   const { login } = useAuth();
 
   const { run } = useLoading();
 
   const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
-  const correoRef = useRef('');
-  const passwordRef = useRef('');
+  const correoRef = useRef("");
+  const passwordRef = useRef("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,8 +36,8 @@ export const Login = () => {
         login();
         run();
         setTimeout(() => {
-          navigate('/nueva-solicitud');
-        }, 700);
+          navigate("/nueva-solicitud");
+        }, 1500);
       })
       .catch((err) => {
         setError(true);

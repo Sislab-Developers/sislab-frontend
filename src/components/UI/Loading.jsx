@@ -1,6 +1,6 @@
-import '../../styles/Loading.css';
-import { useAppContext } from '../../context/AppContext';
-import { Ripples } from '@uiball/loaders';
+import "../../styles/Loading.css";
+import { useAppContext } from "../../context/AppContext";
+import { Jelly } from "@uiball/loaders";
 
 export const Loading = () => {
   const {
@@ -15,7 +15,7 @@ export const Loading = () => {
     <div className="backdrop">
       <div className="wrap">
         <div className="ring">
-          <Ripples size={200} color="#39c9b5" />
+          <Jelly size={200} speed={0.5} color="#39c9b5" />
         </div>
       </div>
     </div>
