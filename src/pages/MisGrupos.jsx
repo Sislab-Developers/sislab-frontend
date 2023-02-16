@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { MisGruposForm } from "../components";
 
 export const MisGrupos = () => {
@@ -16,21 +16,20 @@ export const MisGrupos = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
     let horaDato = horaRef.current;
     let simboloEncontrado = false;
-    let horaArr= horaDato.split(" ");
+    let horaArr = horaDato.split(" ");
     let horaInicialArr = [];
     let horaFinalArr = [];
 
-    for(let i = 0; i < horaArr.length; i++){
-      if(horaArr[i] === "-"){
-            simboloEncontrado = true;
-        }else if(simboloEncontrado === false){
-            horaInicialArr.push(horaArr[i]);
-        }else if(simboloEncontrado){
-             horaFinalArr.push(horaArr[i]);
-        }
+    for (let i = 0; i < horaArr.length; i++) {
+      if (horaArr[i] === "-") {
+        simboloEncontrado = true;
+      } else if (simboloEncontrado === false) {
+        horaInicialArr.push(horaArr[i]);
+      } else if (simboloEncontrado) {
+        horaFinalArr.push(horaArr[i]);
+      }
     }
     horaInicialArr.join("");
     horaFinalArr.join("");
@@ -45,7 +44,6 @@ export const MisGrupos = () => {
     const { value: horaInicial } = horaInicialArr;
     const { value: horaFinal } = horaFinalArr;
 
-  
     await axios
       .post(`${API_URL}/api/grupos/`, {
         nombre,
@@ -56,7 +54,7 @@ export const MisGrupos = () => {
         numEquipos,
         diaSemana,
         horaInicial,
-        horaFinal
+        horaFinal,
       })
       .then((response) => {
         console.log(response.data);
@@ -65,17 +63,17 @@ export const MisGrupos = () => {
         console.log(err.response.data);
       });
   };
-   
+
   return (
-    <MisGruposForm 
-    laboratorioRef = {laboratorioRef}
-    carreraRef = {carreraRef}
-    materiaRef = {materiaRef}
-    numAlumnosRef = {numAlumnosRef}
-    numEquiposRef = {numEquiposRef}
-    diaSemanaRef = {diaSemanaRef}
-    horaRef = {horaRef}
-    handleSubmit = {handleSubmit}
+    <MisGruposForm
+      laboratorioRef={laboratorioRef}
+      carreraRef={carreraRef}
+      materiaRef={materiaRef}
+      numAlumnosRef={numAlumnosRef}
+      numEquiposRef={numEquiposRef}
+      diaSemanaRef={diaSemanaRef}
+      horaRef={horaRef}
+      handleSubmit={handleSubmit}
     />
   );
 };
