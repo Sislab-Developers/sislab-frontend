@@ -17,6 +17,8 @@ export const LoginForm = ({
   passwordRef,
   error,
   errorMessage,
+  checkRef,
+  setIsChecked,
 }) => {
   const [values, setValues] = useState({
     password: '',
@@ -28,6 +30,10 @@ export const LoginForm = ({
       ...values,
       showPassword: !values.showPassword,
     });
+  };
+
+  const toggle = () => {
+    setIsChecked((checked) => !checked);
   };
 
   return (
@@ -141,7 +147,7 @@ export const LoginForm = ({
                 />
               </FormControl>
             </div>
-            <div className="checkBox">
+            <div className="checkBox" ref={checkRef} onChange={toggle}>
               <FormControlLabel
                 label={
                   <span style={{ fontSize: '14px', color: '#333333' }}>

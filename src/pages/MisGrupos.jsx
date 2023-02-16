@@ -1,29 +1,30 @@
-import axios from "axios";
-import { useRef } from "react";
-import { MisGruposForm } from "../components";
+import axios from 'axios';
+import { useRef } from 'react';
+import { MisGruposForm } from '../components';
 
 export const MisGrupos = () => {
-  const API_URL = "https://sislab-backend.vercel.app";
-  const nombreRef = "grupocreadoendevelopment";
-  const laboratorioRef = useRef("");
-  const carreraRef = useRef("");
-  const materiaRef = useRef("");
-  const numAlumnosRef = useRef("");
-  const numEquiposRef = useRef("");
-  const diaSemanaRef = useRef("");
-  const horaRef = useRef("");
+  const API_URL = 'https://sislab-backend.vercel.app';
+
+  const nombreRef = useRef();
+  const laboratorioRef = useRef();
+  const carreraRef = useRef();
+  const materiaRef = useRef();
+  const numAlumnosRef = useRef();
+  const numEquiposRef = useRef();
+  const diaSemanaRef = useRef();
+  const horaRef = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     let horaDato = horaRef.current;
     let simboloEncontrado = false;
-    let horaArr = horaDato.split(" ");
+    let horaArr = horaDato.split(' ');
     let horaInicialArr = [];
     let horaFinalArr = [];
 
     for (let i = 0; i < horaArr.length; i++) {
-      if (horaArr[i] === "-") {
+      if (horaArr[i] === '-') {
         simboloEncontrado = true;
       } else if (simboloEncontrado === false) {
         horaInicialArr.push(horaArr[i]);
@@ -31,8 +32,8 @@ export const MisGrupos = () => {
         horaFinalArr.push(horaArr[i]);
       }
     }
-    horaInicialArr.join("");
-    horaFinalArr.join("");
+    horaInicialArr.join('');
+    horaFinalArr.join('');
 
     const { value: nombre } = nombreRef.current;
     const { value: laboratorio } = laboratorioRef.current;
@@ -41,8 +42,8 @@ export const MisGrupos = () => {
     const { value: numAlumnos } = numAlumnosRef.current;
     const { value: numEquipos } = numEquiposRef.current;
     const { value: diaSemana } = diaSemanaRef.current;
-    const { value: horaInicial } = horaInicialArr;
-    const { value: horaFinal } = horaFinalArr;
+    const { value: horaInicial } = horaInicialArr.current;
+    const { value: horaFinal } = horaFinalArr.current;
 
     await axios
       .post(`${API_URL}/api/grupos/`, {

@@ -1,2 +1,2 @@
-export { getToken, logout, storeToken } from './authServices';
+export { getToken, removeToken, storeToken } from './authServices';
 export { default as axiosConfig } from './axiosConfig';
