@@ -17,7 +17,7 @@ export const MaestroHeader = (props) => {
   const [user, setUser] = useState(" ");
 
   useEffect(() => {
-    axios.get(`${API_URL}/api/maestros/${uid}`).then((response) => {
+    axios.get(`${API_URL}/api/usuarios/${uid}`).then((response) => {
       setUser(response.data);
     });
     stop();

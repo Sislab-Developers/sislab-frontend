@@ -1,14 +1,15 @@
 import axios from "axios";
 import { useRef, useState } from "react";
-import { storeToken, getToken } from "../utils/authServices";
+import { storeToken } from "../utils/authServices";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../context/hooks/useLoading";
+
 import { LoginForm } from "../components";
 
 export const Login = () => {
   const API_URL = "https://sislab-backend.vercel.app";
 
-  const { run, stop } = useLoading();
+  const { run } = useLoading();
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -23,22 +24,23 @@ export const Login = () => {
     const { value: correo } = correoRef.current;
     const { value: password } = passwordRef.current;
 
-    try {
-      run();
-      const response = await axios
-        .post(`${API_URL}/api/auth/login/`, {
-          correo,
-          password,
-        });
-      await storeToken(response.data.token); 
-      navigate("/nueva-solicitud");
-      stop();
-    } catch (err) {
-      stop();
-      console.log(err.response.data);
-      setError(true);
-      setErrorMessage(err.response.data.msg);
-    }
+    await axios
+      .post(`${API_URL}/api/auth/login/`, {
+        correo,
+        password,
+      })
+      .then((response) => {
+        storeToken(response.data.token);
+        run();
+        setTimeout(() => {
+          navigate("/nueva-solicitud");
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        setError(true);
+        setErrorMessage(err.response.data.msg);
+      });
   };
 
   return (
