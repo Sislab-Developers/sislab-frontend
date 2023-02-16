@@ -47,7 +47,7 @@
     height: 100%;
     position: fixed;
     border-radius: 0px 0px 30px 0px;
-    box-shadow: rgb(43, 155, 9) 0px 0px 20px 0px;
+    box-shadow: rgb(154, 160, 153) 0px 0px 20px 0px;
 }
 .nav_active{
     user-select: none;
@@ -58,7 +58,7 @@
     border-radius: 0px 0px 30px 0px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 0px 29px 0px;
 }
-.overlayOff{
+.overlayOff {
     display: none;
 }
 .overlay{
