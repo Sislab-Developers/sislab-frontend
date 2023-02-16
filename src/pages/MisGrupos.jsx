@@ -1,314 +1,81 @@
-import { MaestroHeader, CustomButton } from "../components";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-import Box from "@mui/material/Box";
+import axios from "axios";
+import { useRef, useState } from "react";
+import { MisGruposForm } from "../components";
 
 export const MisGrupos = () => {
-  const laboratorios = [
-    {
-      label: "5N - 201",
-    },
-    {
-      label: "5N - 202",
-    },
-    {
-      label: "5N - 203",
-    },
-    {
-      label: "5N - 204",
-    },
-  ];
+  const API_URL = "https://sislab-backend.vercel.app";
+  const nombreRef = "grupocreadoendevelopment";
+  const laboratorioRef = useRef("");
+  const carreraRef = useRef("");
+  const materiaRef = useRef("");
+  const numAlumnosRef = useRef("");
+  const numEquiposRef = useRef("");
+  const diaSemanaRef = useRef("");
+  const horaRef = useRef("");
 
-  const carreras = [
-    {
-      label: "Lic. Químico Biólogo Clínico",
-    },
-    {
-      label: "Lic. Químico en Alimentos",
-    },
-    {
-      label: "Ing. Industrial y de Sistemas",
-    },
-    {
-      label: "Ing. Minero",
-    },
-    {
-      label: "Lic. Geología",
-    },
-    {
-      label: "Ing. Civil",
-    },
-    {
-      label: "Ing. Mecatrónica",
-    },
-    {
-      label: "Ing. Materiales",
-    },
-    {
-      label: "Ing. Sistemas de Información",
-    },
-    {
-      label: "Ing. Energías Renovables",
-    },
-    {
-      label: "Ing. Biomédica",
-    },
-    {
-      label: "Ing. Química",
-    },
-    {
-      label: "Tronco común biológicas",
-    },
-    {
-      label: "Tronco común ingenierías",
-    },
-  ];
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const materias = [
-    {
-      label: "6883 | Química I",
-    },
-    {
-      label: "9400 |  Química I",
-    },
-    {
-      label: "7162 |  Química General",
-    },
-    {
-      label: "05859 | Química General",
-    },
-    {
-      label: "07791 | Química Inorgánica",
-    },
-    {
-      label: "08150 | Fundamentos de Química",
-    },
-  ];
 
-  const dias = [
-    {
-      label: "Lunes",
-    },
-    {
-      label: "Martes",
-    },
-    {
-      label: "Miércoles",
-    },
-    {
-      label: "Jueves",
-    },
-    {
-      label: "Viernes",
-    },
-  ];
+    let horaDato = horaRef.current;
+    let simboloEncontrado = false;
+    let horaArr= horaDato.split(" ");
+    let horaInicialArr = [];
+    let horaFinalArr = [];
 
-  const hora = [
-    {
-      label: "7:00 a.m - 9:00 a.m.",
-    },
-    {
-      label: "8:00 a.m - 10:00 a.m.",
-    },
-    {
-      label: "9:00 a.m - 11:00 a.m.",
-    },
-    {
-      label: "11:00 a.m - 1:00 p.m.",
-    },
-    {
-      label: "12:00 p.m - 2:00 p.m.",
-    },
-    {
-      label: "1:00 p.m - 3:00 p.m.",
-    },
-    {
-      label: "2:00 p.m - 4:00 p.m.",
-    },
-    {
-      label: "3:00 p.m - 5:00 p.m.",
-    },
-    {
-      label: "4:00 p.m - 6:00 p.m.",
-    },
-    {
-      label: "5:00 p.m - 7:00 p.m.",
-    },
-    {
-      label: "6:00 p.m - 8:00 p.m.",
-    },
-    {
-      label: "7:00 p.m - 9:00 p.m.",
-    },
-  ];
+    for(let i = 0; i < horaArr.length; i++){
+      if(horaArr[i] === "-"){
+            simboloEncontrado = true;
+        }else if(simboloEncontrado === false){
+            horaInicialArr.push(horaArr[i]);
+        }else if(simboloEncontrado){
+             horaFinalArr.push(horaArr[i]);
+        }
+    }
+    horaInicialArr.join("");
+    horaFinalArr.join("");
 
-  const content = (
-    <>
-      <MaestroHeader colorMisGrupos="mis-grupos-color" />
-      <div className="content">
-        <div className="title">
-          <h1>Mis grupos</h1>
-        </div>
-        <div className="subtitle">
-          <h1>
-            Llena este formulario para crear tu primer{" "}
-            <span className="color_en_texto">grupo</span>
-          </h1>
-        </div>
+    const { value: nombre } = nombreRef.current;
+    const { value: laboratorio } = laboratorioRef.current;
+    const { value: carrera } = carreraRef.current;
+    const { value: materia } = materiaRef.current;
+    const { value: numAlumnos } = numAlumnosRef.current;
+    const { value: numEquipos } = numEquiposRef.current;
+    const { value: diaSemana } = diaSemanaRef.current;
+    const { value: horaInicial } = horaInicialArr;
+    const { value: horaFinal } = horaFinalArr;
 
-        <div className="contentWrapper">
-          <div className="accordion">
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography>Primer paso</Typography>
-              </AccordionSummary>
-              <div className="centerComboBox">
-                <AccordionDetails>
-                  <Box
-                    component="form"
-                    sx={{
-                      "& .MuiTextField-root": { width: "32ch" },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                    MenuProps={{
-                      disableScrollLock: true,
-                    }}
-                  >
-                    <h1>
-                      Laboratorio<i class="ri-information-line"></i>
-                    </h1>
-                    <TextField
-                      id="outlined-select-currency"
-                      select
-                      label="Laboratorio"
-                      helperText="Selecciona el laboratorio de este grupo"
-                    >
-                      {laboratorios.map((option) => (
-                        <MenuItem key={option.label} value={option.label}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                    <br></br>
-                    <br></br>
-                    <h1>
-                      Carrera<i class="ri-information-line"></i>
-                    </h1>
-                    <TextField
-                      id="outlined-select-currency"
-                      select
-                      label="Carrera"
-                      helperText="Selecciona la carrera de este grupo"
-                    >
-                      {carreras.map((option) => (
-                        <MenuItem
-                          key={option.label}
-                          value={option.label}
-                          disableScrollLock={true}
-                        >
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                    <br></br>
-                    <br></br>
-                    <h1>
-                      Materias<i class="ri-information-line"></i>
-                    </h1>
-                    <TextField
-                      id="outlined-select-currency"
-                      select
-                      label="Materias"
-                      helperText="Selecciona la materia de este grupo"
-                    >
-                      {materias.map((option) => (
-                        <MenuItem key={option.label} value={option.label}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                    <br></br>
-                    <br></br>
-                    <h1>
-                      Número de alumnos<i class="ri-information-line"></i>
-                    </h1>
-                    <TextField
-                      id="outlined-select-currency"
-                      label="Número de alumnos"
-                      helperText="Escribe el número de alumnos"
-                    ></TextField>
-                    <br></br>
-                    <br></br>
-                    <h1>
-                      Número de equipos<i class="ri-information-line"></i>
-                    </h1>
-                    <TextField
-                      id="outlined-select-currency"
-                      label="Número de equipos"
-                      helperText="Escribe el número de equipos"
-                    ></TextField>
-                    <br></br>
-                    <br></br>
-                    <h1>
-                      Día de la semana<i class="ri-information-line"></i>
-                    </h1>
-                    <TextField
-                      id="outlined-select-currency"
-                      select
-                      label="Día de la semana"
-                      defaultValue=""
-                      helperText="Selecciona el día de la semana"
-                    >
-                      {dias.map((option) => (
-                        <MenuItem key={option.label} value={option.label}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                    <br></br>
-                    <br></br>
-                    <h1>
-                      Hora de clase<i class="ri-information-line"></i>
-                    </h1>
-                    <TextField
-                      id="outlined-select-currency"
-                      select
-                      label="Hora de clase"
-                      defaultValue=""
-                      helperText="Selecciona la hora de clase de este grupo"
-                    >
-                      {hora.map((option) => (
-                        <MenuItem key={option.label} value={option.label}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                    <br></br>
-                    <br></br>
-                    <div id="boton-confirmar">
-                      <CustomButton text="Confirmar"></CustomButton>
-                    </div>
-                    <br></br>
-                    <br></br>
-                  </Box>
-                </AccordionDetails>
-              </div>
-            </Accordion>
-          </div>
-        </div>
-      </div>
-    </>
+  
+    await axios
+      .post(`${API_URL}/api/grupos/`, {
+        nombre,
+        laboratorio,
+        carrera,
+        materia,
+        numAlumnos,
+        numEquipos,
+        diaSemana,
+        horaInicial,
+        horaFinal
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
+   
+  return (
+    <MisGruposForm 
+    laboratorioRef = {laboratorioRef}
+    carreraRef = {carreraRef}
+    materiaRef = {materiaRef}
+    numAlumnosRef = {numAlumnosRef}
+    numEquiposRef = {numEquiposRef}
+    diaSemanaRef = {diaSemanaRef}
+    horaRef = {horaRef}
+    handleSubmit = {handleSubmit}
+    />
   );
-
-  return content;
 };

@@ -16,6 +16,7 @@ export const CustomButton = (props) => {
       variant="contained"
       size="large"
       id="Btn_login"
+      type="submit"
     >
       {props.text}
     </Button>
