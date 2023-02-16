@@ -5,7 +5,7 @@ import { MisGruposForm } from '../components';
 export const MisGrupos = () => {
   const API_URL = 'https://sislab-backend.vercel.app';
 
-  const nombreRef = useRef();
+  //const nombreRef = "prue";
   const laboratorioRef = useRef();
   const carreraRef = useRef();
   const materiaRef = useRef();
@@ -17,7 +17,7 @@ export const MisGrupos = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let horaDato = horaRef.current;
+    let horaDato = horaRef.current.value;
     let simboloEncontrado = false;
     let horaArr = horaDato.split(' ');
     let horaInicialArr = [];
@@ -32,18 +32,17 @@ export const MisGrupos = () => {
         horaFinalArr.push(horaArr[i]);
       }
     }
-    horaInicialArr.join('');
-    horaFinalArr.join('');
+  
 
-    const { value: nombre } = nombreRef.current;
+    const { value: nombre } = "ejemplo";
     const { value: laboratorio } = laboratorioRef.current;
     const { value: carrera } = carreraRef.current;
     const { value: materia } = materiaRef.current;
     const { value: numAlumnos } = numAlumnosRef.current;
     const { value: numEquipos } = numEquiposRef.current;
     const { value: diaSemana } = diaSemanaRef.current;
-    const { value: horaInicial } = horaInicialArr.current;
-    const { value: horaFinal } = horaFinalArr.current;
+    const  horaInicial = horaInicialArr.join('');
+    const horaFinal = horaFinalArr.join('');
 
     await axios
       .post(`${API_URL}/api/grupos/`, {
