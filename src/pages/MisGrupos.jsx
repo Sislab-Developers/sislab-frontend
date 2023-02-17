@@ -1,11 +1,9 @@
-import axios from 'axios';
-import { useRef } from 'react';
-import { MisGruposForm } from '../components';
+import { useRef } from "react";
+import { MisGruposForm } from "../components";
+import instance from "../utils/axiosConfig";
 
 export const MisGrupos = () => {
-  const API_URL = 'https://sislab-backend.vercel.app';
-
-  //const nombreRef = "prue";
+  const nombreRef = useRef();
   const laboratorioRef = useRef();
   const carreraRef = useRef();
   const materiaRef = useRef();
@@ -19,12 +17,12 @@ export const MisGrupos = () => {
 
     let horaDato = horaRef.current.value;
     let simboloEncontrado = false;
-    let horaArr = horaDato.split(' ');
+    let horaArr = horaDato.split(" ");
     let horaInicialArr = [];
     let horaFinalArr = [];
 
     for (let i = 0; i < horaArr.length; i++) {
-      if (horaArr[i] === '-') {
+      if (horaArr[i] === "-") {
         simboloEncontrado = true;
       } else if (simboloEncontrado === false) {
         horaInicialArr.push(horaArr[i]);
@@ -32,20 +30,19 @@ export const MisGrupos = () => {
         horaFinalArr.push(horaArr[i]);
       }
     }
-  
 
-    const { value: nombre } = "ejemplo";
+    const { value: nombre } = nombreRef.current;
     const { value: laboratorio } = laboratorioRef.current;
     const { value: carrera } = carreraRef.current;
     const { value: materia } = materiaRef.current;
     const { value: numAlumnos } = numAlumnosRef.current;
     const { value: numEquipos } = numEquiposRef.current;
     const { value: diaSemana } = diaSemanaRef.current;
-    const  horaInicial = horaInicialArr.join('');
-    const horaFinal = horaFinalArr.join('');
+    const horaInicial = horaInicialArr.join("");
+    const horaFinal = horaFinalArr.join("");
 
-    await axios
-      .post(`${API_URL}/api/grupos/`, {
+    await instance
+      .post(`api/grupos/`, {
         nombre,
         laboratorio,
         carrera,
@@ -57,10 +54,10 @@ export const MisGrupos = () => {
         horaFinal,
       })
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
       });
   };
 
@@ -74,6 +71,7 @@ export const MisGrupos = () => {
       diaSemanaRef={diaSemanaRef}
       horaRef={horaRef}
       handleSubmit={handleSubmit}
+      nombreRef={nombreRef}
     />
   );
 };

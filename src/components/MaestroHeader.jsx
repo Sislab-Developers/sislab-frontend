@@ -22,7 +22,7 @@ export const MaestroHeader = (props) => {
       setUser(response.data);
     });
     stop();
-  }, [stop]);
+  }, [stop, uid]);
 
   const [active, setActive] = useState("nav");
   const [activeOverlay, setActiveOverlay] = useState("overlayOff");
