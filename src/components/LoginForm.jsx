@@ -66,7 +66,7 @@ export const LoginForm = ({
             left: "50%",
             transform: "translate(-50%, -50%)",
             background: "white",
-            borderRadius: { xs: "0", sm: "32px" },
+            borderRadius: { xs: "48px 48px 0 0", sm: "32px" },
             boxShadow: { xs: "none", sm: "rgba(0, 0, 0, 0.24) 0 10px 20px" },
           }}
         >
