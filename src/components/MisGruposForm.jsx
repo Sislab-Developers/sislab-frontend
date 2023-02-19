@@ -19,7 +19,6 @@ export const MisGruposForm = ({
   numEquiposRef,
   diaSemanaRef,
   horaRef,
-  nombreRef,
 }) => {
   const laboratorios = [
     {
