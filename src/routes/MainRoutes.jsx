@@ -1,7 +1,7 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { Layout } from "../components";
-import { useAppContext } from "../context/AppContext";
-import { getToken } from "../utils";
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Layout } from '../components';
+import { useAppContext } from '../context/AppContext';
+import { getToken } from '../utils';
 
 import {
   CrearNuevaSolicitud,
@@ -12,7 +12,7 @@ import {
   Ayuda,
   Login,
   MaestroDashBoard,
-} from "../pages";
+} from '../pages';
 
 export const MainRoutes = () => {
   const {
@@ -21,7 +21,7 @@ export const MainRoutes = () => {
 
   const login = getToken();
 
-  console.log("estado del usuario: " + logged);
+  console.log('estado del usuario: ' + logged);
 
   return (
     <BrowserRouter>

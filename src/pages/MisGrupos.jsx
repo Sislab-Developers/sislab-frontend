@@ -42,7 +42,7 @@ export const MisGrupos = () => {
     const horaFinal = horaFinalArr.join('');
 
     await instance
-      .post(`api/grupos/`, {
+      .post(`/grupos/`, {
         nombre,
         laboratorio,
         carrera,
