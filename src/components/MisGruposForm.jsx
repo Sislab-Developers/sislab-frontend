@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 
 export const MisGruposForm = ({
   handleSubmit,
+  nombreRef,
   laboratorioRef,
   carreraRef,
   materiaRef,
@@ -193,10 +194,22 @@ export const MisGruposForm = ({
                       disablescrolllock: true,
                     }}
                   >
-                    <h1>
-                      Laboratorio<i className="ri-information-line"></i>
-                    </h1>
                     <form onSubmit={handleSubmit}>
+                      <h1>
+                        Nombre<i className="ri-information-line"></i>
+                      </h1>
+                      <TextField
+                        id="outlined-select-currency"
+                        label="Nombre del grupo"
+                        defaultValue=""
+                        inputRef={nombreRef}
+                        helperText="Escribe el nombre del equipo"
+                      ></TextField>
+                      <br />
+                      <br />
+                      <h1>
+                        Laboratorio<i className="ri-information-line"></i>
+                      </h1>
                       <TextField
                         id="outlined-select-currency"
                         select
@@ -228,7 +241,7 @@ export const MisGruposForm = ({
                           <MenuItem
                             key={option.label}
                             value={option.label}
-                            disablescrolllock={true}
+                            disablescrolllock="true"
                           >
                             {option.label}
                           </MenuItem>
