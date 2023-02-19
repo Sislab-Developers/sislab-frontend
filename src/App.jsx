@@ -2,6 +2,7 @@ import "./index.css";
 import { MainRoutes } from "./routes/MainRoutes";
 import { AppContextProvider } from "./context/AppContext";
 import { Loading } from "./components/UI/Loading";
+import { AuthContextProvider } from "./context/AuthContext";
 //import { Loading } from './components/UI/Loading';
 //import { ToastContainer } from 'react-toastify';
 
@@ -17,7 +18,9 @@ const MainComponent = () => {
 function App() {
   return (
     <AppContextProvider>
-      <MainComponent />
+      <AuthContextProvider>
+        <MainComponent />
+      </AuthContextProvider>
     </AppContextProvider>
   );
 }

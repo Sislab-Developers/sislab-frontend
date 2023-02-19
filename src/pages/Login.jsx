@@ -1,48 +1,51 @@
-import axios from 'axios';
-import { useRef, useState } from 'react';
-import { storeToken } from '../utils/authServices';
-import { useNavigate } from 'react-router-dom';
-import { useLoading, useAuth } from '../context/hooks';
-import { LoginForm } from '../components';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import axios from "axios";
+import { useContext, useRef, useState } from "react";
+import { storeToken } from "../utils/authServices";
+import { useNavigate } from "react-router-dom";
+import { useLoading, useAuth } from "../context/hooks";
+import { LoginForm } from "../components";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import AuthContext from "../context/AuthContext";
 
 export const Login = () => {
   const API_URL = 'https://sislab-backend.vercel.app';
+  // const API_URL = "http://localhost:8080";
 
-  const { login } = useAuth();
+  // const { login } = useAuth();
+  const authCtx = useContext(AuthContext);
 
-  const { run } = useLoading();
+  const { run: startLoading, stop: stopLoading } = useLoading();
 
+  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
-  const correoRef = useRef('');
-  const passwordRef = useRef('');
-  const checkRef = useRef(false);
+  const correoRef = useRef("");
+  const passwordRef = useRef("");
+  const checkRef = useRef();
 
-  const [isChecked, setIsChecked] = useLocalStorage('xtoken', false);
+  // const [isChecked, setIsChecked] = useLocalStorage('xtoken', false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const { value: correo } = correoRef.current;
-    const { value: password } = passwordRef.current;
-
+  const handleSubmit = async (correo, password) => {
     await axios
       .post(`${API_URL}/api/auth/login/`, {
         correo,
         password,
       })
       .then((response) => {
-        if (isChecked) {
-          storeToken(response.data.token);
-        }
-        login();
-        run();
+        console.log(response.data);
+        const { token, expiresIn } = response.data;
+        const expirationDate = new Date(
+          new Date().getTime() + +expiresIn * 1000
+        );
+        authCtx.login(token, expirationDate, keepLoggedIn);
+
+        startLoading();
         setTimeout(() => {
-          navigate('/nueva-solicitud');
+          stopLoading();
+          navigate("/nueva-solicitud");
         }, 1500);
       })
       .catch((err) => {
@@ -55,11 +58,11 @@ export const Login = () => {
     <LoginForm
       correoRef={correoRef}
       passwordRef={passwordRef}
-      handleSubmit={handleSubmit}
+      loginHandler={handleSubmit}
       error={error}
       errorMessage={errorMessage}
       checkRef={checkRef}
-      setIsChecked={setIsChecked}
+      setIsChecked={setKeepLoggedIn}
     />
   );
 };

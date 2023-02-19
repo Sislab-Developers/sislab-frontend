@@ -1,7 +1,7 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { Layout } from '../components';
-import { useAppContext } from '../context/AppContext';
-import { getToken } from '../utils';
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Layout } from "../components";
+import { useAppContext } from "../context/AppContext";
+import { getToken } from "../utils";
 
 import {
   CrearNuevaSolicitud,
@@ -12,22 +12,26 @@ import {
   Ayuda,
   Login,
   MaestroDashBoard,
-} from '../pages';
+} from "../pages";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 export const MainRoutes = () => {
-  const {
-    state: { logged },
-  } = useAppContext();
+  const authCtx = useContext(AuthContext);
+  // const {
+  //   state: { logged },
+  // } = useAppContext();
 
-  const login = getToken();
+  // const login = getToken();
 
-  console.log('estado del usuario: ' + logged);
+  console.log("Sesión iniciada: " + authCtx.isLoggedIn);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route
-          element={logged || login ? <Layout /> : <Navigate to="/login" />}
+          // element={logged || login ? <Layout /> : <Navigate to="/login" />}
+          element={authCtx.isLoggedIn ? <Layout /> : <Navigate to="/login" />}
         >
           <Route index path="/*" element={<Navigate to="/" />} />
           <Route index path="/" element={<MaestroDashBoard />} />

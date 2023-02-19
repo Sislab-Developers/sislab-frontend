@@ -1,9 +1,14 @@
-import axios from 'axios';
-import { useRef } from 'react';
-import { MisGruposForm } from '../components';
+import axios from "axios";
+import { useContext, useRef } from "react";
+import { MisGruposForm } from "../components";
+import AuthContext from "../context/AuthContext";
+import { getToken } from "../utils";
 
 export const MisGrupos = () => {
   const API_URL = 'https://sislab-backend.vercel.app';
+  // const API_URL = "http://localhost:8080";
+
+  const authCtx = useContext(AuthContext);
 
   //const nombreRef = "prue";
   const laboratorioRef = useRef();
@@ -19,12 +24,12 @@ export const MisGrupos = () => {
 
     let horaDato = horaRef.current.value;
     let simboloEncontrado = false;
-    let horaArr = horaDato.split(' ');
+    let horaArr = horaDato.split(" ");
     let horaInicialArr = [];
     let horaFinalArr = [];
 
     for (let i = 0; i < horaArr.length; i++) {
-      if (horaArr[i] === '-') {
+      if (horaArr[i] === "-") {
         simboloEncontrado = true;
       } else if (simboloEncontrado === false) {
         horaInicialArr.push(horaArr[i]);
@@ -32,30 +37,38 @@ export const MisGrupos = () => {
         horaFinalArr.push(horaArr[i]);
       }
     }
-  
 
-    const { value: nombre } = "ejemplo";
+    const nombre = "ejemplo";
     const { value: laboratorio } = laboratorioRef.current;
     const { value: carrera } = carreraRef.current;
     const { value: materia } = materiaRef.current;
     const { value: numAlumnos } = numAlumnosRef.current;
     const { value: numEquipos } = numEquiposRef.current;
     const { value: diaSemana } = diaSemanaRef.current;
-    const  horaInicial = horaInicialArr.join('');
-    const horaFinal = horaFinalArr.join('');
+    const horaInicial = horaInicialArr.join("");
+    const horaFinal = horaFinalArr.join("");
 
-    await axios
-      .post(`${API_URL}/api/grupos/`, {
-        nombre,
-        laboratorio,
-        carrera,
-        materia,
-        numAlumnos,
-        numEquipos,
-        diaSemana,
-        horaInicial,
-        horaFinal,
-      })
+    axios
+      .post(
+        `${API_URL}/api/grupos`,
+        {
+          nombre,
+          laboratorio,
+          carrera,
+          materia,
+          numAlumnos,
+          numEquipos,
+          diaSemana,
+          horaInicial,
+          horaFinal,
+          uid: getToken(null, true),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authCtx.token}`,
+          },
+        }
+      )
       .then((response) => {
         console.log(response.data);
       })

@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 
 export const LoginForm = ({
-  handleSubmit,
+  loginHandler,
   correoRef,
   passwordRef,
   error,
@@ -42,6 +42,12 @@ export const LoginForm = ({
 
   const toggle = () => {
     setIsChecked((checked) => !checked);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    
+    loginHandler(correoRef.current.value, passwordRef.current.value);
   };
 
   return (
@@ -184,7 +190,7 @@ export const LoginForm = ({
                 sx={{
                   "& .MuiSvgIcon-root": { fontSize: "24px", color: "#00C795" },
                 }}
-                control={<Checkbox onChange={toggle} />}
+                control={<Checkbox ref={checkRef} onChange={toggle} />}
               />
               {/* </div> */}
               {/* <div className="confirmarDatos"> */}
