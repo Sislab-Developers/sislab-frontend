@@ -5,8 +5,8 @@ import AuthContext from "../context/AuthContext";
 import { getToken } from "../utils";
 
 export const MisGrupos = () => {
-  const API_URL = 'https://sislab-backend.vercel.app';
-  // const API_URL = "http://localhost:8080";
+  // const API_URL = 'https://sislab-backend.vercel.app';
+  const API_URL = "http://localhost:8080";
 
   const authCtx = useContext(AuthContext);
 

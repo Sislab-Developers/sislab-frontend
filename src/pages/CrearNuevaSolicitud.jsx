@@ -15,6 +15,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import MaestroLayout from "../components/UI/MaestroLayout";
+import { useTheme } from "@mui/material";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -101,121 +103,127 @@ const practicas = [
 ];
 
 export const CrearNuevaSolicitud = () => {
+  const theme = useTheme();
+
   const content = (
-    <>
-      <MaestroHeader colorNuevaSolicitud="nueva-solicitud-color" />
-      <div className="content">
-        <div className="title">
-          <h1>Crear nueva solicitud</h1>
-        </div>
-        <div className="subtitle">
-          <h1>
-            Para crear una{" "}
-            <span className="color_en_texto">nueva solicitud</span> llena los
-            siguientes campos
-          </h1>
-        </div>
-
-        <div className="contentWrapper">
-          <div className="accordion">
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography>Primer paso</Typography>
-              </AccordionSummary>
-              <div className="centerComboBox">
-                <AccordionDetails>
-                  <Box
-                    component="form"
-                    sx={{
-                      "& .MuiTextField-root": { width: "32ch" },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                    menuprops={{
-                      disableScrollLock: true,
-                    }}
-                  >
-                    <h1>
-                      Práctica<i className="ri-information-line"></i>
-                    </h1>
-                    <TextField
-                      id="outlined-select-currency"
-                      select
-                      label="Practica"
-                      helperText="Selecciona una de las prácticas"
-                      defaultValue=""
-                    >
-                      {practicas.map((option) => (
-                        <MenuItem key={option.label} value={option.label}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                    <br></br>
-                    <br></br>
-                    <div id="boton-confirmar">
-                      <CustomButton text="Confirmar"></CustomButton>
-                    </div>
-                    <br></br>
-                    <br></br>
-                  </Box>
-                </AccordionDetails>
-              </div>
-            </Accordion>
-
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography>Reactivos</Typography>
-              </AccordionSummary>
-              <div className="centerComboBox">
-                <AccordionDetails>
-                  <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Reactivos</TableCell>
-                          <TableCell align="right">Cantidad</TableCell>
-                          <TableCell align="right">Medida</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {rows.map((row) => (
-                          <TableRow
-                            key={row.name}
-                            sx={{
-                              "&:last-child td, &:last-child th": { border: 0 },
-                            }}
-                          >
-                            <TableCell component="th" scope="row">
-                              {row.name}
-                            </TableCell>
-                            <TableCell align="center">{row.carbs}</TableCell>
-                            <TableCell align="center">{row.protein}</TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                  <br></br>
-                  <br></br>
-                  <div id="boton-confirmar">
-                    <CustomButton text="Confirmar"></CustomButton>
-                  </div>
-                </AccordionDetails>
-              </div>
-            </Accordion>
-          </div>
-        </div>
+    <Box component="section">
+      {/* <MaestroLayout /> */}
+      {/* <div className="content"> */}
+      <div className="title">
+        <h1>
+          Crear{" "}
+          <span style={{ color: theme.palette.primary.main }}>
+            nueva solicitud
+          </span>
+        </h1>
       </div>
-    </>
+      <div className="subtitle">
+        <h1>
+          Para crear una <span className="color_en_texto">nueva solicitud</span>{" "}
+          llena los siguientes campos
+        </h1>
+      </div>
+
+      {/* <div className="contentWrapper">
+          <div className="accordion"> */}
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Primer paso</Typography>
+        </AccordionSummary>
+        <div className="centerComboBox">
+          <AccordionDetails>
+            <Box
+              component="form"
+              sx={{
+                "& .MuiTextField-root": { width: "32ch" },
+              }}
+              noValidate
+              autoComplete="off"
+              menuprops={{
+                disableScrollLock: true,
+              }}
+            >
+              <h1>
+                Práctica<i className="ri-information-line"></i>
+              </h1>
+              <TextField
+                id="outlined-select-currency"
+                select
+                label="Practica"
+                helperText="Selecciona una de las prácticas"
+                defaultValue=""
+              >
+                {practicas.map((option) => (
+                  <MenuItem key={option.label} value={option.label}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <br></br>
+              <br></br>
+              <div id="boton-confirmar">
+                <CustomButton text="Confirmar"></CustomButton>
+              </div>
+              <br></br>
+              <br></br>
+            </Box>
+          </AccordionDetails>
+        </div>
+      </Accordion>
+
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Reactivos</Typography>
+        </AccordionSummary>
+        <div className="centerComboBox">
+          <AccordionDetails>
+            <TableContainer component={Paper}>
+              <Table aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Reactivos</TableCell>
+                    <TableCell align="right">Cantidad</TableCell>
+                    <TableCell align="right">Medida</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <TableRow
+                      key={row.name}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                      }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.name}
+                      </TableCell>
+                      <TableCell align="center">{row.carbs}</TableCell>
+                      <TableCell align="center">{row.protein}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <br></br>
+            <br></br>
+            <div id="boton-confirmar">
+              <CustomButton text="Confirmar"></CustomButton>
+            </div>
+          </AccordionDetails>
+        </div>
+      </Accordion>
+      {/* </div>
+        </div> */}
+      {/* </div> */}
+    </Box>
   );
 
   return content;
