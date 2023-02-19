@@ -1,11 +1,8 @@
-import axios from 'axios';
 import { useRef } from 'react';
 import { MisGruposForm } from '../components';
+import instance from '../utils/axiosConfig';
 
 export const MisGrupos = () => {
-  const API_URL = 'https://sislab-backend.vercel.app';
-
-  //const nombreRef = "prue";
   const nombreRef = useRef();
   const laboratorioRef = useRef();
   const carreraRef = useRef();
@@ -44,8 +41,8 @@ export const MisGrupos = () => {
     const horaInicial = horaInicialArr.join('');
     const horaFinal = horaFinalArr.join('');
 
-    await axios
-      .post(`${API_URL}/api/grupos/`, {
+    await instance
+      .post(`api/grupos/`, {
         nombre,
         laboratorio,
         carrera,

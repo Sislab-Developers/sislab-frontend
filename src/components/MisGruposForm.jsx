@@ -19,6 +19,7 @@ export const MisGruposForm = ({
   numEquiposRef,
   diaSemanaRef,
   horaRef,
+  nombreRef,
 }) => {
   const laboratorios = [
     {
@@ -191,7 +192,7 @@ export const MisGruposForm = ({
                     noValidate
                     autoComplete="off"
                     menuprops={{
-                      disablescrolllock: true,
+                      disablescrolllock: 'true',
                     }}
                   >
                     <form onSubmit={handleSubmit}>
