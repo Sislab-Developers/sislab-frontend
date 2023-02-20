@@ -1,14 +1,14 @@
-import Axios from 'axios';
-import { getToken } from './authServices';
+import Axios from "axios";
+import { getToken } from "./authServices";
 
 const instance = Axios.create({
   timeout: 10000,
-  baseURL: 'https://sislab-backend.vercel.app/api',
+  baseURL: "https://sislab-backend.vercel.app/api/",
   headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': '*',
-    'Access-Control-Allow-Methods': 'POST,GET,DELETE,PUT,OPTIONS',
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "*",
+    "Access-Control-Allow-Methods": "POST,GET,DELETE,PUT,OPTIONS",
   },
 });
 
@@ -27,7 +27,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   async (response) => {
-    if (response.headers['content-type'].indexOf('application/json') !== -1) {
+    if (response.headers["content-type"].indexOf("application/json") !== -1) {
       return response.data;
     }
     return response;

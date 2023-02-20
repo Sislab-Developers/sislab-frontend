@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 
 export const LoginForm = ({
-  loginHandler,
+  handleSubmit,
   correoRef,
   passwordRef,
   error,
@@ -50,7 +50,7 @@ export const LoginForm = ({
             <img src={LogoCSIPRO} alt="Logo de CSI Pro" />
           </Box>
         </Box>
-        {/* <div className="box"> */}
+
         <Card
           variant="outlined"
           sx={{
@@ -69,16 +69,12 @@ export const LoginForm = ({
               <img src={Logo} alt="Logo de Sislab" />
               <h1>Sislab</h1>
             </Box>
-            {/* <div className="logoLogin">
-              <img src={Logo} alt="Logo de sislab" />
-            </div>
-            <h1>Sislab</h1> */}
+
             <div id="espacioIniciarSesion">
               <h2>Iniciar sesión</h2>
             </div>
 
             <form className="login-form" onSubmit={handleSubmit}>
-              {/* <div className="inputCorreo"> */}
               <TextField
                 name="Inpt_email"
                 inputRef={correoRef}
@@ -112,9 +108,7 @@ export const LoginForm = ({
                   },
                 }}
               />
-              {/* </div>   */}
 
-              {/* <div className="inputPass"> */}
               <FormControl variant="outlined">
                 <TextField
                   style={{ width: 340 }}
@@ -167,8 +161,7 @@ export const LoginForm = ({
                   }}
                 />
               </FormControl>
-            </div>
-            <div className="checkBox">
+
               <FormControlLabel
                 label={
                   <span style={{ fontSize: "16px", color: "#333333" }}>
@@ -178,12 +171,9 @@ export const LoginForm = ({
                 sx={{
                   "& .MuiSvgIcon-root": { fontSize: "24px", color: "#00C795" },
                 }}
-
-                control={<Checkbox onChange={toggle} />}
-
+                control={<Checkbox />}
               />
-              {/* </div> */}
-              {/* <div className="confirmarDatos"> */}
+
               <Button
                 sx={{
                   borderRadius: "13px",
@@ -203,21 +193,17 @@ export const LoginForm = ({
               >
                 Siguiente
               </Button>
-              {/* </div> */}
-              {/* <div className="recuperar"> */}
+
               <Link className="recuperar" to="/recuperacion">
                 ¿Olvidaste tu contraseña?
               </Link>
-              {/* </div> */}
-              {/* <div className="ayuda"> */}
+
               <Link className="ayuda" to="/ayuda">
                 ¿Problemas para iniciar sesión?
               </Link>
-              {/* </div> */}
             </form>
           </CardContent>
         </Card>
-        {/* </div> */}
       </div>
     </>
   );

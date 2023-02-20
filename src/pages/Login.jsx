@@ -1,14 +1,16 @@
-import { useEffect, useRef, useState } from "react";
-import { storeToken } from "../utils/authServices";
-import { useNavigate } from "react-router-dom";
-import { useLoading, useAuth } from "../context/hooks";
-import { LoginForm } from "../components";
 import instance from "../utils/axiosConfig";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useContext, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLoading } from "../context/hooks";
+import { LoginForm } from "../components";
+import AuthContext from "../context/AuthContext";
 
 export const Login = () => {
-  const { run } = useLoading();
+  const authCtx = useContext(AuthContext);
 
+  const { run: startLoading, stop: stopLoading } = useLoading();
+
+  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -16,15 +18,6 @@ export const Login = () => {
 
   const correoRef = useRef("");
   const passwordRef = useRef("");
-  const checkRef = useRef();
-
-  const [isChecked, setIsChecked] = useLocalStorage("userlogged", false);
-
-  useEffect(() => {
-    setIsChecked(false);
-  }, []);
-
-  console.log(isChecked);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,22 +26,28 @@ export const Login = () => {
     const { value: password } = passwordRef.current;
 
     await instance
-      .post(`/auth/login/`, {
+      .post("auth/login/", {
         correo,
         password,
       })
       .then((response) => {
-        if (!isChecked) {
-          console.log(response.token);
-          storeToken(response.token);
-        }
-        login();
-        run();
+        console.log(response);
+        const { token, expiresIn } = response;
+
+        const expirationDate = new Date(
+          new Date().getTime() + expiresIn * 1000
+        );
+
+        authCtx.login(token, expirationDate, keepLoggedIn);
+
+        startLoading();
         setTimeout(() => {
+          stopLoading();
           navigate("/nueva-solicitud");
         }, 1500);
       })
       .catch((err) => {
+        console.log(err);
         setError(true);
         setErrorMessage(err.msg);
       });
@@ -58,9 +57,10 @@ export const Login = () => {
     <LoginForm
       correoRef={correoRef}
       passwordRef={passwordRef}
-      loginHandler={handleSubmit}
+      handleSubmit={handleSubmit}
       error={error}
       errorMessage={errorMessage}
+      setIsChecked={setKeepLoggedIn}
     />
   );
 };
