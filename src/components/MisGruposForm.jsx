@@ -1,13 +1,13 @@
-import { MaestroHeader } from '../components';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
-import Box from '@mui/material/Box';
+import { MaestroHeader } from "../components";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import TextField from "@mui/material/TextField";
+import { Button, useTheme } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+import Box from "@mui/material/Box";
 
 export const MisGruposForm = ({
   handleSubmit,
@@ -20,154 +20,159 @@ export const MisGruposForm = ({
   diaSemanaRef,
   horaRef,
 }) => {
+  const theme = useTheme();
+
   const laboratorios = [
     {
-      label: '5N - 201',
+      label: "5N - 201",
     },
     {
-      label: '5N - 202',
+      label: "5N - 202",
     },
     {
-      label: '5N - 203',
+      label: "5N - 203",
     },
     {
-      label: '5N - 204',
+      label: "5N - 204",
     },
   ];
 
   const carreras = [
     {
-      label: 'Lic. Químico Biólogo Clínico',
+      label: "Lic. Químico Biólogo Clínico",
     },
     {
-      label: 'Lic. Químico en Alimentos',
+      label: "Lic. Químico en Alimentos",
     },
     {
-      label: 'Ing. Industrial y de Sistemas',
+      label: "Ing. Industrial y de Sistemas",
     },
     {
-      label: 'Ing. Minero',
+      label: "Ing. Minero",
     },
     {
-      label: 'Lic. Geología',
+      label: "Lic. Geología",
     },
     {
-      label: 'Ing. Civil',
+      label: "Ing. Civil",
     },
     {
-      label: 'Ing. Mecatrónica',
+      label: "Ing. Mecatrónica",
     },
     {
-      label: 'Ing. Materiales',
+      label: "Ing. Materiales",
     },
     {
-      label: 'Ing. Sistemas de Información',
+      label: "Ing. Sistemas de Información",
     },
     {
-      label: 'Ing. Energías Renovables',
+      label: "Ing. Energías Renovables",
     },
     {
-      label: 'Ing. Biomédica',
+      label: "Ing. Biomédica",
     },
     {
-      label: 'Ing. Química',
+      label: "Ing. Química",
     },
     {
-      label: 'Tronco común biológicas',
+      label: "Tronco común biológicas",
     },
     {
-      label: 'Tronco común ingenierías',
+      label: "Tronco común ingenierías",
     },
   ];
 
   const materias = [
     {
-      label: '6883 | Química I',
+      label: "6883 | Química I",
     },
     {
-      label: '9400 |  Química I',
+      label: "9400 |  Química I",
     },
     {
-      label: '7162 |  Química General',
+      label: "7162 |  Química General",
     },
     {
-      label: '05859 | Química General',
+      label: "05859 | Química General",
     },
     {
-      label: '07791 | Química Inorgánica',
+      label: "07791 | Química Inorgánica",
     },
     {
-      label: '08150 | Fundamentos de Química',
+      label: "08150 | Fundamentos de Química",
     },
   ];
 
   const dias = [
     {
-      label: 'Lunes',
+      label: "Lunes",
     },
     {
-      label: 'Martes',
+      label: "Martes",
     },
     {
-      label: 'Miércoles',
+      label: "Miércoles",
     },
     {
-      label: 'Jueves',
+      label: "Jueves",
     },
     {
-      label: 'Viernes',
+      label: "Viernes",
     },
   ];
 
   const hora = [
     {
-      label: '7:00 a.m - 9:00 a.m.',
+      label: "7:00 a.m - 9:00 a.m.",
     },
     {
-      label: '8:00 a.m - 10:00 a.m.',
+      label: "8:00 a.m - 10:00 a.m.",
     },
     {
-      label: '9:00 a.m - 11:00 a.m.',
+      label: "9:00 a.m - 11:00 a.m.",
     },
     {
-      label: '11:00 a.m - 1:00 p.m.',
+      label: "11:00 a.m - 1:00 p.m.",
     },
     {
-      label: '12:00 p.m - 2:00 p.m.',
+      label: "12:00 p.m - 2:00 p.m.",
     },
     {
-      label: '1:00 p.m - 3:00 p.m.',
+      label: "1:00 p.m - 3:00 p.m.",
     },
     {
-      label: '2:00 p.m - 4:00 p.m.',
+      label: "2:00 p.m - 4:00 p.m.",
     },
     {
-      label: '3:00 p.m - 5:00 p.m.',
+      label: "3:00 p.m - 5:00 p.m.",
     },
     {
-      label: '4:00 p.m - 6:00 p.m.',
+      label: "4:00 p.m - 6:00 p.m.",
     },
     {
-      label: '5:00 p.m - 7:00 p.m.',
+      label: "5:00 p.m - 7:00 p.m.",
     },
     {
-      label: '6:00 p.m - 8:00 p.m.',
+      label: "6:00 p.m - 8:00 p.m.",
     },
     {
-      label: '7:00 p.m - 9:00 p.m.',
+      label: "7:00 p.m - 9:00 p.m.",
     },
   ];
 
   return (
     <>
-      <MaestroHeader colorMisGrupos="mis-grupos-color" />
+      {/* <MaestroHeader colorMisGrupos="mis-grupos-color" /> */}
       <div className="content">
         <div className="title">
-          <h1>Mis grupos</h1>
+          <h1>
+            Mis{" "}
+            <span style={{ color: theme.palette.primary.main }}>grupos</span>
+          </h1>
         </div>
         <div className="subtitle">
           <h1>
-            Llena este formulario para crear tu primer{' '}
+            Llena este formulario para crear tu primer{" "}
             <span className="color_en_texto">grupo</span>
           </h1>
         </div>
@@ -186,7 +191,7 @@ export const MisGruposForm = ({
                 <AccordionDetails>
                   <Box
                     sx={{
-                      '& .MuiTextField-root': { width: '32ch' },
+                      "& .MuiTextField-root": { width: "32ch" },
                     }}
                     noValidate
                     autoComplete="off"
@@ -332,11 +337,11 @@ export const MisGruposForm = ({
                         <Button
                           style={{
                             borderRadius: 13,
-                            backgroundColor: '#00C795',
-                            padding: '10px 32px',
-                            fontSize: '16px',
-                            textTransform: 'none',
-                            fontWeight: 'regular',
+                            backgroundColor: "#00C795",
+                            padding: "10px 32px",
+                            fontSize: "16px",
+                            textTransform: "none",
+                            fontWeight: "regular",
                             width: 140,
                             height: 45,
                           }}
@@ -345,7 +350,7 @@ export const MisGruposForm = ({
                           id="Btn_login"
                           type="submit"
                         >
-                          {'Confirmar'}
+                          {"Confirmar"}
                         </Button>
                       </div>
                     </form>

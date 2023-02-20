@@ -7,10 +7,10 @@ export const storeToken = (token) => {
 export const getToken = (decode = false) => {
   const token = localStorage.getItem('x-token');
   if (decode) {
-    const decoded = jwt_decode(token);
+    const decoded = jwt_decode(storedToken);
     return decoded;
   }
-  return token;
+  return storedToken;
 };
 
 export const removeToken = () => {

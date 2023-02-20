@@ -12,6 +12,8 @@ import {
   Login,
   MaestroDashBoard,
 } from '../pages';
+import { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
 
 export const MainRoutes = () => {
   const logToken = getToken();

@@ -45,7 +45,7 @@ export const Login = () => {
     <LoginForm
       correoRef={correoRef}
       passwordRef={passwordRef}
-      handleSubmit={handleSubmit}
+      loginHandler={handleSubmit}
       error={error}
       errorMessage={errorMessage}
     />

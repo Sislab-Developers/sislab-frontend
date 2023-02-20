@@ -70,12 +70,12 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
-.accordion {
+/* .accordion {
   margin-top: 2rem;
   margin-left: auto;
   margin-right: auto;
   padding: 2rem;
-}
+} */
 
 .userName {
   margin-top: 5rem;
@@ -113,9 +113,10 @@
 
 .title {
   user-select: none;
-  margin-left: 8rem;
+  text-align: center;
+  /* margin-left: 8rem;
   margin-top: 3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; */
 }
 .title h1 {
   font-weight: 500;
@@ -124,31 +125,32 @@
 .subtitle {
   user-select: none;
   text-align: center;
+  margin-bottom: 8px;
 }
 .subtitle h1 {
   font-size: 1rem;
   font-weight: 500;
 }
 
-.content {
+/* .content {
   margin-top: 50px;
   width: 100%;
   margin-left: 20rem;
-}
+} */
 
 .contentWrapper h1 {
   font-size: 1.2rem;
   font-weight: 500;
 }
 
-.contentWrapper {
+/* .contentWrapper {
   min-width: 400px;
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
   user-select: none;
   margin-top: 2rem;
-}
+} */
 
 .centerComboBox {
   display: flex;
@@ -238,18 +240,18 @@
 }
 
 @media screen and (max-width: 576px) {
-  .accordion {
+  /* .accordion {
     width: 100%;
     margin-left: 0;
-  }
+  } */
   .title {
     margin-left: 0rem;
     margin-top: 2rem;
     text-align: center;
   }
-  .content {
+  /* .content {
     margin-left: 0;
-  }
+  } */
   .nav {
     transform: translateX(-100%);
     transition: 0.2s ease-out;
