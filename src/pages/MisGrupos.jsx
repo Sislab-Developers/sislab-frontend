@@ -93,7 +93,7 @@ export const MisGrupos = () => {
       diaSemanaRef={diaSemanaRef}
       horaRef={horaRef}
       handleSubmit={handleSubmit}
-      nombreRef={nombreRef}
+      // nombreRef={nombreRef}
     />
   );
 };
