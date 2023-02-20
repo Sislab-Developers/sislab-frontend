@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react';
-import { storeToken } from '../utils/authServices';
-import { useNavigate } from 'react-router-dom';
-import { useLoading, useAuth } from '../context/hooks';
-import { LoginForm } from '../components';
-import instance from '../utils/axiosConfig';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useEffect, useRef, useState } from "react";
+import { storeToken } from "../utils/authServices";
+import { useNavigate } from "react-router-dom";
+import { useLoading, useAuth } from "../context/hooks";
+import { LoginForm } from "../components";
+import instance from "../utils/axiosConfig";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const Login = () => {
   const { login } = useAuth();
@@ -12,15 +12,19 @@ export const Login = () => {
   const { run } = useLoading();
 
   const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
-  const correoRef = useRef('');
-  const passwordRef = useRef('');
-  const checkRef = useRef(false);
+  const correoRef = useRef("");
+  const passwordRef = useRef("");
+  const checkRef = useRef();
 
-  const [isChecked, setIsChecked] = useLocalStorage('userlogged', false);
+  const [isChecked, setIsChecked] = useLocalStorage("userlogged", false);
+
+  useEffect(() => {
+    setIsChecked(false);
+  }, []);
 
   console.log(isChecked);
 
@@ -36,20 +40,19 @@ export const Login = () => {
         password,
       })
       .then((response) => {
-        if (isChecked) {
+        if (!isChecked) {
           console.log(response.token);
           storeToken(response.token);
         }
         login();
         run();
         setTimeout(() => {
-          navigate('/nueva-solicitud');
+          navigate("/nueva-solicitud");
         }, 1500);
       })
       .catch((err) => {
         setError(true);
-        console.log(err);
-        //setErrorMessage(err.response);
+        setErrorMessage(err.msg);
       });
   };
 
