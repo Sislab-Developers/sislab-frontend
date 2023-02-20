@@ -192,7 +192,9 @@ export const LoginForm = ({
                 sx={{
                   "& .MuiSvgIcon-root": { fontSize: "24px", color: "#00C795" },
                 }}
-                control={<Checkbox ref={checkRef} onChange={toggle} />}
+
+                control={<Checkbox onChange={toggle} />}
+
               />
               {/* </div> */}
               {/* <div className="confirmarDatos"> */}
