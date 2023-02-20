@@ -21,6 +21,8 @@
   width: 100%;
   height: 50vh;
   background: white;
+  display: flex;
+  justify-content: center;
 }
 
 .fondo {
@@ -39,6 +41,22 @@
 
 
 /*=============== Caja ===============*/
+
+.card__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__logo h1 {
+  text-align: center;
+  font-size: 35px;
+  color: #00c795;
+}
+
+.card__logo img {
+  width: 20%;
+}
 
 .box {
   position: absolute;
@@ -97,20 +115,25 @@
 
 .confirmarDatos{
   text-align: center;
+  /* margin-top: 40px; */
 }
 .recuperar {
-  padding-top: 0.2rem;
+  margin: 12px 0 4px;
+  text-align: center;
+  /* padding-top: 0.2rem;
   padding-left: 11rem;
-  padding-bottom: 1.2rem;
+  padding-bottom: 1.2rem; */
   font-size: 16px;
   font-weight: 400;
+  color: #00c795;
 }
 .ayuda {
-  padding-top: 2.5rem;
-  padding-bottom: 1rem;
+  /* padding-top: 2.5rem;
+  padding-bottom: 1rem; */
   text-align: center;
   font-size: 16px;
   font-weight: 400;
+  color: #00c795;
 }
 .ayuda a{
   color: #00c795;
@@ -129,14 +152,20 @@ a:-webkit-any-link {
 
 /*=============== Inputs ===============*/
 
+.login-form {
+  display: flex;
+  flex-direction: column;
+  
+}
+
 .inputCorreo {
   text-align: center;
-  margin-top: 10px;
-  padding-bottom: 10px;
+  /* margin-top: 8px; */
+  /* padding-bottom: 10px; */
 }
 
 .inputPass {
-  margin-top: 10px;
+  /* margin-top: 8px; */
   text-align: center;
 }
 
@@ -148,13 +177,36 @@ a:-webkit-any-link {
 }
 
 .checkBox {
-  padding-left: 1.4rem;
+  /* padding-left: 1.4rem; */
+  margin-left: 8px;
+  /* float: right; */
 }
 
 #botonSiguiente {
   padding-top: 10px;
   text-align: center;
 }
+
+.copyright-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  bottom: 15px;
+}
+
+.copyright-box h1 {
+  font-size: 14px;
+  font-weight: 200;
+  color: #888888;
+}
+
+.copyright-box img {
+  margin-top: 4px;
+  width: 15%;
+}
+
 .copyright{
   white-space: nowrap;
   position: absolute;

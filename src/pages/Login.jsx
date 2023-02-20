@@ -7,8 +7,6 @@ import instance from "../utils/axiosConfig";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const Login = () => {
-  const { login } = useAuth();
-
   const { run } = useLoading();
 
   const [error, setError] = useState(false);
@@ -60,11 +58,9 @@ export const Login = () => {
     <LoginForm
       correoRef={correoRef}
       passwordRef={passwordRef}
-      handleSubmit={handleSubmit}
+      loginHandler={handleSubmit}
       error={error}
       errorMessage={errorMessage}
-      checkRef={checkRef}
-      setIsChecked={setIsChecked}
     />
   );
 };
