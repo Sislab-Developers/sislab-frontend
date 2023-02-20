@@ -1,27 +1,36 @@
-import '../styles/MaestroDashBoard.css';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import Logo from '../assets/img/logowhite.svg';
-import Menu from '../assets/img/menu.svg';
-import { getToken, removeToken } from '../utils/authServices';
-import { useAuth, useLoading } from '../context/hooks';
+
+import "../styles/MaestroDashBoard.css";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Logo from "../assets/img/logowhite.svg";
+import Menu from "../assets/img/menu.svg";
+import { getToken, removeToken } from "../utils/authServices";
+import { useAuth, useLoading } from "../context/hooks";
+import AuthContext from "../context/AuthContext";
 
 export const MaestroHeader = (props) => {
-  const API_URL = 'https://sislab-backend.vercel.app';
+  const API_URL = "https://sislab-backend.vercel.app";
+  // const API_URL = "http://localhost:8080";
+  const authCtx = useContext(AuthContext);
 
-  const { stop } = useLoading();
-  const { logout } = useAuth();
 
-  const uid = getToken('decode').uid;
-  const [user, setUser] = useState(' ');
+  const { run, stop } = useLoading();
+  // const { logout } = useAuth();
+
+
+  const uid = getToken(authCtx.token, true).uid;
+  const [user, setUser] = useState("");
+
 
   useEffect(() => {
+    run();
     axios.get(`${API_URL}/api/usuarios/${uid}`).then((response) => {
       setUser(response.data);
+      stop();
     });
-    stop();
+
   }, [stop, uid]);
 
   const [active, setActive] = useState('nav');
@@ -88,8 +97,9 @@ export const MaestroHeader = (props) => {
               <NavLink
                 to="/login"
                 onClick={() => {
-                  removeToken();
-                  logout();
+                  authCtx.logout();
+                  // removeToken();
+                  // logout();
                 }}
               >
                 <li>
