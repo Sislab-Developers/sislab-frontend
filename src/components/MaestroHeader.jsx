@@ -6,13 +6,12 @@ import { Link } from 'react-router-dom';
 import Logo from '../assets/img/logowhite.svg';
 import Menu from '../assets/img/menu.svg';
 import { getToken, removeToken } from '../utils/authServices';
-import { useAuth, useLoading } from '../context/hooks';
+import { useLoading } from '../context/hooks';
 
 export const MaestroHeader = (props) => {
   const API_URL = 'https://sislab-backend.vercel.app';
 
   const { stop } = useLoading();
-  const { logout } = useAuth();
 
   const uid = getToken('decode').uid;
   const [user, setUser] = useState(' ');
@@ -89,7 +88,6 @@ export const MaestroHeader = (props) => {
                 to="/login"
                 onClick={() => {
                   removeToken();
-                  logout();
                 }}
               >
                 <li>

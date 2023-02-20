@@ -1,14 +1,11 @@
 import { useRef, useState } from 'react';
 import { storeToken } from '../utils/authServices';
 import { useNavigate } from 'react-router-dom';
-import { useLoading, useAuth } from '../context/hooks';
+import { useLoading } from '../context/hooks';
 import { LoginForm } from '../components';
 import instance from '../utils/axiosConfig';
-import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export const Login = () => {
-  const { login } = useAuth();
-
   const { run } = useLoading();
 
   const [error, setError] = useState(false);
@@ -18,11 +15,6 @@ export const Login = () => {
 
   const correoRef = useRef('');
   const passwordRef = useRef('');
-  const checkRef = useRef(false);
-
-  const [isChecked, setIsChecked] = useLocalStorage('userlogged', false);
-
-  console.log(isChecked);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,11 +28,7 @@ export const Login = () => {
         password,
       })
       .then((response) => {
-        if (isChecked) {
-          console.log(response.token);
-          storeToken(response.token);
-        }
-        login();
+        storeToken(response.token);
         run();
         setTimeout(() => {
           navigate('/nueva-solicitud');
@@ -49,7 +37,7 @@ export const Login = () => {
       .catch((err) => {
         setError(true);
         console.log(err);
-        //setErrorMessage(err.response);
+        setErrorMessage(err.msg);
       });
   };
 
@@ -60,8 +48,6 @@ export const Login = () => {
       handleSubmit={handleSubmit}
       error={error}
       errorMessage={errorMessage}
-      checkRef={checkRef}
-      setIsChecked={setIsChecked}
     />
   );
 };

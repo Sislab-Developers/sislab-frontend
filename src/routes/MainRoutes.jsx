@@ -1,6 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from '../components';
-import { useAppContext } from '../context/AppContext';
 import { getToken } from '../utils';
 
 import {
@@ -15,20 +14,12 @@ import {
 } from '../pages';
 
 export const MainRoutes = () => {
-  const {
-    state: { logged },
-  } = useAppContext();
-
-  const login = getToken();
-
-  console.log('estado del usuario: ' + logged);
+  const logToken = getToken();
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          element={logged || login ? <Layout /> : <Navigate to="/login" />}
-        >
+        <Route element={logToken ? <Layout /> : <Navigate to="/login" />}>
           <Route index path="/*" element={<Navigate to="/" />} />
           <Route index path="/" element={<MaestroDashBoard />} />
           <Route
