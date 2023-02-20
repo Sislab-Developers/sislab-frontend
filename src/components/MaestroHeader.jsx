@@ -1,17 +1,15 @@
 import "../styles/MaestroDashBoard.css";
-import axios from "axios";
+import instance from "../utils/axiosConfig";
 import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Logo from "../assets/img/logowhite.svg";
 import Menu from "../assets/img/menu.svg";
-import { getToken, removeToken } from "../utils/authServices";
+import { getToken } from "../utils/authServices";
 import { useLoading } from "../context/hooks";
 import AuthContext from "../context/AuthContext";
 
 export const MaestroHeader = (props) => {
-  const API_URL = "https://sislab-backend.vercel.app";
-
   const authCtx = useContext(AuthContext);
 
   const { stop } = useLoading();
@@ -20,7 +18,7 @@ export const MaestroHeader = (props) => {
   const [user, setUser] = useState("");
 
   useEffect(() => {
-    axios.get(`${API_URL}/api/usuarios/${uid}`).then((response) => {
+    instance.get(`api/usuarios/${uid}`).then((response) => {
       setUser(response.data);
       stop();
     });
@@ -87,12 +85,7 @@ export const MaestroHeader = (props) => {
           </div>
           <ul className="cerrar-sesion">
             <div id="cerrar-sesion">
-              <NavLink
-                to="/login"
-                onClick={() => {
-                  removeToken();
-                }}
-              >
+              <NavLink to="/login">
                 <li>
                   <i className="ri-logout-box-line"></i>Cerrar sesión
                 </li>

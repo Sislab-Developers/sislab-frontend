@@ -1,18 +1,18 @@
 import jwt_decode from "jwt-decode";
 
-export const storeToken = (token) => {
-  localStorage.setItem("x-token", token);
-};
+// export const storeToken = (token) => {
+//   localStorage.setItem("token", token);
+// };
 
-export const getToken = (decode = false) => {
-  const token = localStorage.getItem("x-token");
+export const getToken = (token, decode = false) => {
+  const storedToken = token || localStorage.getItem("token");
   if (decode) {
-    const decoded = jwt_decode(token);
+    const decoded = jwt_decode(storedToken);
     return decoded;
   }
-  return token;
+  return storedToken;
 };
 
-export const removeToken = () => {
-  localStorage.removeItem("x-token");
-};
+// export const removeToken = () => {
+//   localStorage.removeItem("token");
+// };
