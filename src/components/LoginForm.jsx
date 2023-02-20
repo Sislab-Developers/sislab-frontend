@@ -173,8 +173,10 @@ export const LoginForm = ({
                   }}
                 />
               </FormControl>
+
               {/* </div> */}
               {/* <div className="checkBox" ref={checkRef} onChange={toggle}> */}
+
               <FormControlLabel
                 label={
                   <span style={{ fontSize: "16px", color: "#333333" }}>

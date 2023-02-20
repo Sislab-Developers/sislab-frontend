@@ -1,14 +1,12 @@
-import axios from 'axios';
 import { useRef, useState } from 'react';
 import { storeToken } from '../utils/authServices';
 import { useNavigate } from 'react-router-dom';
 import { useLoading, useAuth } from '../context/hooks';
 import { LoginForm } from '../components';
+import instance from '../utils/axiosConfig';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export const Login = () => {
-  const API_URL = 'https://sislab-backend.vercel.app';
-
   const { login } = useAuth();
 
   const { run } = useLoading();
@@ -22,7 +20,9 @@ export const Login = () => {
   const passwordRef = useRef('');
   const checkRef = useRef(false);
 
-  const [isChecked, setIsChecked] = useLocalStorage('xtoken', false);
+  const [isChecked, setIsChecked] = useLocalStorage('userlogged', false);
+
+  console.log(isChecked);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,14 +30,15 @@ export const Login = () => {
     const { value: correo } = correoRef.current;
     const { value: password } = passwordRef.current;
 
-    await axios
-      .post(`${API_URL}/api/auth/login/`, {
+    await instance
+      .post(`/auth/login/`, {
         correo,
         password,
       })
       .then((response) => {
         if (isChecked) {
-          storeToken(response.data.token);
+          console.log(response.token);
+          storeToken(response.token);
         }
         login();
         run();
@@ -47,7 +48,8 @@ export const Login = () => {
       })
       .catch((err) => {
         setError(true);
-        setErrorMessage(err.response.data.msg);
+        console.log(err);
+        //setErrorMessage(err.response);
       });
   };
 

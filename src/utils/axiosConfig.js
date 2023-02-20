@@ -2,10 +2,13 @@ import Axios from 'axios';
 import { getToken } from './authServices';
 
 const instance = Axios.create({
-  timeout: 15000,
-  baseURL: process.env.REACT_APP_API_URL,
-   headers: {
-    'Content-Type': 'application/json'
+  timeout: 10000,
+  baseURL: 'https://sislab-backend.vercel.app/api',
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': '*',
+    'Access-Control-Allow-Methods': 'POST,GET,DELETE,PUT,OPTIONS',
   },
 });
 
@@ -13,13 +16,13 @@ instance.interceptors.request.use(
   async (config) => {
     const token = await getToken();
 
-    if( token ){
-      config.headers.Authorization = ` Bearer ${ token }`;
+    if (token) {
+      config.headers.Authorization = ` Bearer ${token}`;
     }
 
     return config;
   },
-  (error) => Promise.reject(error),
+  (error) => Promise.reject(error)
 );
 
 instance.interceptors.response.use(
@@ -40,7 +43,7 @@ instance.interceptors.response.use(
       return Promise.reject(error);
     }
     return Promise.reject(error);
-  },
+  }
 );
 
 export default instance;
