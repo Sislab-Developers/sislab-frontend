@@ -1,15 +1,15 @@
 import * as React from "react";
 import { CustomButton } from "../components";
 import { Link } from "react-router-dom";
-import "../styles/Login.css";
+import classes from "../styles/Login.module.css";
 
 export const Ayuda = () => {
   const content = (
-    <div className="fondo">
-      <div className="backgroundWhiteSmoke"></div>
-      <div className="box">
+    <div className={classes["fondo"]}>
+      <div className={classes["backgroundWhiteSmoke"]}></div>
+      <div className={classes["box"]}>
         <h2>¿Estás registrado?</h2>
-        <div className="espacioTexto">
+        <div className={classes["espacioTexto"]}>
           <p>
             Te recordamos que esta aplicación es sólo para el uso del personal
             de la Universidad de Sonora.
@@ -20,7 +20,7 @@ export const Ayuda = () => {
           </p>
         </div>
         <h2>¿No puedes iniciar sesión?</h2>
-        <div className="espacioTexto">
+        <div className={classes["espacioTexto"]}>
           <p>Si necesitas recuperar tu contraseña</p>
           <div id="espacioEnlaceAyuda">
             <Link to="/recuperaracion">haz click aquí</Link>
@@ -30,8 +30,8 @@ export const Ayuda = () => {
             la siguiente dirección: soporte@sislab.com.mx
           </p>
         </div>
-        <div className="botonesRecuperar">
-          <div className="Volver">
+        <div className={classes["botonesRecuperar"]}>
+          <div className={classes["Volver"]}>
             <Link to="/">
               <CustomButton text="Volver"></CustomButton>
             </Link>

@@ -1,20 +1,20 @@
-import Axios from 'axios';
-import { getToken } from './authServices';
+import Axios from "axios";
+import { getToken } from "./authServices";
 
 const API_URL =
-  process.env.NODE_ENV === 'production'
+  process.env.NODE_ENV === "production"
     ? process.env.REACT_APP_API_URL
     : process.env.REACT_APP_LOCAL_API_URL;
 
 const instance = Axios.create({
   timeout: 10000,
-  baseURL: API_URL, // Backend según el entorno
-
+  // baseURL: API_URL, // Backend según el entorno
+  baseURL: "https://sislab-backend-fork.vercel.app/api",
   headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': '*',
-    'Access-Control-Allow-Methods': 'POST,GET,DELETE,PUT,OPTIONS',
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "*",
+    "Access-Control-Allow-Methods": "POST,GET,DELETE,PUT,OPTIONS",
   },
 });
 
@@ -33,7 +33,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   async (response) => {
-    if (response.headers['content-type'].indexOf('application/json') !== -1) {
+    if (response.headers["content-type"].indexOf("application/json") !== -1) {
       return response.data;
     }
     return response;

@@ -1,6 +1,6 @@
 import { CustomButton } from "../components";
 import { Link } from "react-router-dom";
-import "../styles/Login.css";
+import classes from "../styles/Login.module.css";
 import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 
@@ -26,14 +26,14 @@ const CssTextField = styled(TextField)({
 
 export const Recuperacion = () => {
   const content = (
-    <div className="fondo">
-      <div className="backgroundWhiteSmoke"></div>
-      <div className="box">
+    <div className={classes["fondo"]}>
+      <div className={classes["backgroundWhiteSmoke"]}></div>
+      <div className={classes["box"]}>
         <h2>Recuperar contraseña</h2>
-        <div className="espacioTexto">
+        <div className={classes["espacioTexto"]}>
           <p>Ingresa el correo con el que estás registrado en el sistema</p>
         </div>
-        <div className="inputCorreo">
+        <div className={classes["inputCorreo"]}>
           <CssTextField
             // html input attribute
             name="Inpt_email"
@@ -46,13 +46,13 @@ export const Recuperacion = () => {
             required
           />
         </div>
-        <div className="botonesRecuperar">
-          <div className="Volver">
+        <div className={classes["botonesRecuperar"]}>
+          <div className={classes["Volver"]}>
             <Link to="/">
               <CustomButton text="Volver"></CustomButton>
             </Link>
           </div>
-          <div className="confirmarCorreoRecuperar">
+          <div className={classes["confirmarCorreoRecuperar"]}>
             <Link to="/vista-maestro/crear-nueva-solicitud">
               <CustomButton text="Siguiente"></CustomButton>
             </Link>
