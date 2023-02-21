@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 * {
   padding: 0;
@@ -39,23 +38,23 @@
   text-align: center;
 }
 
-
 /*=============== Caja ===============*/
 
 .card__logo {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .card__logo h1 {
   text-align: center;
-  font-size: 35px;
+  font-size: 32px;
   color: #00c795;
 }
 
 .card__logo img {
-  width: 20%;
+  width: 30%;
 }
 
 .box {
@@ -72,7 +71,6 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   font-family: "Roboto", sans-serif;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-
 }
 .box h1 {
   text-align: center;
@@ -85,7 +83,7 @@
   font-size: 24px;
   font-weight: 500;
 }
-.box p{
+.box p {
   font-weight: 500;
   font-size: 18px;
   padding-top: 10px;
@@ -93,33 +91,37 @@
   padding-right: 1.2rem;
   color: #666666;
 }
-.espacioTexto{
+.espacioTexto {
   margin-top: 10px;
   margin-bottom: 20px;
 }
-#espacioEnlaceAyuda{
+#espacioEnlaceAyuda {
   padding-left: 1.2rem;
   font-size: 18px;
 }
-#espacioIniciarSesion{
-  padding-top: 12px;
-  padding-bottom: 4px;
-}
-.botonesRecuperar{
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    justify-content: space-evenly;
+#espacioIniciarSesion {
+  margin-top: 8px;
+  margin-bottom: 4px;
+  /* padding-top: 12px;
+  padding-bottom: 4px; */
 }
 
-.confirmarDatos{
+.botonesRecuperar {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: space-evenly;
+}
+
+.confirmarDatos {
   text-align: center;
   /* margin-top: 40px; */
 }
 .recuperar {
-  margin: 12px 0 4px;
-  text-align: center;
+  /* margin: 12px 0 4px; */
+  margin-right: 8px;
+  text-align: right;
   /* padding-top: 0.2rem;
   padding-left: 11rem;
   padding-bottom: 1.2rem; */
@@ -135,13 +137,13 @@
   font-weight: 400;
   color: #00c795;
 }
-.ayuda a{
+.ayuda a {
   color: #00c795;
 }
-.recuperar a{
+.recuperar a {
   color: #00c795;
 }
-#espacioEnlaceAyuda a{
+#espacioEnlaceAyuda a {
   color: #00c795;
 }
 
@@ -155,7 +157,15 @@ a:-webkit-any-link {
 .login-form {
   display: flex;
   flex-direction: column;
-  
+}
+
+.login-form h2 {
+  font-size: 24px;
+  margin: 8px 0 4px;
+}
+
+.email-input {
+  margin: 8px 0;
 }
 
 .inputCorreo {
@@ -169,7 +179,7 @@ a:-webkit-any-link {
   text-align: center;
 }
 
-.inputPass p{
+.inputPass p {
   padding: 0px;
   margin: 0px;
   padding-left: 5px;
@@ -182,9 +192,21 @@ a:-webkit-any-link {
   /* float: right; */
 }
 
-#botonSiguiente {
+/* #botonSiguiente {
   padding-top: 10px;
   text-align: center;
+} */
+
+.login-btn {
+  border-radius: 13px;
+  background-color: #00c795;
+  padding: 10px 32px;
+  font-size: 20px;
+  text-transform: none;
+  /* font-weight: regular; */
+  margin: 16px auto;
+  width: 140px;
+  height: 45px;
 }
 
 .copyright-box {
@@ -207,27 +229,26 @@ a:-webkit-any-link {
   width: 15%;
 }
 
-.copyright{
+.copyright {
   white-space: nowrap;
   position: absolute;
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
 }
-.copyright h1{
+.copyright h1 {
   font-size: 14px;
   font-weight: 200;
   margin-top: -10px;
   color: #888888;
 }
-.copyright img{
+.copyright img {
   margin-bottom: -25px;
   width: 20%;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
-
 
 /*=============== Sección de ayuda ===============*/
 
