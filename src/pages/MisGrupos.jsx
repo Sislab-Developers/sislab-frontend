@@ -1,14 +1,10 @@
-
-import axios from "axios";
-import { useContext, useRef } from "react";
-import { MisGruposForm } from "../components";
-import AuthContext from "../context/AuthContext";
-import { getToken } from "../utils";
+import { useContext, useRef } from 'react';
+import { MisGruposForm } from '../components';
+import AuthContext from '../context/AuthContext';
+import { getToken } from '../utils';
+import instance from '../utils/axiosConfig';
 
 export const MisGrupos = () => {
-  const API_URL = 'https://sislab-backend.vercel.app';
-  // const API_URL = "http://localhost:8080";
-
   const authCtx = useContext(AuthContext);
 
   //const nombreRef = "prue";
@@ -26,12 +22,12 @@ export const MisGrupos = () => {
 
     let horaDato = horaRef.current.value;
     let simboloEncontrado = false;
-    let horaArr = horaDato.split(" ");
+    let horaArr = horaDato.split(' ');
     let horaInicialArr = [];
     let horaFinalArr = [];
 
     for (let i = 0; i < horaArr.length; i++) {
-      if (horaArr[i] === "-") {
+      if (horaArr[i] === '-') {
         simboloEncontrado = true;
       } else if (simboloEncontrado === false) {
         horaInicialArr.push(horaArr[i]);
@@ -40,8 +36,7 @@ export const MisGrupos = () => {
       }
     }
 
-
-    const nombre = "ejemplo";
+    const nombre = 'ejemplo';
 
     const { value: laboratorio } = laboratorioRef.current;
     const { value: carrera } = carreraRef.current;
@@ -50,12 +45,12 @@ export const MisGrupos = () => {
     const { value: numEquipos } = numEquiposRef.current;
     const { value: diaSemana } = diaSemanaRef.current;
 
-    const horaInicial = horaInicialArr.join("");
-    const horaFinal = horaFinalArr.join("");
+    const horaInicial = horaInicialArr.join('');
+    const horaFinal = horaFinalArr.join('');
 
-    axios
+    instance
       .post(
-        `${API_URL}/api/grupos`,
+        `api/grupos`,
         {
           nombre,
           laboratorio,

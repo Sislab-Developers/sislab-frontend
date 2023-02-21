@@ -1,18 +1,16 @@
-import { useTheme } from "@mui/material";
-import { MaestroHeader } from "../components";
+import { useTheme } from '@mui/material';
 
 export const SolicitudesCreadas = () => {
   const theme = useTheme();
 
   const content = (
     <>
-      {/* <MaestroHeader colorSolicitudes="solicitudes-color" /> */}
       <div className="content">
         <div className="title">
           <h1>
             <span style={{ color: theme.palette.primary.main }}>
               Solicitudes
-            </span>{" "}
+            </span>{' '}
             creadas
           </h1>
         </div>
