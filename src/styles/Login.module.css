@@ -53,8 +53,10 @@
   color: #00c795;
 }
 
-.card__logo img {
-  width: 30%;
+.card__logo img { 
+  object-fit: cover;
+  height: 100px;
+  width: 75px;
 }
 
 .box {
