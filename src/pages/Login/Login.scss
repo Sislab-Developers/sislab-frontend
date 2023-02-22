@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-
 * {
   padding: 0;
   margin: 0;
@@ -9,7 +8,7 @@
 /*=============== Fondo ===============*/
 
 .backquimica {
-  background-image: url("../assets/img/background.jpg");
+  background-image: url('../../assets/img/background.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -26,7 +25,7 @@
 }
 
 .fondo {
-  background-image: url("../assets/img/background.jpg");
+  background-image: url('../../assets/img/background.jpg');
   width: 100%;
   height: 50vh;
   background-size: cover;
@@ -38,7 +37,6 @@
 .logoLogin {
   text-align: center;
 }
-
 
 /*=============== Caja ===============*/
 
@@ -70,9 +68,8 @@
   padding-top: 3rem;
   padding-bottom: 1rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-
 }
 .box h1 {
   text-align: center;
@@ -85,7 +82,7 @@
   font-size: 24px;
   font-weight: 500;
 }
-.box p{
+.box p {
   font-weight: 500;
   font-size: 18px;
   padding-top: 10px;
@@ -93,27 +90,27 @@
   padding-right: 1.2rem;
   color: #666666;
 }
-.espacioTexto{
+.espacioTexto {
   margin-top: 10px;
   margin-bottom: 20px;
 }
-#espacioEnlaceAyuda{
+#espacioEnlaceAyuda {
   padding-left: 1.2rem;
   font-size: 18px;
 }
-#espacioIniciarSesion{
+#espacioIniciarSesion {
   padding-top: 12px;
   padding-bottom: 4px;
 }
-.botonesRecuperar{
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    justify-content: space-evenly;
+.botonesRecuperar {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: space-evenly;
 }
 
-.confirmarDatos{
+.confirmarDatos {
   text-align: center;
   /* margin-top: 40px; */
 }
@@ -135,13 +132,13 @@
   font-weight: 400;
   color: #00c795;
 }
-.ayuda a{
+.ayuda a {
   color: #00c795;
 }
-.recuperar a{
+.recuperar a {
   color: #00c795;
 }
-#espacioEnlaceAyuda a{
+#espacioEnlaceAyuda a {
   color: #00c795;
 }
 
@@ -155,7 +152,6 @@ a:-webkit-any-link {
 .login-form {
   display: flex;
   flex-direction: column;
-  
 }
 
 .inputCorreo {
@@ -169,7 +165,7 @@ a:-webkit-any-link {
   text-align: center;
 }
 
-.inputPass p{
+.inputPass p {
   padding: 0px;
   margin: 0px;
   padding-left: 5px;
@@ -207,27 +203,26 @@ a:-webkit-any-link {
   width: 15%;
 }
 
-.copyright{
+.copyright {
   white-space: nowrap;
   position: absolute;
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
 }
-.copyright h1{
+.copyright h1 {
   font-size: 14px;
   font-weight: 200;
   margin-top: -10px;
   color: #888888;
 }
-.copyright img{
+.copyright img {
   margin-bottom: -25px;
   width: 20%;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
-
 
 /*=============== Sección de ayuda ===============*/
 

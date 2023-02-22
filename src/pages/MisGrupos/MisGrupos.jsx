@@ -1,8 +1,8 @@
 import { useContext, useRef } from 'react';
-import { MisGruposForm } from '../components';
-import AuthContext from '../context/AuthContext';
-import { getToken } from '../utils';
-import instance from '../utils/axiosConfig';
+import { MisGruposForm } from '../../components';
+import AuthContext from '../../context/AuthContext';
+import { getToken } from '../../utils';
+import instance from '../../utils/axiosConfig';
 
 export const MisGrupos = () => {
   const authCtx = useContext(AuthContext);

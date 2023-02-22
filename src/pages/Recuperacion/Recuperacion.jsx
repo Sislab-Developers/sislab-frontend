@@ -1,25 +1,25 @@
-import { CustomButton } from "../components";
-import { Link } from "react-router-dom";
-import "../styles/Login.css";
-import { styled } from "@mui/material/styles";
-import TextField from "@mui/material/TextField";
+import { CustomButton } from '../../components';
+import { Link } from 'react-router-dom';
+import '../../pages/Login/Login.scss';
+import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
 
 const CssTextField = styled(TextField)({
-  "& label.Mui-focused": {
-    color: "#00C795",
+  '& label.Mui-focused': {
+    color: '#00C795',
   },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "#00C795",
+  '& .MuiInput-underline:after': {
+    borderBottomColor: '#00C795',
   },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "light",
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'light',
     },
-    "&:hover fieldset": {
-      borderColor: "black",
+    '&:hover fieldset': {
+      borderColor: 'black',
     },
-    "&.Mui-focused fieldset": {
-      borderColor: "#00C795",
+    '&.Mui-focused fieldset': {
+      borderColor: '#00C795',
     },
   },
 });

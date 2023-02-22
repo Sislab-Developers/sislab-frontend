@@ -1,6 +1,6 @@
-import "../../styles/Loading.css";
-import { useAppContext } from "../../context/AppContext";
-import { Jelly } from "@uiball/loaders";
+import './Loading.scss';
+import { useAppContext } from '../../../context/AppContext';
+import { Jelly } from '@uiball/loaders';
 
 export const Loading = () => {
   const {

@@ -1,7 +1,7 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { useContext } from "react";
-import AuthContext from "../context/AuthContext";
-import { Layout } from "../components";
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
+import { Layout } from '../components';
 
 import {
   CrearNuevaSolicitud,
@@ -11,13 +11,12 @@ import {
   Recuperacion,
   Ayuda,
   Login,
-  MaestroDashBoard,
-} from "../pages";
+} from '../pages';
 
 export const MainRoutes = () => {
   const authCtx = useContext(AuthContext);
 
-  console.log("Sesión iniciada: " + authCtx.isLoggedIn);
+  console.log('Sesión iniciada: ' + authCtx.isLoggedIn);
 
   return (
     <BrowserRouter>
@@ -26,7 +25,7 @@ export const MainRoutes = () => {
           element={authCtx.isLoggedIn ? <Layout /> : <Navigate to="/login" />}
         >
           <Route index path="/*" element={<Navigate to="/" />} />
-          <Route index path="/" element={<MaestroDashBoard />} />
+          <Route index path="/" element={<CrearNuevaSolicitud />} />
           <Route
             index
             path="/nueva-solicitud"

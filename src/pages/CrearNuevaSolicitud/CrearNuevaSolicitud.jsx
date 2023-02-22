@@ -1,4 +1,4 @@
-import { CustomButton } from '../components';
+import { CustomButton } from '../../components';
 
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';

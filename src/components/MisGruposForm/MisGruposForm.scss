@@ -1,0 +1,27 @@
+.title {
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.title h1 {
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.subtitle {
+  user-select: none;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.subtitle h1 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.contentWrapper h1 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
