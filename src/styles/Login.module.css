@@ -45,6 +45,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 28px 0;
 }
 
 .card__logo h1 {
@@ -199,7 +200,7 @@ a:-webkit-any-link {
   text-align: center;
 } */
 
-.login-btn {
+.login-button {
   border-radius: 13px;
   background-color: #00c795;
   padding: 10px 32px;

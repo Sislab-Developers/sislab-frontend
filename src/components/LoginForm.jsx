@@ -160,11 +160,11 @@ export const LoginForm = ({
               </Link>
 
               <Button
-                className={classes["login-btn"]}
                 variant="contained"
                 size="large"
-                id="Btn_login"
+                // id="Btn_login"
                 type="submit"
+                className={classes["login-button"]}
               >
                 Siguiente
               </Button>
