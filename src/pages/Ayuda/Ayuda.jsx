@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { CustomButton } from '../../components';
 import { Link } from 'react-router-dom';
-//import '../../pages/Login/Login.scss';
 
 export const Ayuda = () => {
   const content = (
