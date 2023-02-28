@@ -12,10 +12,13 @@ export const MisGruposForm = () => {
   const [formData, setFormData] = useState({});
   const [total, setTotal] = useState('1');
   const [grupos, setGrupos] = useState();
+  const [loading, setLoading] = useState(false);
 
   const authCtx = useContext(AuthContext);
 
   const getGrupos = () => {
+    setLoading(true);
+
     instance
       .get('grupos')
       .then((response) => {
@@ -25,6 +28,9 @@ export const MisGruposForm = () => {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -73,8 +79,6 @@ export const MisGruposForm = () => {
     setFormData(newdata);
   }
 
-  console.log(grupos);
-
   return (
     <>
       <div className="title">
@@ -90,6 +94,7 @@ export const MisGruposForm = () => {
 
       <div className="contentWrapper">
         <GroupItem
+          loading={loading}
           isExpanded={isExpanded}
           handleExpanded={handleExpanded}
           total={total}
