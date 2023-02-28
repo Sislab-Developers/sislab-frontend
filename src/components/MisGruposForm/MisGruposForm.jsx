@@ -1,9 +1,11 @@
 import './MisGruposForm.scss';
+
 import { GroupItem } from '../GroupItem';
 import { useContext, useEffect } from 'react';
 import AuthContext from '../../context/AuthContext';
 import { useState } from 'react';
 import instance from '../../utils/axiosConfig';
+import React from 'react';
 
 export const MisGruposForm = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -57,7 +59,6 @@ export const MisGruposForm = () => {
           },
         }
       )
-
       .then((response) => {
         console.log(response);
       })

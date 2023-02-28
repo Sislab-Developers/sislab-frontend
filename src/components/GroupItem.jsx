@@ -6,6 +6,8 @@ import TextField from '@mui/material/TextField';
 import { Button, Typography } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
+import { Modal } from './UI/Modal';
+import { useState } from 'react';
 
 export const GroupItem = ({
   isExpanded,
@@ -158,6 +160,12 @@ export const GroupItem = ({
     },
   ];
 
+  const [modal, setModal] = useState(false);
+
+  const toggleModal = () => {
+    setModal(() => !modal);
+  };
+
   return (
     <>
       {grupos?.map((element, key) => (
@@ -194,6 +202,7 @@ export const GroupItem = ({
                     </h1>
                     <TextField
                       select
+                      required
                       name="laboratorio"
                       label={element?.laboratorio}
                       defaultValue={element?.laboratorio}
@@ -213,6 +222,7 @@ export const GroupItem = ({
                     </h1>
                     <TextField
                       select
+                      required
                       name="carrera"
                       defaultValue={element?.carrera}
                       label={element?.carrera}
@@ -237,6 +247,7 @@ export const GroupItem = ({
                     <TextField
                       name="materia"
                       select
+                      required
                       defaultValue={element?.materia}
                       label={element?.materia}
                       onChange={(e) => handle(e)}
@@ -256,6 +267,7 @@ export const GroupItem = ({
                     <TextField
                       name="alumnos"
                       type="number"
+                      required
                       defaultValue={element?.alumnos}
                       onChange={(e) => handle(e)}
                       helperText="Escribe el número de alumnos"
@@ -267,6 +279,7 @@ export const GroupItem = ({
                     <TextField
                       name="equipos"
                       type="number"
+                      required
                       defaultValue={element?.equipos}
                       onChange={(e) => handle(e)}
                       helperText="Escribe el número de equipos"
@@ -279,6 +292,7 @@ export const GroupItem = ({
                     </h1>
                     <TextField
                       select
+                      required
                       name="dia"
                       defaultValue={element?.dia}
                       label={element?.dia}
@@ -297,6 +311,7 @@ export const GroupItem = ({
                       Hora de clase<i className="ri-information-line"></i>
                     </h1>
                     <TextField
+                      requireds
                       name="hora"
                       select
                       defaultValue={element?.hora}
@@ -370,13 +385,14 @@ export const GroupItem = ({
                   disablescrolllock: 'true',
                 }}
               >
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit && toggleModal}>
                   <h1>
                     Laboratorio<i className="ri-information-line"></i>
                   </h1>
                   <TextField
                     select
                     name="laboratorio"
+                    required
                     label="Laboratorio"
                     defaultValue=""
                     onChange={(e) => handle(e)}
@@ -395,6 +411,7 @@ export const GroupItem = ({
                   </h1>
                   <TextField
                     name="carrera"
+                    required
                     select
                     label="Carrera"
                     defaultValue=""
@@ -417,6 +434,7 @@ export const GroupItem = ({
                     Materia<i className="ri-information-line"></i>
                   </h1>
                   <TextField
+                    required
                     name="materia"
                     select
                     label="Materia"
@@ -437,6 +455,7 @@ export const GroupItem = ({
                   </h1>
                   <TextField
                     name="alumnos"
+                    required
                     type="number"
                     label="Número de alumnos"
                     value={formData?.alumnos}
@@ -448,6 +467,7 @@ export const GroupItem = ({
                     Número de equipos<i className="ri-information-line"></i>
                   </h1>
                   <TextField
+                    required
                     name="equipos"
                     type="number"
                     label="Número de equipos"
@@ -462,6 +482,7 @@ export const GroupItem = ({
                     Día de la semana<i className="ri-information-line"></i>
                   </h1>
                   <TextField
+                    required
                     name="dia"
                     select
                     label="Día de la semana"
@@ -481,6 +502,7 @@ export const GroupItem = ({
                     Hora de clase<i className="ri-information-line"></i>
                   </h1>
                   <TextField
+                    required
                     name="hora"
                     select
                     label="Hora de clase"
@@ -519,6 +541,7 @@ export const GroupItem = ({
             </AccordionDetails>
           </div>
         </Accordion>
+        <Modal toggleModal={toggleModal} modal={modal} />
       </div>
     </>
   );
