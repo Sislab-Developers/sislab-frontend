@@ -9,7 +9,7 @@ import Logo from '../../assets/img/logoLogin.svg';
 import LogoCSIPRO from '../../assets/img/logo-csipro.png';
 import { Link } from 'react-router-dom';
 import { Button, Box, Typography, Card, CardContent } from '@mui/material';
-import './LoginForm.scss';
+import style from './LoginForm.module.scss';
 
 export const LoginForm = ({
   handleSubmit,
@@ -32,9 +32,9 @@ export const LoginForm = ({
 
   return (
     <>
-      <div className="fondo">
-        <Box className="backgroundWhiteSmoke">
-          <Box className="copyright-box">
+      <div className={style.fondo}>
+        <Box className={style.backgroundWhiteSmoke}>
+          <Box className={style.copyright_box}>
             {/* ¿Tal vez el Copyright se ve mejor con el logo encima del texto? */}
             <Typography variant="h1">
               Desarrollado por &copy; CSI PRO 2023
@@ -44,7 +44,7 @@ export const LoginForm = ({
         </Box>
 
         <Card
-          variant="outlined"
+          variant="filled"
           sx={{
             position: 'absolute',
             width: { xs: '100%', sm: '380px' },
@@ -57,26 +57,32 @@ export const LoginForm = ({
           }}
         >
           <CardContent>
-            <Box className="card__logo">
+            <Box className={style.card_logo}>
               <img src={Logo} alt="Logo de Sislab" />
-              <h1>Sislab</h1>
+              <Typography variant="h1">Sislab</Typography>
             </Box>
 
-            <div id="espacioIniciarSesion">
-              <h2>Iniciar sesión</h2>
-            </div>
-
-            <form className="login-form" onSubmit={handleSubmit}>
+            <form className={style.login_form} onSubmit={handleSubmit}>
+              <Typography
+                variant="h2"
+                sx={{
+                  'font-family': 'Nunito',
+                  'font-weight': 800,
+                }}
+              >
+                Iniciar sesión
+              </Typography>
               <TextField
-                name="Inpt_email"
+                name="Input_email"
                 inputRef={correoRef}
                 type="email"
                 autoFocus
+                variant="filled"
                 autoComplete="new-password"
                 placeholder="correo@email.com"
                 label="Correo electrónico"
                 required
-                id="email"
+                id="email-input"
                 margin="dense"
                 error={error}
                 style={{ width: 340 }}
@@ -98,6 +104,7 @@ export const LoginForm = ({
                       borderColor: '#00C795',
                     },
                   },
+                  pb: '8px',
                 }}
               />
 
@@ -122,13 +129,14 @@ export const LoginForm = ({
                         borderColor: '#00C795',
                       },
                     },
+                    pb: '4px',
                   }}
                   margin="dense"
                   id="outlined-adornment-password"
                   type={values.showPassword ? 'text' : 'password'}
                   inputRef={passwordRef}
                   label="Contraseña"
-                  variant="outlined"
+                  variant="filled"
                   error={error}
                   required
                   helperText={errorMessage}
@@ -154,31 +162,20 @@ export const LoginForm = ({
                 />
               </FormControl>
 
+              <Link className={style.recuperar} to="/recuperacion">
+                ¿Olvidaste tu contraseña?
+              </Link>
+
               <Button
-                sx={{
-                  borderRadius: '13px',
-                  backgroundColor: '#00C795',
-                  padding: '10px 32px',
-                  fontSize: '16px',
-                  textTransform: 'none',
-                  fontWeight: 'regular',
-                  margin: 'auto',
-                  width: 140,
-                  height: 45,
-                }}
                 variant="contained"
                 size="large"
-                id="Btn_login"
                 type="submit"
+                className={style.login_button}
               >
                 Siguiente
               </Button>
 
-              <Link className="recuperar" to="/recuperacion">
-                ¿Olvidaste tu contraseña?
-              </Link>
-
-              <Link className="ayuda" to="/ayuda">
+              <Link className={style.ayuda} to="/ayuda">
                 ¿Problemas para iniciar sesión?
               </Link>
             </form>

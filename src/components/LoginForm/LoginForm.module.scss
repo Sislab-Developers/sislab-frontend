@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
 * {
   padding: 0;
   margin: 0;
+  font-family: 'Nunito';
 }
-
-/*=============== Fondo ===============*/
 
 .backquimica {
   background-image: url('../../assets/img/background.jpg');
@@ -32,28 +31,28 @@
   display: flex;
 }
 
-/*=============== Logo ===============*/
-
-.logoLogin {
+.logo_login {
   text-align: center;
 }
 
-/*=============== Caja ===============*/
-
-.card__logo {
+.card_logo {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 28px 0;
 }
 
-.card__logo h1 {
+.card_logo h1 {
   text-align: center;
-  font-size: 35px;
+  font-size: 32px;
   color: #00c795;
 }
 
-.card__logo img {
-  width: 20%;
+.card_logo img {
+  object-fit: cover;
+  height: 100px;
+  width: 75px;
 }
 
 .box {
@@ -68,23 +67,20 @@
   padding-top: 3rem;
   padding-bottom: 1rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  font-family: 'Roboto', sans-serif;
+
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
-
 .box h1 {
   text-align: center;
   font-size: 35px;
   font-weight: 500;
   color: #00c795;
 }
-
 .box h2 {
   padding-left: 1.2rem;
   font-size: 24px;
   font-weight: 500;
 }
-
 .box p {
   font-weight: 500;
   font-size: 18px;
@@ -94,40 +90,14 @@
   color: #666666;
 }
 
-.espacioTexto {
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-#espacioEnlaceAyuda {
-  padding-left: 1.2rem;
-  font-size: 18px;
-}
-
-#espacioIniciarSesion {
-  padding-top: 12px;
-  padding-bottom: 4px;
-}
-.botonesRecuperar {
-  margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  text-align: center;
-  justify-content: space-evenly;
-}
-
-.confirmarDatos {
-  text-align: center;
-}
-
 .recuperar {
-  margin: 12px 0 4px;
-  text-align: center;
+  margin-right: 8px;
+  text-align: right;
   font-size: 16px;
   font-weight: 400;
+
   color: #00c795;
 }
-
 .ayuda {
   text-align: center;
   font-size: 16px;
@@ -140,7 +110,7 @@
 .recuperar a {
   color: #00c795;
 }
-#espacioEnlaceAyuda a {
+#espacio_enlace_ayuda a {
   color: #00c795;
 }
 
@@ -149,49 +119,43 @@ a:-webkit-any-link {
   cursor: pointer;
 }
 
-/*=============== Inputs ===============*/
-
-.login-form {
+.login_form {
   display: flex;
   flex-direction: column;
+  gap: 12px;
 }
 
-.inputCorreo {
-  text-align: center;
+.login_form h2 {
+  font-size: 24px;
+  margin: 8px 0 4px;
 }
 
-.inputPass {
-  text-align: center;
+.login_button {
+  border-radius: 13px;
+  background-color: #00c795;
+  padding: 10px 32px;
+  font-size: 20px;
+  text-transform: none;
+  align-self: center;
+  width: 140px;
+  height: 45px;
 }
 
-.inputPass p {
-  padding: 0px;
-  margin: 0px;
-  padding-left: 5px;
-  font-size: 14px;
-}
-
-#botonSiguiente {
-  padding-top: 10px;
-  text-align: center;
-}
-
-.copyright-box {
+.copyright_box {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  position: absolute;
-  bottom: 15px;
+  bottom: 10px;
 }
 
-.copyright-box h1 {
+.copyright_box h1 {
   font-size: 14px;
   font-weight: 200;
   color: #888888;
 }
 
-.copyright-box img {
+.copyright_box img {
   margin-top: 4px;
   width: 15%;
 }
