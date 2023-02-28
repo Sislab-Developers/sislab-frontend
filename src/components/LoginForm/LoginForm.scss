@@ -71,17 +71,20 @@
   font-family: 'Roboto', sans-serif;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
+
 .box h1 {
   text-align: center;
   font-size: 35px;
   font-weight: 500;
   color: #00c795;
 }
+
 .box h2 {
   padding-left: 1.2rem;
   font-size: 24px;
   font-weight: 500;
 }
+
 .box p {
   font-weight: 500;
   font-size: 18px;
@@ -90,14 +93,17 @@
   padding-right: 1.2rem;
   color: #666666;
 }
+
 .espacioTexto {
   margin-top: 10px;
   margin-bottom: 20px;
 }
+
 #espacioEnlaceAyuda {
   padding-left: 1.2rem;
   font-size: 18px;
 }
+
 #espacioIniciarSesion {
   padding-top: 12px;
   padding-bottom: 4px;
@@ -112,21 +118,17 @@
 
 .confirmarDatos {
   text-align: center;
-  /* margin-top: 40px; */
 }
+
 .recuperar {
   margin: 12px 0 4px;
   text-align: center;
-  /* padding-top: 0.2rem;
-  padding-left: 11rem;
-  padding-bottom: 1.2rem; */
   font-size: 16px;
   font-weight: 400;
   color: #00c795;
 }
+
 .ayuda {
-  /* padding-top: 2.5rem;
-  padding-bottom: 1rem; */
   text-align: center;
   font-size: 16px;
   font-weight: 400;
@@ -156,12 +158,9 @@ a:-webkit-any-link {
 
 .inputCorreo {
   text-align: center;
-  /* margin-top: 8px; */
-  /* padding-bottom: 10px; */
 }
 
 .inputPass {
-  /* margin-top: 8px; */
   text-align: center;
 }
 
@@ -170,12 +169,6 @@ a:-webkit-any-link {
   margin: 0px;
   padding-left: 5px;
   font-size: 14px;
-}
-
-.checkBox {
-  /* padding-left: 1.4rem; */
-  margin-left: 8px;
-  /* float: right; */
 }
 
 #botonSiguiente {
@@ -222,34 +215,4 @@ a:-webkit-any-link {
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
-
-/*=============== Sección de ayuda ===============*/
-
-#recuperarContraseña {
-  font-weight: 500;
-  font-size: 24px;
-  padding-left: 1.2rem;
-  color: #333333;
-}
-
-#recuperarContraseñaDescripcion {
-  font-weight: 500;
-  font-size: 18px;
-  padding-top: 10px;
-  padding-left: 1.2rem;
-  padding-right: 1.2rem;
-  color: #666666;
-}
-
-.inputCorreoRecuperar {
-  text-align: center;
-  padding-top: 1.4rem;
-  padding-bottom: 0.4rem;
-}
-
-.botonesRecuperar .boton {
-  float: left;
-  text-align: center;
-  padding: 1.2rem;
 }

@@ -5,11 +5,11 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import TextField from '@mui/material/TextField';
-import Logo from '../assets/img/logoLogin.svg';
-import LogoCSIPRO from '../assets/img/logo-csipro.png';
-
+import Logo from '../../assets/img/logoLogin.svg';
+import LogoCSIPRO from '../../assets/img/logo-csipro.png';
 import { Link } from 'react-router-dom';
 import { Button, Box, Typography, Card, CardContent } from '@mui/material';
+import './LoginForm.scss';
 
 export const LoginForm = ({
   handleSubmit,

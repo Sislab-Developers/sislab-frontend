@@ -1,6 +1,5 @@
 import { CustomButton } from '../../components';
 import { Link } from 'react-router-dom';
-import '../../pages/Login/Login.scss';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 
@@ -35,11 +34,9 @@ export const Recuperacion = () => {
         </div>
         <div className="inputCorreo">
           <CssTextField
-            // html input attribute
             name="Inpt_email"
             type="email"
             placeholder="correo@email.com"
-            // pass down to FormLabel as children
             label="Correo electrónico"
             id="Inpt_email"
             style={{ width: 340 }}
