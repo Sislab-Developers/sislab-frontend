@@ -7,76 +7,15 @@ import { Button, Typography } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 
-import { useContext, useEffect } from 'react';
-import AuthContext from '../context/AuthContext';
-import { useState } from 'react';
-import instance from '../utils/axiosConfig';
-
-export const GroupItem = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [formData, setFormData] = useState({});
-  const [total, setTotal] = useState(1);
-
-  const authCtx = useContext(AuthContext);
-
-  const getGrupos = () => {
-    instance
-      .get('grupos')
-      .then((response) => {
-        console.log(response);
-        setTotal(response.total);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    getGrupos();
-  }, []);
-
-  const handleExpanded = () => {
-    setIsExpanded((isExpanded) => !isExpanded);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    instance
-      .post(
-        `grupos`,
-        {
-          nombre: `G${total} | ${formData.dia} | ${formData.hora}`,
-          laboratorio: formData.laboratorio,
-          materia: formData.materia,
-          carrera: formData.carrera,
-          alumnos: formData.alumnos,
-          equipos: formData.equipos,
-          dia: formData.dia,
-          hora: formData.hora,
-          usuario: authCtx?.user?.uid,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${authCtx.token}`,
-          },
-        }
-      )
-
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  function handle(e) {
-    const newdata = { ...formData };
-    newdata[e.target.name] = e.target.value;
-    setFormData(newdata);
-  }
-
+export const GroupItem = ({
+  isExpanded,
+  handleExpanded,
+  total,
+  formData,
+  handleSubmit,
+  handle,
+  grupos,
+}) => {
   const laboratorios = [
     {
       id: 1,
@@ -220,183 +159,367 @@ export const GroupItem = () => {
   ];
 
   return (
-    <div className="accordion">
-      <Accordion expanded={isExpanded} onChange={handleExpanded}>
-        <AccordionSummary
-          expandIcon={isExpanded && <ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          {!isExpanded ? (
-            <i className="ri-add-line" style={{ margin: ' auto' }}></i>
-          ) : (
-            <>
-              <Typography>
-                G{total ? total : '...'} | {formData.dia ? formData.dia : '...'}{' '}
-                | {formData.hora ? formData.hora : '...'}
-              </Typography>
-            </>
-          )}
-        </AccordionSummary>
-        <div className="centerComboBox">
-          <AccordionDetails>
-            <Box
-              sx={{
-                '& .MuiTextField-root': { width: '32ch' },
-              }}
-              noValidate
-              autoComplete="off"
-              menuprops={{
-                disablescrolllock: 'true',
-              }}
+    <>
+      {grupos?.map((element, key) => (
+        <div>
+          <Accordion expanded={isExpanded} onChange={handleExpanded} key={key}>
+            <AccordionSummary
+              expandIcon={isExpanded && <ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
             >
-              <form onSubmit={handleSubmit}>
-                <h1>
-                  Laboratorio<i className="ri-information-line"></i>
-                </h1>
-                <TextField
-                  select
-                  name="laboratorio"
-                  label="Laboratorio"
-                  defaultValue=""
-                  onChange={(e) => handle(e)}
-                  helperText="Escribe el laboratorio"
+              {!isExpanded ? (
+                <Typography>{element?.nombre}</Typography>
+              ) : (
+                <>
+                  <Typography>{element?.nombre}</Typography>
+                </>
+              )}
+            </AccordionSummary>
+            <div className="centerComboBox">
+              <AccordionDetails>
+                <Box
+                  sx={{
+                    '& .MuiTextField-root': { width: '32ch' },
+                  }}
+                  noValidate
+                  autoComplete="off"
+                  menuprops={{
+                    disablescrolllock: 'true',
+                  }}
                 >
-                  {laboratorios.map((option) => (
-                    <MenuItem key={option.id} value={option.label}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <br />
-                <br />
-                <h1>
-                  Carrera<i className="ri-information-line"></i>
-                </h1>
-                <TextField
-                  name="carrera"
-                  select
-                  label="Carrera"
-                  defaultValue=""
-                  onChange={(e) => handle(e)}
-                  helperText="Selecciona la carrera de este grupo"
-                >
-                  {carreras.map((option) => (
-                    <MenuItem
-                      key={option.label}
-                      value={option.label}
-                      disablescrolllock="true"
+                  <form onSubmit={handleSubmit}>
+                    <h1>
+                      Laboratorio<i className="ri-information-line"></i>
+                    </h1>
+                    <TextField
+                      select
+                      name="laboratorio"
+                      label={element?.laboratorio}
+                      defaultValue={element?.laboratorio}
+                      onChange={(e) => handle(e)}
+                      helperText="Escribe el laboratorio"
                     >
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <br />
-                <br />
-                <h1>
-                  Materia<i className="ri-information-line"></i>
-                </h1>
-                <TextField
-                  name="materia"
-                  select
-                  label="Materia"
-                  defaultValue=""
-                  onChange={(e) => handle(e)}
-                  helperText="Selecciona la materia de este grupo"
-                >
-                  {materias.map((option) => (
-                    <MenuItem key={option.label} value={option.label}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <br />
-                <br />
-                <h1>
-                  Número de alumnos<i className="ri-information-line"></i>
-                </h1>
-                <TextField
-                  name="alumnos"
-                  label="Número de alumnos"
-                  value={formData?.alumnos}
-                  onChange={(e) => handle(e)}
-                  helperText="Escribe el número de alumnos"
-                ></TextField>
+                      {laboratorios.map((option) => (
+                        <MenuItem key={option.id} value={option.label}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <br />
+                    <br />
+                    <h1>
+                      Carrera<i className="ri-information-line"></i>
+                    </h1>
+                    <TextField
+                      select
+                      name="carrera"
+                      defaultValue={element?.carrera}
+                      label={element?.carrera}
+                      onChange={(e) => handle(e)}
+                      helperText="Selecciona la carrera de este grupo"
+                    >
+                      {carreras.map((option) => (
+                        <MenuItem
+                          key={option.label}
+                          value={option.label}
+                          disablescrolllock="true"
+                        >
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <br />
+                    <br />
+                    <h1>
+                      Materia<i className="ri-information-line"></i>
+                    </h1>
+                    <TextField
+                      name="materia"
+                      select
+                      defaultValue={element?.materia}
+                      label={element?.materia}
+                      onChange={(e) => handle(e)}
+                      helperText="Selecciona la materia de este grupo"
+                    >
+                      {materias.map((option) => (
+                        <MenuItem key={option.label} value={option.label}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <br />
+                    <br />
+                    <h1>
+                      Número de alumnos<i className="ri-information-line"></i>
+                    </h1>
+                    <TextField
+                      name="alumnos"
+                      type="number"
+                      defaultValue={element?.alumnos}
+                      onChange={(e) => handle(e)}
+                      helperText="Escribe el número de alumnos"
+                    ></TextField>
 
-                <h1>
-                  Número de equipos<i className="ri-information-line"></i>
-                </h1>
-                <TextField
-                  name="equipos"
-                  label="Número de equipos"
-                  value={formData?.equipos}
-                  onChange={(e) => handle(e)}
-                  helperText="Escribe el número de equipos"
-                ></TextField>
-                <br />
-                <br />
+                    <h1>
+                      Número de equipos<i className="ri-information-line"></i>
+                    </h1>
+                    <TextField
+                      name="equipos"
+                      type="number"
+                      defaultValue={element?.equipos}
+                      onChange={(e) => handle(e)}
+                      helperText="Escribe el número de equipos"
+                    ></TextField>
+                    <br />
+                    <br />
 
-                <h1>
-                  Día de la semana<i className="ri-information-line"></i>
-                </h1>
-                <TextField
-                  name="dia"
-                  select
-                  label="Día de la semana"
-                  defaultValue=""
-                  onChange={(e) => handle(e)}
-                  helperText="Selecciona el día de la semana"
-                >
-                  {dias.map((option) => (
-                    <MenuItem key={option.id} value={option.label}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <br />
-                <br />
-                <h1>
-                  Hora de clase<i className="ri-information-line"></i>
-                </h1>
-                <TextField
-                  name="hora"
-                  select
-                  label="Hora de clase"
-                  defaultValue=""
-                  onChange={(e) => handle(e)}
-                  helperText="Selecciona la hora de clase de este grupo"
-                >
-                  {hora.map((option) => (
-                    <MenuItem key={option.label} value={option.label}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <div id="boton-confirmar">
-                  <Button
-                    style={{
-                      borderRadius: 13,
-                      backgroundColor: '#00C795',
-                      padding: '10px 32px',
-                      fontSize: '16px',
-                      textTransform: 'none',
-                      fontWeight: 'regular',
-                      width: 140,
-                      height: 45,
-                    }}
-                    variant="contained"
-                    size="large"
-                    id="Btn_login"
-                    type="submit"
-                  >
-                    {'Confirmar'}
-                  </Button>
-                </div>
-              </form>
-            </Box>
-          </AccordionDetails>
+                    <h1>
+                      Día de la semana<i className="ri-information-line"></i>
+                    </h1>
+                    <TextField
+                      select
+                      name="dia"
+                      defaultValue={element?.dia}
+                      label={element?.dia}
+                      onChange={(e) => handle(e)}
+                      helperText="Selecciona el día de la semana"
+                    >
+                      {dias.map((option) => (
+                        <MenuItem key={option.id} value={option.label}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <br />
+                    <br />
+                    <h1>
+                      Hora de clase<i className="ri-information-line"></i>
+                    </h1>
+                    <TextField
+                      name="hora"
+                      select
+                      defaultValue={element?.hora}
+                      label={element?.hora}
+                      onChange={(e) => handle(e)}
+                      helperText="Selecciona la hora de clase de este grupo"
+                    >
+                      {hora.map((option) => (
+                        <MenuItem key={option.label} value={option.label}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <div id="boton-confirmar">
+                      <Button
+                        style={{
+                          borderRadius: 13,
+                          backgroundColor: '#00C795',
+                          padding: '10px 32px',
+                          fontSize: '16px',
+                          textTransform: 'none',
+                          fontWeight: 'regular',
+                          width: 140,
+                          height: 45,
+                        }}
+                        variant="contained"
+                        size="large"
+                        id="Btn_login"
+                        type="submit"
+                      >
+                        {'Confirmar'}
+                      </Button>
+                    </div>
+                  </form>
+                </Box>
+              </AccordionDetails>
+            </div>
+          </Accordion>
+          <br />
         </div>
-      </Accordion>
-    </div>
+      ))}
+
+      <div className="accordion">
+        <Accordion expanded={isExpanded} onChange={handleExpanded}>
+          <AccordionSummary
+            expandIcon={isExpanded && <ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            {!isExpanded ? (
+              <i className="ri-add-line" style={{ margin: ' auto' }}></i>
+            ) : (
+              <>
+                <Typography>
+                  G{total ? total + 1 : '...'} |{' '}
+                  {formData.dia ? formData.dia : '...'} |{' '}
+                  {formData.hora ? formData.hora : '...'}
+                </Typography>
+              </>
+            )}
+          </AccordionSummary>
+          <div className="centerComboBox">
+            <AccordionDetails>
+              <Box
+                sx={{
+                  '& .MuiTextField-root': { width: '32ch' },
+                }}
+                noValidate
+                autoComplete="off"
+                menuprops={{
+                  disablescrolllock: 'true',
+                }}
+              >
+                <form onSubmit={handleSubmit}>
+                  <h1>
+                    Laboratorio<i className="ri-information-line"></i>
+                  </h1>
+                  <TextField
+                    select
+                    name="laboratorio"
+                    label="Laboratorio"
+                    defaultValue=""
+                    onChange={(e) => handle(e)}
+                    helperText="Escribe el laboratorio"
+                  >
+                    {laboratorios.map((option) => (
+                      <MenuItem key={option.id} value={option.label}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <br />
+                  <br />
+                  <h1>
+                    Carrera<i className="ri-information-line"></i>
+                  </h1>
+                  <TextField
+                    name="carrera"
+                    select
+                    label="Carrera"
+                    defaultValue=""
+                    onChange={(e) => handle(e)}
+                    helperText="Selecciona la carrera de este grupo"
+                  >
+                    {carreras.map((option) => (
+                      <MenuItem
+                        key={option.label}
+                        value={option.label}
+                        disablescrolllock="true"
+                      >
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <br />
+                  <br />
+                  <h1>
+                    Materia<i className="ri-information-line"></i>
+                  </h1>
+                  <TextField
+                    name="materia"
+                    select
+                    label="Materia"
+                    defaultValue=""
+                    onChange={(e) => handle(e)}
+                    helperText="Selecciona la materia de este grupo"
+                  >
+                    {materias.map((option) => (
+                      <MenuItem key={option.label} value={option.label}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <br />
+                  <br />
+                  <h1>
+                    Número de alumnos<i className="ri-information-line"></i>
+                  </h1>
+                  <TextField
+                    name="alumnos"
+                    type="number"
+                    label="Número de alumnos"
+                    value={formData?.alumnos}
+                    onChange={(e) => handle(e)}
+                    helperText="Escribe el número de alumnos"
+                  ></TextField>
+
+                  <h1>
+                    Número de equipos<i className="ri-information-line"></i>
+                  </h1>
+                  <TextField
+                    name="equipos"
+                    type="number"
+                    label="Número de equipos"
+                    value={formData?.equipos}
+                    onChange={(e) => handle(e)}
+                    helperText="Escribe el número de equipos"
+                  ></TextField>
+                  <br />
+                  <br />
+
+                  <h1>
+                    Día de la semana<i className="ri-information-line"></i>
+                  </h1>
+                  <TextField
+                    name="dia"
+                    select
+                    label="Día de la semana"
+                    defaultValue=""
+                    onChange={(e) => handle(e)}
+                    helperText="Selecciona el día de la semana"
+                  >
+                    {dias.map((option) => (
+                      <MenuItem key={option.id} value={option.label}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <br />
+                  <br />
+                  <h1>
+                    Hora de clase<i className="ri-information-line"></i>
+                  </h1>
+                  <TextField
+                    name="hora"
+                    select
+                    label="Hora de clase"
+                    defaultValue=""
+                    onChange={(e) => handle(e)}
+                    helperText="Selecciona la hora de clase de este grupo"
+                  >
+                    {hora.map((option) => (
+                      <MenuItem key={option.label} value={option.label}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <div id="boton-confirmar">
+                    <Button
+                      style={{
+                        borderRadius: 13,
+                        backgroundColor: '#00C795',
+                        padding: '10px 32px',
+                        fontSize: '16px',
+                        textTransform: 'none',
+                        fontWeight: 'regular',
+                        width: 140,
+                        height: 45,
+                      }}
+                      variant="contained"
+                      size="large"
+                      id="Btn_login"
+                      type="submit"
+                    >
+                      {'Confirmar'}
+                    </Button>
+                  </div>
+                </form>
+              </Box>
+            </AccordionDetails>
+          </div>
+        </Accordion>
+      </div>
+    </>
   );
 };
