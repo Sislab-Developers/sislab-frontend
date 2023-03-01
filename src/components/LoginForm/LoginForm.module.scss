@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
-* {
+html * {
   padding: 0;
   margin: 0;
-  font-family: 'Nunito';
+  font-family: 'Nunito' !important;
+  font-weight: 500 !important;
+  font-size: 1.5rem;
 }
 
 .backquimica {

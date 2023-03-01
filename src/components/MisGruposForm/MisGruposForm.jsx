@@ -1,6 +1,6 @@
-import './MisGruposForm.scss';
+import style from './MisGruposForm.module.scss';
 
-import { GroupItem } from '../GroupItem';
+import { GroupItem } from '../GroupItem/GroupItem';
 import { useContext, useEffect } from 'react';
 import AuthContext from '../../context/AuthContext';
 import { useState } from 'react';
@@ -10,7 +10,7 @@ import React from 'react';
 export const MisGruposForm = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [formData, setFormData] = useState({});
-  const [total, setTotal] = useState('1');
+  const [total, setTotal] = useState();
   const [grupos, setGrupos] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -81,29 +81,27 @@ export const MisGruposForm = () => {
 
   return (
     <>
-      <div className="title">
+      <div className={style.title}>
         <h1>Mis grupos</h1>
         <h1>Semestre 2023-1</h1>
       </div>
-      <div className="subtitle">
+      <div className={style.subtitle}>
         <h1>
           Llena este formulario para crear tu primer{' '}
           <span className="color_en_texto">grupo</span>
         </h1>
       </div>
 
-      <div className="contentWrapper">
-        <GroupItem
-          loading={loading}
-          isExpanded={isExpanded}
-          handleExpanded={handleExpanded}
-          total={total}
-          formData={formData}
-          handleSubmit={handleSubmit}
-          handle={handle}
-          grupos={grupos}
-        />
-      </div>
+      <GroupItem
+        loading={loading}
+        isExpanded={isExpanded}
+        handleExpanded={handleExpanded}
+        total={total}
+        formData={formData}
+        handleSubmit={handleSubmit}
+        handle={handle}
+        grupos={grupos}
+      />
     </>
   );
 };
