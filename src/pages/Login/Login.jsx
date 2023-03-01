@@ -10,7 +10,6 @@ export const Login = () => {
 
   const { run: startLoading, stop: stopLoading } = useLoading();
 
-  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -31,18 +30,18 @@ export const Login = () => {
         password,
       })
       .then((response) => {
-        console.log(response);
-        const { token, expiresIn } = response;
+        // console.log(response);
+        const { accessToken, refreshToken, expiresIn } = response;
 
         const expirationDate = new Date(
           new Date().getTime() + expiresIn * 1000
         );
 
-        if (token) {
-          setKeepLoggedIn(true);
-        }
+        // if (accessToken) {
+        //   setKeepLoggedIn(true);
+        // }
 
-        authCtx.login(token, expirationDate, keepLoggedIn);
+        authCtx.login(accessToken, refreshToken, expirationDate, false);
         startLoading();
 
         setTimeout(() => {
@@ -64,7 +63,6 @@ export const Login = () => {
       handleSubmit={handleSubmit}
       error={error}
       errorMessage={errorMessage}
-      setIsChecked={setKeepLoggedIn}
     />
   );
 };

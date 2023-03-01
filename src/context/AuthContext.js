@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import LogoutNotice from "../components/LogoutNotice";
 
 let logoutTimer;
 
@@ -16,7 +17,7 @@ const AuthContext = createContext({
     updatedAt: null,
     estado: false,
   },
-  login: (token, expirationDate) => {},
+  login: (accessToken, refreshToken, expirationDate) => {},
   logout: () => {},
 });
 
@@ -27,52 +28,67 @@ const calcRemainingTime = (expirationDate) => {
   return expirationTime - current;
 };
 
-const retrieveAuthData = () => {
-  const storedToken = localStorage.getItem("token");
-  const storedTimer = localStorage.getItem("expiresIn");
+// const retrieveAuthData = () => {
+//   const storedToken = localStorage.getItem("token");
+//   const storedTimer = localStorage.getItem("expiresIn");
 
-  const remaining = calcRemainingTime(storedTimer);
+//   const remaining = calcRemainingTime(storedTimer);
 
-  if (remaining <= 60000) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("expiresIn");
+//   if (remaining <= 60000) {
+//     localStorage.removeItem("token");
+//     localStorage.removeItem("expiresIn");
 
-    return {
-      token: null,
-      duration: null,
-    };
-  }
+//     return {
+//       token: null,
+//       duration: null,
+//     };
+//   }
 
-  return {
-    token: storedToken,
-    duration: remaining,
-  };
-};
+//   return {
+//     token: storedToken,
+//     duration: 10000,
+//   };
+// };
 
 export const AuthContextProvider = (props) => {
-  const authData = retrieveAuthData();
-  const [token, setToken] = useState(authData.token);
+  // const authData = retrieveAuthData();
+
+  const [showNotice, setShowNotice] = useState(false);
+  const [token, setToken] = useState(null);
   const isLoggedIn = !!token;
+
+  const loggedOutNotice = () => {
+    setShowNotice(true);
+  };
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
     localStorage.removeItem("expiresIn");
     setToken(null);
+    setShowNotice(false);
 
     if (logoutTimer) {
       clearTimeout(logoutTimer);
     }
   };
 
-  const loginHandler = (token, expirationDate, keepLoggedIn, userData) => {
-    if (keepLoggedIn) localStorage.setItem("token", token);
+  const loginHandler = (
+    accessToken,
+    refreshToken,
+    expirationDate,
+    keepLoggedIn,
+    userData
+  ) => {
+    if (keepLoggedIn) localStorage.setItem("token", accessToken);
 
+    localStorage.setItem("refreshToken", refreshToken);
     localStorage.setItem("expiresIn", expirationDate);
-    setToken(token);
+    setToken(accessToken);
 
     const remaining = calcRemainingTime(expirationDate);
-    console.log(remaining);
-    logoutTimer = setTimeout(logoutHandler, remaining);
+    // console.log(remaining);
+    logoutTimer = setTimeout(loggedOutNotice, remaining);
   };
 
   const contextValue = {
@@ -82,12 +98,18 @@ export const AuthContextProvider = (props) => {
     logout: logoutHandler,
   };
 
-  if (authData.duration) {
-    logoutTimer = setTimeout(logoutHandler, authData.duration);
-  }
+  // if (authData.duration) {
+  //   logoutTimer = setTimeout(loggedOutNotice, authData.duration);
+  // }
 
   return (
     <AuthContext.Provider value={contextValue}>
+      <LogoutNotice
+        open={showNotice}
+        onClose={() => setShowNotice(false)}
+        onLogin={loginHandler}
+        onLogout={logoutHandler}
+      />
       {props.children}
     </AuthContext.Provider>
   );

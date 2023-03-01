@@ -2,13 +2,12 @@ import Axios from 'axios';
 import { getToken } from './authServices';
 
 const API_URL =
-  process.env.NODE_ENV === 'production'
+  process.env.NODE_ENV !== 'production'
     ? process.env.REACT_APP_API_URL
     : process.env.REACT_APP_LOCAL_API_URL;
 
 const instance = Axios.create({
   timeout: 10000,
-  // baseURL: API_URL, // Backend según el entorno
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',

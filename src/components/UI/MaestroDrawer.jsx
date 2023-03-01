@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from "react";
 
-import { useLoading } from '../../context/hooks';
-import AuthContext from '../../context/AuthContext';
+import { useLoading } from "../../context/hooks";
+import AuthContext from "../../context/AuthContext";
 
-import { getToken } from '../../utils';
-import axios from 'axios';
+import { getToken } from "../../utils";
 import {
   Box,
   Drawer,
@@ -13,8 +12,8 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-} from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+} from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   AddCircle,
   AddCircleOutline,
@@ -25,12 +24,11 @@ import {
   Info,
   InfoOutlined,
   Logout,
-} from '@mui/icons-material';
+} from "@mui/icons-material";
+import instance from "../../utils/axiosConfig";
 
 const MaestroDrawer = (props) => {
   const { variant, open, onClose } = props;
-
-  const API_URL = 'https://sislab-backend.vercel.app';
 
   const authCtx = useContext(AuthContext);
   const [user, setUser] = useState(null);
@@ -42,8 +40,8 @@ const MaestroDrawer = (props) => {
 
   useEffect(() => {
     run();
-    axios.get(`${API_URL}/api/usuarios/${uid}`).then((res) => {
-      setUser(res.data);
+    instance.get(`/usuarios/${uid}`).then((res) => {
+      setUser(res);
       stop();
     });
   }, [run, stop, uid]);
@@ -54,13 +52,13 @@ const MaestroDrawer = (props) => {
     <List>
       <ListItemButton
         onClick={() => {
-          navigate('/mis-grupos');
+          navigate("/mis-grupos");
           onClose();
         }}
-        selected={isSelected('mis-grupos')}
+        selected={isSelected("mis-grupos")}
       >
         <ListItemIcon>
-          {isSelected('mis-grupos') ? (
+          {isSelected("mis-grupos") ? (
             <Group color="primary" />
           ) : (
             <GroupOutlined color="primary" />
@@ -69,20 +67,20 @@ const MaestroDrawer = (props) => {
         <ListItemText
           primary="Mis grupos"
           primaryTypographyProps={{
-            fontWeight: isSelected('mis-grupos') ? 'bold' : 'normal',
-            color: isSelected('mis-grupos') ? 'primary' : 'inherit',
+            fontWeight: isSelected("mis-grupos") ? "bold" : "normal",
+            color: isSelected("mis-grupos") ? "primary" : "inherit",
           }}
         />
       </ListItemButton>
       <ListItemButton
         onClick={() => {
-          navigate('/nueva-solicitud');
+          navigate("/nueva-solicitud");
           onClose();
         }}
-        selected={isSelected('nueva-solicitud')}
+        selected={isSelected("nueva-solicitud")}
       >
         <ListItemIcon>
-          {isSelected('nueva-solicitud') ? (
+          {isSelected("nueva-solicitud") ? (
             <AddCircle color="primary" />
           ) : (
             <AddCircleOutline color="primary" />
@@ -91,20 +89,20 @@ const MaestroDrawer = (props) => {
         <ListItemText
           primary="Crear nueva solicitud"
           primaryTypographyProps={{
-            fontWeight: isSelected('nueva-solicitud') ? 'bold' : 'normal',
-            color: isSelected('nueva-solicitud') ? 'primary' : 'inherit',
+            fontWeight: isSelected("nueva-solicitud") ? "bold" : "normal",
+            color: isSelected("nueva-solicitud") ? "primary" : "inherit",
           }}
         />
       </ListItemButton>
       <ListItemButton
         onClick={() => {
-          navigate('/solicitudes-creadas');
+          navigate("/solicitudes-creadas");
           onClose();
         }}
-        selected={isSelected('solicitudes-creadas')}
+        selected={isSelected("solicitudes-creadas")}
       >
         <ListItemIcon>
-          {isSelected('solicitudes-creadas') ? (
+          {isSelected("solicitudes-creadas") ? (
             <CheckCircle color="primary" />
           ) : (
             <CheckCircleOutline color="primary" />
@@ -113,20 +111,20 @@ const MaestroDrawer = (props) => {
         <ListItemText
           primary="Solicitudes creadas"
           primaryTypographyProps={{
-            fontWeight: isSelected('solicitudes-creadas') ? 'bold' : 'normal',
-            color: isSelected('solicitudes-creadas') ? 'primary' : 'inherit',
+            fontWeight: isSelected("solicitudes-creadas") ? "bold" : "normal",
+            color: isSelected("solicitudes-creadas") ? "primary" : "inherit",
           }}
         />
       </ListItemButton>
       <ListItemButton
         onClick={() => {
-          navigate('/mas-informacion');
+          navigate("/mas-informacion");
           onClose();
         }}
-        selected={isSelected('mas-informacion')}
+        selected={isSelected("mas-informacion")}
       >
         <ListItemIcon>
-          {isSelected('mas-informacion') ? (
+          {isSelected("mas-informacion") ? (
             <Info color="primary" />
           ) : (
             <InfoOutlined color="primary" />
@@ -135,8 +133,8 @@ const MaestroDrawer = (props) => {
         <ListItemText
           primary="Más información"
           primaryTypographyProps={{
-            fontWeight: isSelected('mas-informacion') ? 'bold' : 'normal',
-            color: isSelected('mas-informacion') ? 'primary' : 'inherit',
+            fontWeight: isSelected("mas-informacion") ? "bold" : "normal",
+            color: isSelected("mas-informacion") ? "primary" : "inherit",
           }}
         />
       </ListItemButton>
@@ -144,31 +142,31 @@ const MaestroDrawer = (props) => {
   );
 
   return (
-    <Box component="div" sx={{ width: { sm: '280px' } }}>
+    <Box component="div" sx={{ width: { sm: "280px" } }}>
       <Drawer
         variant={variant}
         anchor="left"
         open={open}
         onClose={onClose}
         sx={{
-          '& .MuiDrawer-paper': {
-            width: { xs: '255 px', sm: '280px' },
+          "& .MuiDrawer-paper": {
+            width: { xs: "255 px", sm: "280px" },
           },
         }}
       >
         <Box
           component="div"
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            mt: '48px',
-            mb: { xs: '48px', sm: 0 },
-            height: '100%',
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            mt: "48px",
+            mb: { xs: "48px", sm: 0 },
+            height: "100%",
           }}
         >
-          <Box sx={{ mt: '8px' }}>
-            <Typography variant="h6" sx={{ px: '16px' }}>
+          <Box sx={{ mt: "8px" }}>
+            <Typography variant="h6" sx={{ px: "16px" }}>
               {user && `Saludos, ${user.nombre}`}
             </Typography>
             <Box component="nav">{navButtons}</Box>
@@ -177,7 +175,7 @@ const MaestroDrawer = (props) => {
             <ListItemButton
               onClick={() => {
                 authCtx.logout();
-                navigate('/login');
+                navigate("/login");
                 onClose();
               }}
             >

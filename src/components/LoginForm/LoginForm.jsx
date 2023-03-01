@@ -66,8 +66,8 @@ export const LoginForm = ({
               <Typography
                 variant="h2"
                 sx={{
-                  'font-family': 'Nunito',
-                  'font-weight': 800,
+                  fontFamily: 'Nunito',
+                  fontWeight: 400,
                 }}
               >
                 Iniciar sesión
@@ -77,7 +77,6 @@ export const LoginForm = ({
                 inputRef={correoRef}
                 type="email"
                 autoFocus
-                variant="filled"
                 autoComplete="new-password"
                 placeholder="correo@email.com"
                 label="Correo electrónico"
@@ -136,7 +135,6 @@ export const LoginForm = ({
                   type={values.showPassword ? 'text' : 'password'}
                   inputRef={passwordRef}
                   label="Contraseña"
-                  variant="filled"
                   error={error}
                   required
                   helperText={errorMessage}
