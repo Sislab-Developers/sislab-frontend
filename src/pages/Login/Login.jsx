@@ -30,16 +30,11 @@ export const Login = () => {
         password,
       })
       .then((response) => {
-        // console.log(response);
         const { accessToken, refreshToken, expiresIn } = response;
 
         const expirationDate = new Date(
           new Date().getTime() + expiresIn * 1000
         );
-
-        // if (accessToken) {
-        //   setKeepLoggedIn(true);
-        // }
 
         authCtx.login(accessToken, refreshToken, expirationDate, false);
         startLoading();
