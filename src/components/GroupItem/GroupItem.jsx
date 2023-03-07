@@ -3,11 +3,14 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
-import { Button, Skeleton, Typography } from '@mui/material';
+import { Button, DialogTitle, Skeleton, Typography } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
+import { Modal } from '../Modal/Modal';
+import { useModal } from '../../hooks/useModal';
 
 import style from './GroupItem.module.scss';
+import check from '../../assets/img/check.svg';
 
 export const GroupItem = ({
   isExpanded,
@@ -160,6 +163,8 @@ export const GroupItem = ({
       label: '7:00 p.m - 9:00 p.m.',
     },
   ];
+
+  const { isShowing, toggle } = useModal();
 
   return (
     <>
@@ -528,6 +533,7 @@ export const GroupItem = ({
                     size="large"
                     id="Btn_login"
                     type="submit"
+                    onClick={toggle}
                   >
                     {'Confirmar'}
                   </Button>
@@ -537,6 +543,37 @@ export const GroupItem = ({
           </AccordionDetails>
         </Accordion>
       </div>
+
+      <Modal isShowing={isShowing} hide={toggle}>
+        <Typography
+          align="center"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          flexDirection="column"
+          gap="5px"
+        >
+          <img src={check} alt="Check icon" height="75" width="120" />
+          <DialogTitle>{'Nuevo grupo creado con éxito'}</DialogTitle>
+          <Button
+            style={{
+              borderRadius: 13,
+              backgroundColor: '#00C795',
+              padding: '10px 32px',
+              fontSize: '16px',
+              textTransform: 'none',
+              fontWeight: 'regular',
+              width: 140,
+              height: 45,
+            }}
+            variant="contained"
+            size="large"
+            onClick={toggle}
+          >
+            {'Cerrar'}
+          </Button>
+        </Typography>
+      </Modal>
     </>
   );
 };
