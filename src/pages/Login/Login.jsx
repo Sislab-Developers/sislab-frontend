@@ -40,8 +40,8 @@ export const Login = () => {
         startLoading();
 
         setTimeout(() => {
-          stopLoading();
           navigate('/nueva-solicitud');
+          stopLoading();
         }, 1500);
       })
       .catch((err) => {

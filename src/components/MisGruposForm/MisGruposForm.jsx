@@ -1,11 +1,13 @@
 import style from './MisGruposForm.module.scss';
 
 import { GroupItem } from '../GroupItem/GroupItem';
-import { useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import AuthContext from '../../context/AuthContext';
 import { useState } from 'react';
 import instance from '../../utils/axiosConfig';
 import React from 'react';
+import SnackbarContext from '../../context/SnackBar/SnackBarContext';
+import ModalContext from '../../context/Modal/ModalContext';
 
 export const MisGruposForm = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -14,9 +16,13 @@ export const MisGruposForm = () => {
   const [grupos, setGrupos] = useState();
   const [loading, setLoading] = useState(false);
 
+  const { setOpen, setMessage, setSeverity } = useContext(SnackbarContext);
+
+  const { setIsShowing } = useContext(ModalContext);
+
   const authCtx = useContext(AuthContext);
 
-  const getGrupos = () => {
+  const getGrupos = useCallback(() => {
     setLoading(true);
 
     instance
@@ -32,17 +38,17 @@ export const MisGruposForm = () => {
       .finally(() => {
         setLoading(false);
       });
-  };
+  }, []);
 
   useEffect(() => {
     getGrupos();
-  }, []);
+  }, [getGrupos]);
 
   const handleExpanded = () => {
     setIsExpanded((isExpanded) => !isExpanded);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     instance
@@ -67,9 +73,13 @@ export const MisGruposForm = () => {
       )
       .then((response) => {
         console.log(response);
+        setIsShowing(true);
       })
       .catch((error) => {
         console.log(error);
+        setOpen(true);
+        setSeverity('error');
+        setMessage(error.msg ? error.msg : error.errors[0].msg);
       });
   };
 
@@ -101,6 +111,7 @@ export const MisGruposForm = () => {
         handleSubmit={handleSubmit}
         handle={handle}
         grupos={grupos}
+        getGrupos={getGrupos}
       />
     </>
   );

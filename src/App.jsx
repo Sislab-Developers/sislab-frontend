@@ -6,6 +6,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import { theme } from './utils/Theme';
 import SnackbarProvider from './context/SnackBar/SnackBarProvider';
+import ModalProvider from './context/Modal/ModalProvider';
 
 const MainComponent = () => {
   return (
@@ -18,16 +19,18 @@ const MainComponent = () => {
 
 function App() {
   return (
-    <SnackbarProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <AppContextProvider>
-          <AuthContextProvider>
-            <MainComponent />
-          </AuthContextProvider>
-        </AppContextProvider>
-      </ThemeProvider>
-    </SnackbarProvider>
+    <ModalProvider>
+      <SnackbarProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <AppContextProvider>
+            <AuthContextProvider>
+              <MainComponent />
+            </AuthContextProvider>
+          </AppContextProvider>
+        </ThemeProvider>
+      </SnackbarProvider>
+    </ModalProvider>
   );
 }
 

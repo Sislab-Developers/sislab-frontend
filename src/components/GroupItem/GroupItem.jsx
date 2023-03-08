@@ -7,13 +7,13 @@ import { Button, DialogTitle, Skeleton, Typography } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import { Modal } from '../Modal/Modal';
-import { useModal } from '../../hooks/useModal';
 
 import style from './GroupItem.module.scss';
 import check from '../../assets/img/check.svg';
-import { useContext } from 'react';
-import SnackBarContext from '../../context/SnackBar/SnackBarContext';
+
 import CustomSnackbar from '../CustomSnackBar';
+import ModalContext from '../../context/Modal/ModalContext';
+import { useContext } from 'react';
 
 export const GroupItem = ({
   isExpanded,
@@ -24,6 +24,7 @@ export const GroupItem = ({
   handle,
   grupos,
   loading,
+  getGrupos,
 }) => {
   const laboratorios = [
     {
@@ -167,15 +168,7 @@ export const GroupItem = ({
     },
   ];
 
-  const { isShowing, toggle } = useModal();
-
-  const { setOpen, setMessage } = useContext(SnackBarContext);
-
-  const handleClick = () => {
-    setOpen(true);
-    setMessage('Hello, Snackbar!');
-    console.log('ey simon qp contigo');
-  };
+  const { setIsShowing } = useContext(ModalContext);
 
   return (
     <>
@@ -387,7 +380,6 @@ export const GroupItem = ({
               </>
             )}
           </AccordionSummary>
-
           <AccordionDetails>
             <Box
               sx={{
@@ -544,7 +536,6 @@ export const GroupItem = ({
                     size="large"
                     id="Btn_login"
                     type="submit"
-                    onClick={toggle}
                   >
                     {'Confirmar'}
                   </Button>
@@ -555,8 +546,10 @@ export const GroupItem = ({
         </Accordion>
       </div>
 
-      <Modal isShowing={isShowing} hide={toggle}>
+      <Modal>
         <Typography
+          component={'span'}
+          variant={'body2'}
           align="center"
           display="flex"
           justifyContent="center"
@@ -579,7 +572,7 @@ export const GroupItem = ({
             }}
             variant="contained"
             size="large"
-            onClick={toggle}
+            onClick={setIsShowing(false)}
           >
             {'Cerrar'}
           </Button>
@@ -587,26 +580,6 @@ export const GroupItem = ({
       </Modal>
 
       <CustomSnackbar />
-
-      <Button
-        style={{
-          borderRadius: 13,
-          backgroundColor: '#00C795',
-          padding: '10px 32px',
-          fontSize: '16px',
-          textTransform: 'none',
-          fontWeight: 'regular',
-          width: 140,
-          height: 45,
-        }}
-        variant="contained"
-        size="large"
-        id="Btn_login"
-        type="submit"
-        onClick={handleClick}
-      >
-        {'Confirmar'}
-      </Button>
     </>
   );
 };

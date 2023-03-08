@@ -2,10 +2,9 @@ import React, { useContext } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import SnackbarContext from '../context/SnackBar/SnackBarContext';
 import { Alert } from '@mui/material';
-import { fontSize } from '@mui/system';
 
 const CustomSnackbar = () => {
-  const { open, message, setOpen } = useContext(SnackbarContext);
+  const { open, message, setOpen, severity } = useContext(SnackbarContext);
 
   const handleClose = () => {
     setOpen(false);
@@ -18,7 +17,7 @@ const CustomSnackbar = () => {
       onClose={handleClose}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
     >
-      <Alert onClose={handleClose} severity="error" sx={{ fontSize: 2 }}>
+      <Alert severity={severity} sx={{ fontSize: 2, maxWidth: '60%' }}>
         {message}
       </Alert>
     </Snackbar>
