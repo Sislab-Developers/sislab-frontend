@@ -5,6 +5,7 @@ import { AuthContextProvider } from './context/AuthContext';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import { theme } from './utils/Theme';
+import SnackbarProvider from './context/SnackBar/SnackBarProvider';
 
 const MainComponent = () => {
   return (
@@ -17,14 +18,16 @@ const MainComponent = () => {
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AppContextProvider>
-        <AuthContextProvider>
-          <MainComponent />
-        </AuthContextProvider>
-      </AppContextProvider>
-    </ThemeProvider>
+    <SnackbarProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AppContextProvider>
+          <AuthContextProvider>
+            <MainComponent />
+          </AuthContextProvider>
+        </AppContextProvider>
+      </ThemeProvider>
+    </SnackbarProvider>
   );
 }
 

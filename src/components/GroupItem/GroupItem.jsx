@@ -11,6 +11,9 @@ import { useModal } from '../../hooks/useModal';
 
 import style from './GroupItem.module.scss';
 import check from '../../assets/img/check.svg';
+import { useContext } from 'react';
+import SnackBarContext from '../../context/SnackBar/SnackBarContext';
+import CustomSnackbar from '../CustomSnackBar';
 
 export const GroupItem = ({
   isExpanded,
@@ -165,6 +168,14 @@ export const GroupItem = ({
   ];
 
   const { isShowing, toggle } = useModal();
+
+  const { setOpen, setMessage } = useContext(SnackBarContext);
+
+  const handleClick = () => {
+    setOpen(true);
+    setMessage('Hello, Snackbar!');
+    console.log('ey simon qp contigo');
+  };
 
   return (
     <>
@@ -574,6 +585,28 @@ export const GroupItem = ({
           </Button>
         </Typography>
       </Modal>
+
+      <CustomSnackbar />
+
+      <Button
+        style={{
+          borderRadius: 13,
+          backgroundColor: '#00C795',
+          padding: '10px 32px',
+          fontSize: '16px',
+          textTransform: 'none',
+          fontWeight: 'regular',
+          width: 140,
+          height: 45,
+        }}
+        variant="contained"
+        size="large"
+        id="Btn_login"
+        type="submit"
+        onClick={handleClick}
+      >
+        {'Confirmar'}
+      </Button>
     </>
   );
 };
