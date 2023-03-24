@@ -17,6 +17,7 @@ import Box from '@mui/material/Box';
 import { Modal } from '../Modal/Modal';
 import check from '../../assets/img/check.svg';
 import CustomSnackbar from '../CustomSnackBar';
+import { getToken } from '../../utils/authServices';
 
 export const MisGruposForm = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -31,15 +32,17 @@ export const MisGruposForm = () => {
 
   const authCtx = useContext(AuthContext);
 
+  const uid = getToken(authCtx.token, true).uid;
+
   const getGrupos = useCallback(() => {
     setLoading(true);
 
     instance
-      .get('grupos')
+      .get(`grupos/${uid}`)
       .then((response) => {
         console.log(response);
-        setTotal(response.total);
         setGrupos(response.grupos);
+        setTotal(response.total);
       })
       .catch((error) => {
         console.log(error);
@@ -47,7 +50,23 @@ export const MisGruposForm = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [uid]);
+
+  const getLaboratorios = useCallback(() => {
+    instance
+      .get(`laboratorios/`)
+      .then((response) => {
+        console.log(response);
+        setGrupos(response.grupos);
+        setTotal(response.total);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [uid]);
 
   useEffect(() => {
     getGrupos();
@@ -446,7 +465,7 @@ export const MisGruposForm = () => {
         <Accordion
           sx={{
             maxWidth: '90%',
-            width: '500px',
+            width: '600px',
             marginTop: '20px',
             marginBottom: '20px',
             color: 'white',
