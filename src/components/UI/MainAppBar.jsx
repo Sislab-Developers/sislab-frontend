@@ -3,7 +3,7 @@ import { Menu } from "@mui/icons-material";
 
 import sislabLogo from "../../assets/img/logowhite.svg";
 
-const MaestroAppBar = (props) => {
+const MainAppBar = (props) => {
   const theme = useTheme();
 
   return (
@@ -38,4 +38,4 @@ const MaestroAppBar = (props) => {
   );
 };
 
-export default MaestroAppBar;
+export default MainAppBar;

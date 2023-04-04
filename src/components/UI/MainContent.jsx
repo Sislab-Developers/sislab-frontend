@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 
-const MaestroContent = (props) => {
+const MainContent = (props) => {
   return (
     <Box
       component="main"
@@ -15,4 +15,4 @@ const MaestroContent = (props) => {
   );
 };
 
-export default MaestroContent;
+export default MainContent;

@@ -1,7 +1,7 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { useContext } from 'react';
-import AuthContext from '../context/AuthContext';
-import { Layout } from '../components';
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
+import { Layout } from "../components";
 
 import {
   CrearNuevaSolicitud,
@@ -11,18 +11,24 @@ import {
   Recuperacion,
   Ayuda,
   Login,
-} from '../pages';
+} from "../pages";
 
 export const MainRoutes = () => {
   const authCtx = useContext(AuthContext);
 
-  console.log('Sesión iniciada: ' + authCtx.isLoggedIn);
+  console.log("Sesión iniciada: " + authCtx.isLoggedIn);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route
-          element={authCtx.isLoggedIn ? <Layout /> : <Navigate to="/login" />}
+          element={
+            authCtx.isLoggedIn && authCtx.user.rol === "MAESTRO" ? (
+              <Layout />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         >
           <Route index path="/*" element={<Navigate to="/" />} />
           <Route index path="/" element={<CrearNuevaSolicitud />} />
@@ -40,8 +46,38 @@ export const MainRoutes = () => {
           <Route index path="/mas-informacion" element={<MasInformacion />} />
         </Route>
 
+        <Route
+          path="/admin"
+          element={
+            authCtx.isLoggedIn && authCtx.user.rol === "ADMIN" ? (
+              <Layout />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        >
+          <Route index path="/admin/*" element={<Navigate to="/" />} />
+          <Route
+            index
+            path="/admin/"
+            element={<Navigate to="/solicitudes" />}
+          />
+          <Route index path="/admin/solicitudes" element={<p>Solicitudes</p>} />
+          <Route index path="/admin/usuarios" element={<p>Usuarios</p>} />
+          <Route
+            index
+            path="/admin/notificaciones"
+            element={<p>Notificaciones</p>}
+          />
+          <Route
+            index
+            path="/admin/mas-informacion"
+            element={<MasInformacion />}
+          />
+        </Route>
+
         <Route path="/">
-          <Route exact path="login" element={<Login />} />
+          <Route exact path="/login" element={<Login />} />
           <Route exact path="/recuperacion" element={<Recuperacion />} />
           <Route index path="/ayuda" element={<Ayuda />} />
         </Route>

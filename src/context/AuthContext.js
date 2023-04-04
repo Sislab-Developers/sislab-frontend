@@ -17,7 +17,13 @@ const AuthContext = createContext({
     updatedAt: null,
     estado: false,
   },
-  login: (accessToken, refreshToken, expirationDate) => {},
+  login: (
+    accessToken,
+    refreshToken,
+    expirationDate,
+    keepLoggedIn,
+    userData
+  ) => {},
   logout: () => {},
 });
 
@@ -28,33 +34,12 @@ const calcRemainingTime = (expirationDate) => {
   return expirationTime - current;
 };
 
-// const retrieveAuthData = () => {
-//   const storedToken = localStorage.getItem("token");
-//   const storedTimer = localStorage.getItem("expiresIn");
-
-//   const remaining = calcRemainingTime(storedTimer);
-
-//   if (remaining <= 60000) {
-//     localStorage.removeItem("token");
-//     localStorage.removeItem("expiresIn");
-
-//     return {
-//       token: null,
-//       duration: null,
-//     };
-//   }
-
-//   return {
-//     token: storedToken,
-//     duration: 10000,
-//   };
-// };
-
 export const AuthContextProvider = (props) => {
   // const authData = retrieveAuthData();
 
   const [showNotice, setShowNotice] = useState(false);
   const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
   const isLoggedIn = !!token;
 
   const loggedOutNotice = () => {
@@ -85,6 +70,7 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem("refreshToken", refreshToken);
     localStorage.setItem("expiresIn", expirationDate);
     setToken(accessToken);
+    setUser(userData);
 
     const remaining = calcRemainingTime(expirationDate);
     // console.log(remaining);
@@ -96,6 +82,7 @@ export const AuthContextProvider = (props) => {
     isLoggedIn: isLoggedIn,
     login: loginHandler,
     logout: logoutHandler,
+    user: user,
   };
 
   // if (authData.duration) {

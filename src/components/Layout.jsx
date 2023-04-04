@@ -1,14 +1,23 @@
+import { useContext } from "react";
+
 import { Outlet } from "react-router-dom";
-import MaestroContent from "./UI/MaestroContent";
+
+import AuthContext from "../context/AuthContext";
+
+import MainContent from "./UI/MainContent";
 import MaestroLayout from "./UI/MaestroLayout";
+import { AdminLayout } from "./UI/Admin/AdminLayout";
 
 export const Layout = () => {
+  const authCtx = useContext(AuthContext);
+
   return (
     <>
-      <MaestroLayout />
-      <MaestroContent>
+      {authCtx.user.rol === "MAESTRO" && <MaestroLayout />}
+      {authCtx.user.rol === "ADMIN" && <AdminLayout />}
+      <MainContent>
         <Outlet />
-      </MaestroContent>
+      </MainContent>
     </>
   );
 };

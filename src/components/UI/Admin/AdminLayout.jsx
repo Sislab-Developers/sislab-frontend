@@ -1,9 +1,11 @@
-import { useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
-import MainAppBar from "./MainAppBar";
-import MaestroDrawer from "./MaestroDrawer";
 
-const MaestroLayout = (props) => {
+import { useMediaQuery, useTheme } from "@mui/material";
+
+import MainAppBar from "../MainAppBar";
+import AdminDrawer from "./AdminDrawer";
+
+export const AdminLayout = (props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -16,7 +18,7 @@ const MaestroLayout = (props) => {
   return (
     <>
       <MainAppBar onToggleDrawer={drawerOpen ? closeDrawer : openDrawer} />
-      <MaestroDrawer
+      <AdminDrawer
         variant={isMobile ? "temporary" : "permanent"}
         open={drawerOpen}
         onClose={closeDrawer}
@@ -24,5 +26,3 @@ const MaestroLayout = (props) => {
     </>
   );
 };
-
-export default MaestroLayout;
