@@ -360,6 +360,7 @@ export const MisGruposForm = () => {
           sx={{
             maxWidth: '90%',
             width: '600px',
+            width: '600px',
             marginTop: '20px',
             marginBottom: '20px',
             color: 'white',
