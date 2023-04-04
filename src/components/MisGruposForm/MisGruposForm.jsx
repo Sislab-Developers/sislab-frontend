@@ -1,28 +1,47 @@
-import style from './MisGruposForm.module.scss';
-import { useCallback, useContext, useEffect } from 'react';
-import AuthContext from '../../context/AuthContext';
-import { useState } from 'react';
+import { useState, useCallback, useEffect, useContext } from 'react';
+
+import Box from '@mui/material/Box';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Button from '@mui/material/Button';
+import DialogTitle from '@mui/material/DialogTitle';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Skeleton from '@mui/material/Skeleton';
+import check from '../../assets/img/check.svg';
+
 import instance from '../../utils/axiosConfig';
-import React from 'react';
+import AuthContext from '../../context/AuthContext';
 import SnackbarContext from '../../context/SnackBar/SnackBarContext';
 import { useModal } from '../../hooks/useModal';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import TextField from '@mui/material/TextField';
-import { Button, DialogTitle, Skeleton, Typography } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
-import Box from '@mui/material/Box';
 import { Modal } from '../Modal/Modal';
-import check from '../../assets/img/check.svg';
 import CustomSnackbar from '../CustomSnackBar';
+import { getToken } from '../../utils/authServices';
+
+import {
+  getGrupos,
+  getLaboratorios,
+  getCarreras,
+  getMaterias,
+  getDias,
+  getHoras,
+} from '../../api/fetch';
+
+import style from './MisGruposForm.module.scss';
 
 export const MisGruposForm = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [formData, setFormData] = useState({});
   const [total, setTotal] = useState();
   const [grupos, setGrupos] = useState();
+  const [laboratorios, setLaboratorios] = useState();
+  const [carreras, setCarreras] = useState();
+  const [materias, setMaterias] = useState();
+  const [dias, setDias] = useState();
+  const [horas, setHoras] = useState();
   const [loading, setLoading] = useState(false);
 
   const { setOpen, setMessage, setSeverity } = useContext(SnackbarContext);
@@ -31,27 +50,43 @@ export const MisGruposForm = () => {
 
   const authCtx = useContext(AuthContext);
 
-  const getGrupos = useCallback(() => {
-    setLoading(true);
+  const uid = getToken(authCtx.token, true).uid;
 
-    instance
-      .get('grupos')
-      .then((response) => {
-        console.log(response);
-        setTotal(response.total);
-        setGrupos(response.grupos);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+  const fetchData = useCallback(async (uid) => {
+    setLoading(true);
+    try {
+      const [
+        gruposResponse,
+        laboratoriosResponse,
+        carrerasResponse,
+        materiasResponse,
+        diasResponse,
+        horasResponse,
+      ] = await Promise.all([
+        getGrupos(uid),
+        getLaboratorios(),
+        getCarreras(),
+        getMaterias(),
+        getDias(),
+        getHoras(),
+      ]);
+      setGrupos(gruposResponse?.grupos);
+      setTotal(gruposResponse?.total);
+      setLaboratorios(laboratoriosResponse?.laboratorios);
+      setCarreras(carrerasResponse?.carreras);
+      setMaterias(materiasResponse?.materias);
+      setDias(diasResponse?.dias);
+      setHoras(horasResponse?.horas);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
-    getGrupos();
-  }, [getGrupos]);
+    fetchData(uid);
+  }, [fetchData, uid]);
 
   const handleExpanded = () => {
     setIsExpanded((isExpanded) => !isExpanded);
@@ -104,148 +139,6 @@ export const MisGruposForm = () => {
     newdata[e.target.name] = e.target.value;
     setFormData(newdata);
   }
-
-  const laboratorios = [
-    {
-      id: 1,
-      label: '5N - 201',
-    },
-    {
-      id: 2,
-      label: '5N - 202',
-    },
-    {
-      id: 3,
-      label: '5N - 203',
-    },
-    {
-      id: 4,
-      label: '5N - 204',
-    },
-  ];
-
-  const carreras = [
-    {
-      label: 'Lic. Químico Biólogo Clínico',
-    },
-    {
-      label: 'Lic. Químico en Alimentos',
-    },
-    {
-      label: 'Ing. Industrial y de Sistemas',
-    },
-    {
-      label: 'Ing. Minero',
-    },
-    {
-      label: 'Lic. Geología',
-    },
-    {
-      label: 'Ing. Civil',
-    },
-    {
-      label: 'Ing. Mecatrónica',
-    },
-    {
-      label: 'Ing. Materiales',
-    },
-    {
-      label: 'Ing. Sistemas de Información',
-    },
-    {
-      label: 'Ing. Energías Renovables',
-    },
-    {
-      label: 'Ing. Biomédica',
-    },
-    {
-      label: 'Ing. Química',
-    },
-    {
-      label: 'Tronco común biológicas',
-    },
-    {
-      label: 'Tronco común ingenierías',
-    },
-  ];
-
-  const materias = [
-    {
-      label: '6883 | Química I',
-    },
-    {
-      label: '9400 |  Química I',
-    },
-    {
-      label: '7162 |  Química General',
-    },
-    {
-      label: '05859 | Química General',
-    },
-    {
-      label: '07791 | Química Inorgánica',
-    },
-    {
-      label: '08150 | Fundamentos de Química',
-    },
-  ];
-
-  const dias = [
-    {
-      label: 'Lunes',
-    },
-    {
-      label: 'Martes',
-    },
-    {
-      label: 'Miércoles',
-    },
-    {
-      label: 'Jueves',
-    },
-    {
-      label: 'Viernes',
-    },
-  ];
-
-  const hora = [
-    {
-      label: '7:00 a.m - 9:00 a.m.',
-    },
-    {
-      label: '8:00 a.m - 10:00 a.m.',
-    },
-    {
-      label: '9:00 a.m - 11:00 a.m.',
-    },
-    {
-      label: '11:00 a.m - 1:00 p.m.',
-    },
-    {
-      label: '12:00 p.m - 2:00 p.m.',
-    },
-    {
-      label: '1:00 p.m - 3:00 p.m.',
-    },
-    {
-      label: '2:00 p.m - 4:00 p.m.',
-    },
-    {
-      label: '3:00 p.m - 5:00 p.m.',
-    },
-    {
-      label: '4:00 p.m - 6:00 p.m.',
-    },
-    {
-      label: '5:00 p.m - 7:00 p.m.',
-    },
-    {
-      label: '6:00 p.m - 8:00 p.m.',
-    },
-    {
-      label: '7:00 p.m - 9:00 p.m.',
-    },
-  ];
 
   return (
     <>
@@ -326,11 +219,15 @@ export const MisGruposForm = () => {
                     defaultValue={element?.laboratorio}
                     helperText="Escribe el laboratorio"
                   >
-                    {laboratorios.map((option) => (
-                      <MenuItem key={option.id} value={option.label}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
+                    {laboratorios ? (
+                      laboratorios?.map((option) => (
+                        <MenuItem key={option.uid} value={option.laboratorio}>
+                          {option.laboratorio}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <div></div>
+                    )}
                   </TextField>
 
                   <h1>
@@ -345,15 +242,19 @@ export const MisGruposForm = () => {
                     label={element?.carrera}
                     helperText="Selecciona la carrera de este grupo"
                   >
-                    {carreras.map((option) => (
-                      <MenuItem
-                        key={option.label}
-                        value={option.label}
-                        disablescrolllock="true"
-                      >
-                        {option.label}
-                      </MenuItem>
-                    ))}
+                    {carreras ? (
+                      carreras.map((option) => (
+                        <MenuItem
+                          key={option.uid}
+                          value={option.carrera}
+                          disablescrolllock="true"
+                        >
+                          {option.carrera}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <div />
+                    )}
                   </TextField>
 
                   <h1>
@@ -368,11 +269,15 @@ export const MisGruposForm = () => {
                     label={element?.materia}
                     helperText="Selecciona la materia de este grupo"
                   >
-                    {materias.map((option) => (
-                      <MenuItem key={option.label} value={option.label}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
+                    {materias ? (
+                      materias.map((option) => (
+                        <MenuItem key={option.uid} value={option.materia}>
+                          {option.materia}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <div />
+                    )}
                   </TextField>
 
                   <h1>
@@ -411,11 +316,15 @@ export const MisGruposForm = () => {
                     label={element?.dia}
                     helperText="Selecciona el día de la semana"
                   >
-                    {dias.map((option) => (
-                      <MenuItem key={option.id} value={option.label}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
+                    {dias ? (
+                      dias.map((option) => (
+                        <MenuItem key={option.uid} value={option.dia}>
+                          {option.dia}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <div />
+                    )}
                   </TextField>
 
                   <h1>
@@ -430,11 +339,15 @@ export const MisGruposForm = () => {
                     label={element?.hora}
                     helperText="Selecciona la hora de clase de este grupo"
                   >
-                    {hora.map((option) => (
-                      <MenuItem key={option.label} value={option.label}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
+                    {horas ? (
+                      horas.map((option) => (
+                        <MenuItem key={option.uid} value={option.horario}>
+                          {option.horario}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <div />
+                    )}
                   </TextField>
                 </Box>
               </AccordionDetails>
@@ -446,7 +359,7 @@ export const MisGruposForm = () => {
         <Accordion
           sx={{
             maxWidth: '90%',
-            width: '500px',
+            width: '600px',
             marginTop: '20px',
             marginBottom: '20px',
             color: 'white',
@@ -503,11 +416,15 @@ export const MisGruposForm = () => {
                   onChange={(e) => handle(e)}
                   helperText="Escribe el laboratorio"
                 >
-                  {laboratorios.map((option) => (
-                    <MenuItem key={option.id} value={option.label}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
+                  {laboratorios ? (
+                    laboratorios?.map((option) => (
+                      <MenuItem key={option.uid} value={option.laboratorio}>
+                        {option.laboratorio}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <div />
+                  )}
                 </TextField>
 
                 <h1>
@@ -522,15 +439,19 @@ export const MisGruposForm = () => {
                   onChange={(e) => handle(e)}
                   helperText="Selecciona la carrera de este grupo"
                 >
-                  {carreras.map((option) => (
-                    <MenuItem
-                      key={option.label}
-                      value={option.label}
-                      disablescrolllock="true"
-                    >
-                      {option.label}
-                    </MenuItem>
-                  ))}
+                  {carreras ? (
+                    carreras.map((option) => (
+                      <MenuItem
+                        key={option.uid}
+                        value={option.carrera}
+                        disablescrolllock="true"
+                      >
+                        {option.carrera}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <div />
+                  )}
                 </TextField>
 
                 <h1>
@@ -545,11 +466,15 @@ export const MisGruposForm = () => {
                   onChange={(e) => handle(e)}
                   helperText="Selecciona la materia de este grupo"
                 >
-                  {materias.map((option) => (
-                    <MenuItem key={option.label} value={option.label}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
+                  {materias ? (
+                    materias.map((option) => (
+                      <MenuItem key={option.uid} value={option.materia}>
+                        {option.materia}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <div />
+                  )}
                 </TextField>
 
                 <h1>
@@ -590,11 +515,15 @@ export const MisGruposForm = () => {
                   onChange={(e) => handle(e)}
                   helperText="Selecciona el día de la semana"
                 >
-                  {dias.map((option) => (
-                    <MenuItem key={option.id} value={option.label}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
+                  {dias ? (
+                    dias.map((option) => (
+                      <MenuItem key={option.uid} value={option.dia}>
+                        {option.dia}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <div />
+                  )}
                 </TextField>
 
                 <h1>
@@ -609,11 +538,15 @@ export const MisGruposForm = () => {
                   onChange={(e) => handle(e)}
                   helperText="Selecciona la hora de clase de este grupo"
                 >
-                  {hora.map((option) => (
-                    <MenuItem key={option.label} value={option.label}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
+                  {horas ? (
+                    horas.map((option) => (
+                      <MenuItem key={option.uid} value={option.horario}>
+                        {option.horario}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <div />
+                  )}
                 </TextField>
                 <Typography align="center" sx={{ marginTop: '15px' }}>
                   <Button
