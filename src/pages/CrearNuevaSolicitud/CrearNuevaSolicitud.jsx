@@ -1,4 +1,5 @@
 import { CustomButton } from '../../components';
+import { useState } from 'react';
 
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -15,7 +16,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useTheme } from '@mui/material';
+import {
+  Chip,
+  Pagination,
+  PaginationItem,
+  Stack,
+  Tabs,
+  useTheme,
+} from '@mui/material';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -134,7 +142,14 @@ export const CrearNuevaSolicitud = () => {
             <Box
               component="form"
               sx={{
-                '& .MuiTextField-root': { width: '32ch' },
+                '& .MuiTextField-root': {
+                  minWidth: 'fit-content',
+                  maxWidth: '32ch',
+                  alignSelf: 'center',
+                },
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '20px',
               }}
               noValidate
               autoComplete="off"
@@ -142,6 +157,18 @@ export const CrearNuevaSolicitud = () => {
                 disableScrollLock: true,
               }}
             >
+              <Tabs
+                variant="scrollable"
+                scrollButtons="auto"
+                aria-label="scrollable auto tabs example"
+              >
+                <Chip clickable label="Item One" />
+                <Chip label="Item One" />
+                <Chip label="Item One" />
+                <Chip label="Item One" />
+                <Chip label="Item One" />
+              </Tabs>
+
               <h1>
                 Práctica<i className="ri-information-line"></i>
               </h1>
@@ -158,13 +185,10 @@ export const CrearNuevaSolicitud = () => {
                   </MenuItem>
                 ))}
               </TextField>
-              <br></br>
-              <br></br>
+
               <div id="boton-confirmar">
                 <CustomButton text="Confirmar"></CustomButton>
               </div>
-              <br></br>
-              <br></br>
             </Box>
           </AccordionDetails>
         </div>
