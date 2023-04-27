@@ -110,9 +110,8 @@ const practicas = [
 
 export const CrearNuevaSolicitud = () => {
   const [grupos, setGrupos] = useState();
-  const [loading, setLoading] = useState(false);
+
   const [selected, setSelected] = useState(null);
-  const [index, setIndex] = useState();
 
   console.log(selected);
 
@@ -123,14 +122,11 @@ export const CrearNuevaSolicitud = () => {
   const uid = getToken(authCtx.token, true).uid;
 
   const fetchData = useCallback(async (uid) => {
-    setLoading(true);
     try {
       const [gruposResponse] = await Promise.all([getGrupos(uid)]);
       setGrupos(gruposResponse?.grupos);
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   }, []);
 
