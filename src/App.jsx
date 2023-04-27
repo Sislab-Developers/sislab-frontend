@@ -3,7 +3,6 @@ import { AppContextProvider } from "./context/AppContext";
 import { Loading } from "./components/UI/Loading/Loading";
 import { AuthContextProvider } from "./context/AuthContext";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-
 import { theme } from "./utils/Theme";
 import SnackbarProvider from "./context/SnackBar/SnackBarProvider";
 import ModalProvider from "./context/Modal/ModalProvider";

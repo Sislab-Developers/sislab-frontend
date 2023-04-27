@@ -1,27 +1,33 @@
 import { CustomButton } from "../../components";
 import { useState, useCallback, useEffect, useContext } from "react";
 
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Chip, Tab, Tabs, useTheme } from "@mui/material";
+
+import {
+  Box,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableCell,
+  TextField,
+  MenuItem,
+  Typography,
+  Chip,
+  Tabs,
+  useTheme,
+  Paper,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@mui/material";
 
 import AuthContext from "../../context/AuthContext";
 import { getToken } from "../../utils/authServices";
 
 import { getGrupos } from "../../api/fetch";
+import { Calendar } from "../../components/Calendar/Calendar";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -109,11 +115,11 @@ const practicas = [
 
 export const CrearNuevaSolicitud = () => {
   const [grupos, setGrupos] = useState();
-  const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState(null);
-  const [index, setIndex] = useState();
+  const [index, setIndex] = useState(0);
 
   console.log(selected);
+  console.log(index);
 
   const theme = useTheme();
 
@@ -122,14 +128,11 @@ export const CrearNuevaSolicitud = () => {
   const uid = getToken(authCtx.token, true).uid;
 
   const fetchData = useCallback(async (uid) => {
-    setLoading(true);
     try {
       const [gruposResponse] = await Promise.all([getGrupos(uid)]);
       setGrupos(gruposResponse?.grupos);
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   }, []);
 
@@ -137,8 +140,11 @@ export const CrearNuevaSolicitud = () => {
     fetchData(uid);
   }, [fetchData, uid]);
 
-  const content = (
-    <Box component="section">
+  return (
+    <Box
+      component="section"
+      sx={{ display: "flex", flexDirection: "column", gap: "20px" }}
+    >
       <div className="title">
         <h1>
           Crear{" "}
@@ -147,18 +153,21 @@ export const CrearNuevaSolicitud = () => {
           </span>
         </h1>
       </div>
-      <div className="subtitle">
+      <Box className="subtitle" sx={{ alignSelf: "center" }}>
         <h1>
           Para crear una <span className="color_en_texto">nueva solicitud</span>{" "}
           llena los siguientes campos
         </h1>
-      </div>
+      </Box>
 
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
+          sx={{
+            backgroundColor: "#f2f5f2",
+          }}
         >
           <Typography>Primer paso</Typography>
         </AccordionSummary>
@@ -175,6 +184,7 @@ export const CrearNuevaSolicitud = () => {
                 display: "flex",
                 flexDirection: "column",
                 gap: "20px",
+                marginTop: "20px",
               }}
               noValidate
               autoComplete="off"
@@ -187,29 +197,20 @@ export const CrearNuevaSolicitud = () => {
                   disabled
                   variant="scrollable"
                   scrollButtons="auto"
-                  aria-label="scrollable auto tabs example"
-                  TabIndicatorProps={{
-                    children: (
-                      <Box sx={{ display: "flex", justifyContent: "center" }}>
-                        <span className="MuiTabs-indicatorChild" />
-                      </Box>
-                    ),
-                  }}
+                  value={index}
+                  TabIndicatorProps={{ style: { display: "none" } }}
                 >
-                  {grupos?.map((chip, index) => (
-                    <Tab
-                      key={chip.uid}
-                      value={index || 0}
-                      icon={
-                        <Chip
-                          sx={{ width: "fill-content", height: "fill-content" }}
-                          label={chip.nombre}
-                          value={chip}
-                          clickable
-                          onClick={() => setSelected(chip)}
-                          color={selected === chip ? "primary" : "default"}
-                        />
-                      }
+                  {grupos?.map((chip, ind) => (
+                    <Chip
+                      sx={{
+                        width: "fill-content",
+                        height: "fill-content",
+                        marginX: "10px",
+                      }}
+                      label={chip?.nombre || ""}
+                      clickable
+                      onClick={() => (setSelected(chip), setIndex(ind))}
+                      color={selected === chip ? "primary" : "default"}
                     />
                   ))}
                 </Tabs>
@@ -220,12 +221,14 @@ export const CrearNuevaSolicitud = () => {
               <h1>
                 Práctica<i className="ri-information-line"></i>
               </h1>
+
               <TextField
                 id="outlined-select-currency"
                 select
                 label="Practica"
                 helperText="Selecciona una de las prácticas"
                 defaultValue=""
+                sx={{ maxWidth: "fit-content" }}
               >
                 {practicas.map((option) => (
                   <MenuItem key={option.label} value={option.label}>
@@ -233,7 +236,10 @@ export const CrearNuevaSolicitud = () => {
                   </MenuItem>
                 ))}
               </TextField>
-
+              <h1>
+                Escoge una fecha<i className="ri-information-line"></i>
+              </h1>
+              <Calendar dayName={selected ? selected.dia : null} />
               <div id="boton-confirmar">
                 <CustomButton text="Confirmar"></CustomButton>
               </div>
@@ -289,6 +295,4 @@ export const CrearNuevaSolicitud = () => {
       </Accordion>
     </Box>
   );
-
-  return content;
 };
