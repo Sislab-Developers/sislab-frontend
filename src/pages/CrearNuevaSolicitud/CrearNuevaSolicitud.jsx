@@ -110,10 +110,8 @@ const practicas = [
 
 export const CrearNuevaSolicitud = () => {
   const [grupos, setGrupos] = useState();
-
+  const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState(null);
-
-  console.log(selected);
 
   const theme = useTheme();
 
@@ -122,9 +120,14 @@ export const CrearNuevaSolicitud = () => {
   const uid = getToken(authCtx.token, true).uid;
 
   const fetchData = useCallback(async (uid) => {
+    setLoading(true);
     try {
       const [gruposResponse] = await Promise.all([getGrupos(uid)]);
       setGrupos(gruposResponse?.grupos);
+
+      if (gruposResponse?.grupos === 0 || gruposResponse?.grupos === null) {
+        setLoading(false);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -179,7 +182,7 @@ export const CrearNuevaSolicitud = () => {
                 disableScrollLock: true,
               }}
             >
-              {grupos ? (
+              {loading ? (
                 <Tabs
                   disabled
                   variant="scrollable"
