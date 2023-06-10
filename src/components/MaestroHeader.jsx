@@ -7,7 +7,7 @@ import Logo from '../assets/img/logowhite.svg';
 import Menu from '../assets/img/menu.svg';
 import { getToken } from '../utils/authServices';
 import { useLoading } from '../context/hooks';
-import AuthContext from '../context/AuthContext';
+import AuthContext from '../context/AuthContext.jsx';
 
 export const MaestroHeader = (props) => {
   const authCtx = useContext(AuthContext);

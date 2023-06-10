@@ -2,7 +2,7 @@ import instance from '../../utils/axiosConfig';
 import { useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoading } from '../../context/hooks';
-import AuthContext from '../../context/AuthContext';
+import AuthContext from '../../context/AuthContext.jsx';
 import { LoginForm } from '../../components';
 
 export const Login = () => {

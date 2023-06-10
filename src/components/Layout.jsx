@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { Outlet } from "react-router-dom";
 
-import AuthContext from "../context/AuthContext";
+import AuthContext from "../context/AuthContext.jsx";
 
 import MainContent from "./UI/MainContent";
 import MaestroLayout from "./UI/MaestroLayout";

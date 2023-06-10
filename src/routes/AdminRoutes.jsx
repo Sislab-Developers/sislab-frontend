@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import AuthContext from "../context/AuthContext";
+import AuthContext from "../context/AuthContext.jsx";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Layout } from "../components";
 import { MasInformacion } from "../pages";

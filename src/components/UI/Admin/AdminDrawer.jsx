@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
-import AuthContext from "../../../context/AuthContext";
+import AuthContext from "../../../context/AuthContext.jsx";
 
 import {
   Box,

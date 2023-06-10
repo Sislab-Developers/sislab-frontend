@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SnackBarContext from './SnackBarContext';
 
-const SnackbarProvider = ({ children }) => {
+const SnackBarProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('info');
   const [message, setMessage] = useState('');
@@ -22,4 +22,4 @@ const SnackbarProvider = ({ children }) => {
   );
 };
 
-export default SnackbarProvider;
+export default SnackBarProvider;

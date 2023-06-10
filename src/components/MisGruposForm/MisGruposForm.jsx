@@ -14,7 +14,7 @@ import Skeleton from '@mui/material/Skeleton';
 import check from '../../assets/img/check.svg';
 
 import instance from '../../utils/axiosConfig';
-import AuthContext from '../../context/AuthContext';
+import AuthContext from '../../context/AuthContext.jsx';
 import SnackbarContext from '../../context/SnackBar/SnackBarContext';
 import { useModal } from '../../hooks/useModal';
 import { Modal } from '../Modal/Modal';
@@ -359,7 +359,6 @@ export const MisGruposForm = () => {
         <Accordion
           sx={{
             maxWidth: '90%',
-            width: '600px',
             width: '600px',
             marginTop: '20px',
             marginBottom: '20px',
