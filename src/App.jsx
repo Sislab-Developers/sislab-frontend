@@ -1,18 +1,18 @@
-import { MainRoutes } from './routes/MainRoutes';
-import { AppContextProvider } from './context/AppContext.jsx';
-import { Loading } from './components/UI/Loading/Loading';
-import { AuthContextProvider } from './context/AuthContext.jsx';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import { MainRoutes } from "./routes/MainRoutes";
+import { AppContextProvider } from "./context/AppContext.jsx";
+import { Loading } from "./components/UI/Loading/Loading";
+import { AuthContextProvider } from "./context/AuthContext.jsx";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 
-import { theme } from './utils/Theme';
-import SnackBarProvider from './context/SnackBar/SnackBarProvider.jsx';
-import ModalProvider from './context/Modal/ModalProvider.jsx';
+import { theme } from "./utils/Theme";
+import SnackBarProvider from "./context/SnackBar/SnackBarProvider.jsx";
+import ModalProvider from "./context/Modal/ModalProvider.jsx";
 
 const MainComponent = () => {
   return (
     <>
-      <Loading/>
-      <MainRoutes/>
+      <Loading />
+      <MainRoutes />
     </>
   );
 };
@@ -22,10 +22,10 @@ function App() {
     <ModalProvider>
       <SnackBarProvider>
         <ThemeProvider theme={theme}>
-          <CssBaseline/>
+          <CssBaseline />
           <AppContextProvider>
             <AuthContextProvider>
-              <MainComponent/>
+              <MainComponent />
             </AuthContextProvider>
           </AppContextProvider>
         </ThemeProvider>
