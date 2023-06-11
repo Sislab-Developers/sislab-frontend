@@ -104,11 +104,6 @@
   color: #00c795;
 }
 
-a:-webkit-any-link {
-  text-decoration: none;
-  cursor: pointer;
-}
-
 .login-form {
   display: flex;
   flex-direction: column;
@@ -117,18 +112,12 @@ a:-webkit-any-link {
 
 .login-form h2 {
   font-size: 24px;
-  margin: 8px 0 4px;
+  margin: 4px 0;
 }
 
 .login-button {
-  border-radius: 13px;
-  background-color: #00c795;
-  padding: 10px 32px;
-  font-size: 20px;
-  text-transform: none;
   align-self: center;
   width: 140px;
-  height: 45px;
 }
 
 .copyright-box {
