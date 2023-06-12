@@ -38,93 +38,89 @@ export const LoginForm = ({
   };
 
   return (
-    <Box className={classes["login-background"]}>
-      <Box className={classes["lower-background"]}></Box>
+    <Card
+      variant="filled"
+      sx={{ width: { xs: "95%", sm: "380px" }, borderRadius: "32px" }}
+      className={classes["card"]}
+    >
+      <CardContent sx={{ padding: "1rem" }}>
+        <Box className={classes["card-logo"]}>
+          <img src={Logo} alt="Logo de Sislab" />
+          <Typography variant="h1" color="primary" fontWeight="bold">
+            Sislab
+          </Typography>
+        </Box>
 
-      <Card
-        variant="filled"
-        sx={{ width: { xs: "95%", sm: "380px" }, borderRadius: "32px" }}
-        className={classes["card"]}
-      >
-        <CardContent sx={{ padding: "1rem" }}>
-          <Box className={classes["card-logo"]}>
-            <img src={Logo} alt="Logo de Sislab" />
-            <Typography variant="h1" color="primary" fontWeight="bold">
-              Sislab
+        <form className={classes["login-form"]} onSubmit={handleSubmit}>
+          <Typography variant="h2" fontWeight="medium">
+            Iniciar sesión
+          </Typography>
+          <TextField
+            name="Input_email"
+            inputRef={correoRef}
+            type="email"
+            autoFocus
+            autoComplete="new-password"
+            placeholder="correo@email.com"
+            label="Correo electrónico"
+            required
+            id="email-input"
+            margin="dense"
+            error={error}
+          />
+
+          <TextField
+            margin="dense"
+            id="outlined-adornment-password"
+            type={values.showPassword ? "text" : "password"}
+            inputRef={passwordRef}
+            label="Contraseña"
+            error={error}
+            required
+            helperText={errorMessage}
+            placeholder="Contraseña"
+            autoComplete="new-password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <Link className={classes["forgot-password"]} to="/recuperacion">
+            <Typography color="primary">¿Olvidaste tu contraseña?</Typography>
+          </Link>
+
+          <Button
+            variant="contained"
+            size="large"
+            type="submit"
+            className={classes["login-button"]}
+          >
+            Siguiente
+          </Button>
+
+          <Link className={classes["trouble-signing"]} to="/ayuda">
+            <Typography color="primary">
+              ¿Problemas para iniciar sesión?
             </Typography>
-          </Box>
-
-          <form className={classes["login-form"]} onSubmit={handleSubmit}>
-            <Typography variant="h2" fontWeight="medium">
-              Iniciar sesión
-            </Typography>
-            <TextField
-              name="Input_email"
-              inputRef={correoRef}
-              type="email"
-              autoFocus
-              autoComplete="new-password"
-              placeholder="correo@email.com"
-              label="Correo electrónico"
-              required
-              id="email-input"
-              margin="dense"
-              error={error}
-            />
-
-            <TextField
-              margin="dense"
-              id="outlined-adornment-password"
-              type={values.showPassword ? "text" : "password"}
-              inputRef={passwordRef}
-              label="Contraseña"
-              error={error}
-              required
-              helperText={errorMessage}
-              placeholder="Contraseña"
-              autoComplete="new-password"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      edge="end"
-                    >
-                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-
-            <Link className={classes["forgot-password"]} to="/recuperacion">
-              <Typography color="primary">¿Olvidaste tu contraseña?</Typography>
-            </Link>
-
-            <Button
-              variant="contained"
-              size="large"
-              type="submit"
-              className={classes["login-button"]}
-            >
-              Siguiente
-            </Button>
-
-            <Link className={classes["trouble-signing"]} to="/ayuda">
-              <Typography color="primary">
-                ¿Problemas para iniciar sesión?
-              </Typography>
-            </Link>
-          </form>
-          <Box className={classes["copyright-box"]}>
-            <img src={LogoCSIPRO} alt="Logo de CSI Pro" />
-            <Typography variant="body1">
-              <small>Desarrollado por &copy; CSI PRO 2023</small>
-            </Typography>
-          </Box>
-        </CardContent>
-      </Card>
-    </Box>
+          </Link>
+        </form>
+        <Box className={classes["copyright-box"]}>
+          <img src={LogoCSIPRO} alt="Logo de CSI Pro" />
+          <Typography variant="body1">
+            <small>Desarrollado por &copy; CSI PRO 2023</small>
+          </Typography>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };

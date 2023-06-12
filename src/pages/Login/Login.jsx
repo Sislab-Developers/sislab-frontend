@@ -1,9 +1,16 @@
-import instance from '../../utils/axiosConfig';
-import { useContext, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useLoading } from '../../context/hooks';
-import AuthContext from '../../context/AuthContext.jsx';
-import { LoginForm } from '../../components';
+import { useContext, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { Box } from "@mui/material";
+
+import AuthContext from "../../context/AuthContext.jsx";
+import { useLoading } from "../../context/hooks";
+
+import { LoginForm } from "../../components";
+
+import instance from "../../utils/axiosConfig";
+
+import classes from "./Login.module.css";
 
 export const Login = () => {
   const authCtx = useContext(AuthContext);
@@ -11,12 +18,12 @@ export const Login = () => {
   const { run: startLoading, stop: stopLoading } = useLoading();
 
   const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
-  const correoRef = useRef('');
-  const passwordRef = useRef('');
+  const correoRef = useRef("");
+  const passwordRef = useRef("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +32,7 @@ export const Login = () => {
     const { value: password } = passwordRef.current;
 
     await instance
-      .post('auth/login/', {
+      .post("auth/login/", {
         correo,
         password,
       })
@@ -48,9 +55,9 @@ export const Login = () => {
         setTimeout(() => {
           stopLoading();
           navigate(
-            usuario.rol === 'MAESTRO'
-              ? '/nueva-solicitud'
-              : '/admin/solicitudes'
+            usuario.rol === "MAESTRO"
+              ? "/nueva-solicitud"
+              : "/admin/solicitudes"
           );
         }, 1500);
       })
@@ -62,12 +69,14 @@ export const Login = () => {
   };
 
   return (
-    <LoginForm
-      correoRef={correoRef}
-      passwordRef={passwordRef}
-      handleSubmit={handleSubmit}
-      error={error}
-      errorMessage={errorMessage}
-    />
+    <Box className={classes["login-background"]}>
+      <LoginForm
+        correoRef={correoRef}
+        passwordRef={passwordRef}
+        handleSubmit={handleSubmit}
+        error={error}
+        errorMessage={errorMessage}
+      />
+    </Box>
   );
 };
