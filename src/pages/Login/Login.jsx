@@ -6,6 +6,7 @@ import { Box } from "@mui/material";
 import AuthContext from "../../context/AuthContext.jsx";
 import { useLoading } from "../../context/hooks";
 
+import { CenteredCard } from "../../components/UI/CenteredCard";
 import { LoginForm } from "../../components";
 
 import instance from "../../utils/axiosConfig";
@@ -70,13 +71,15 @@ export const Login = () => {
 
   return (
     <Box className={classes["login-background"]}>
-      <LoginForm
-        correoRef={correoRef}
-        passwordRef={passwordRef}
-        handleSubmit={handleSubmit}
-        error={error}
-        errorMessage={errorMessage}
-      />
+      <CenteredCard>
+        <LoginForm
+          correoRef={correoRef}
+          passwordRef={passwordRef}
+          handleSubmit={handleSubmit}
+          error={error}
+          errorMessage={errorMessage}
+        />
+      </CenteredCard>
     </Box>
   );
 };

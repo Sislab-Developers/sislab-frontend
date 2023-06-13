@@ -1,22 +1,24 @@
-import { CustomButton } from "../../components";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  TextField,
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  MenuItem,
+} from "@mui/material";
+import { ExpandMore } from "@mui/icons-material";
 
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { useTheme } from "@mui/material";
-import { TextEmphasis } from "../../components/TextEmphasis/TextEmphasis.jsx";
+import { CustomButton } from "../../components";
+import { TextEmphasis } from "../../components/TextEmphasis";
+
+import classes from "./MakeRequest.module.css";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -103,77 +105,66 @@ const practicas = [
 ];
 
 export const CrearNuevaSolicitud = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   const content = (
-    <Box component="section">
-      <div className="title">
-        <h1>
-          Crear{" "}
-          <TextEmphasis color={theme.palette.primary.main}>
-            nueva solicitud
-          </TextEmphasis>
-        </h1>
-      </div>
-      <div className="subtitle">
-        <h1>
-          Para crear una <span className="color_en_texto">nueva solicitud</span>{" "}
-          llena los siguientes campos
-        </h1>
-      </div>
+    <Box className={classes["new-request"]}>
+      <Typography variant="h1">
+        Crear <TextEmphasis>nueva solicitud</TextEmphasis>
+      </Typography>
+      <Typography variant="body1">
+        Para crear una <TextEmphasis>nueva solicitud</TextEmphasis> llena los
+        siguientes campos
+      </Typography>
 
       <Accordion>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
+          expandIcon={<ExpandMore />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>Primer paso</Typography>
+          <Typography variant="body1">Primer paso</Typography>
         </AccordionSummary>
-        <div className="centerComboBox">
-          <AccordionDetails>
-            <Box
-              component="form"
-              sx={{
-                "& .MuiTextField-root": { width: "32ch" },
-              }}
-              noValidate
-              autoComplete="off"
-              menuprops={{
-                disableScrollLock: true,
-              }}
+        <AccordionDetails>
+          <Box
+            component="form"
+            noValidate
+            autoComplete="off"
+            menuprops={{
+              disableScrollLock: true,
+            }}
+          >
+            <p>
+              Práctica <i className="ri-information-line"></i>
+            </p>
+            <TextField
+              id="outlined-select-currency"
+              select
+              fullWidth
+              label="Práctica"
+              helperText="Selecciona una de las prácticas"
+              defaultValue=""
             >
-              <h1>
-                Práctica<i className="ri-information-line"></i>
-              </h1>
-              <TextField
-                id="outlined-select-currency"
-                select
-                label="Practica"
-                helperText="Selecciona una de las prácticas"
-                defaultValue=""
-              >
-                {practicas.map((option) => (
-                  <MenuItem key={option.label} value={option.label}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <br></br>
-              <br></br>
-              <div id="boton-confirmar">
-                <CustomButton text="Confirmar"></CustomButton>
-              </div>
-              <br></br>
-              <br></br>
-            </Box>
-          </AccordionDetails>
-        </div>
+              {practicas.map((option) => (
+                <MenuItem key={option.label} value={option.label}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <br></br>
+            <br></br>
+            <div id="boton-confirmar">
+              <CustomButton text="Confirmar"></CustomButton>
+            </div>
+            <br></br>
+            <br></br>
+          </Box>
+        </AccordionDetails>
       </Accordion>
 
       <Accordion>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
+          expandIcon={<ExpandMore />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
@@ -181,7 +172,7 @@ export const CrearNuevaSolicitud = () => {
         </AccordionSummary>
         <div className="centerComboBox">
           <AccordionDetails>
-            <TableContainer component={Paper}>
+            <TableContainer>
               <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
