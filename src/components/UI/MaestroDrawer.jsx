@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 
 import { useLoading } from "../../context/hooks";
-import AuthContext from "../../context/AuthContext";
+import AuthContext from "../../context/AuthContext.jsx";
 
 import { getToken } from "../../utils";
 import {

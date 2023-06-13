@@ -1,11 +1,12 @@
 import { MainRoutes } from "./routes/MainRoutes";
-import { AppContextProvider } from "./context/AppContext";
+import { AppContextProvider } from "./context/AppContext.jsx";
 import { Loading } from "./components/UI/Loading/Loading";
-import { AuthContextProvider } from "./context/AuthContext";
+import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+
 import { theme } from "./utils/Theme";
-import SnackbarProvider from "./context/SnackBar/SnackBarProvider";
-import ModalProvider from "./context/Modal/ModalProvider";
+import SnackBarProvider from "./context/SnackBar/SnackBarProvider.jsx";
+import ModalProvider from "./context/Modal/ModalProvider.jsx";
 
 const MainComponent = () => {
   return (
@@ -19,7 +20,7 @@ const MainComponent = () => {
 function App() {
   return (
     <ModalProvider>
-      <SnackbarProvider>
+      <SnackBarProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <AppContextProvider>
@@ -28,7 +29,7 @@ function App() {
             </AuthContextProvider>
           </AppContextProvider>
         </ThemeProvider>
-      </SnackbarProvider>
+      </SnackBarProvider>
     </ModalProvider>
   );
 }

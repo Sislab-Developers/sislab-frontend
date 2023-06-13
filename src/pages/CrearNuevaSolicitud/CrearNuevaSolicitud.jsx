@@ -1,7 +1,5 @@
-import { CustomButton } from '../../components';
-import { useState, useCallback, useEffect, useContext } from 'react';
-
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { CustomButton } from "../../components";
+import { useState, useCallback, useEffect, useContext } from "react";
 
 import {
   Box,
@@ -23,93 +21,99 @@ import {
   AccordionDetails,
 } from "@mui/material";
 
-import AuthContext from '../../context/AuthContext';
-import { getToken } from '../../utils/authServices';
+import AuthContext from "../../context/AuthContext";
+import { getToken } from "../../utils/authServices";
 
 import { getGrupos } from "../../api/fetch";
 import { Calendar } from "../../components/Calendar/Calendar";
+
+import { ExpandMore } from "@mui/icons-material";
+
+import { TextEmphasis } from "../../components/TextEmphasis";
+
+import classes from "./MakeRequest.module.css";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
+  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+  createData("Eclair", 262, 16.0, 24, 6.0),
+  createData("Cupcake", 305, 3.7, 67, 4.3),
+  createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
 const practicas = [
   {
-    label: 'Práctica 1 | Material y equipo básico de laboratorio',
+    label: "Práctica 1 | Material y equipo básico de laboratorio",
   },
   {
-    label: 'Práctica 2 | Método científico',
+    label: "Práctica 2 | Método científico",
   },
   {
-    label: 'Práctica 3 | Separación de una mezcla mediante cambios físicos',
+    label: "Práctica 3 | Separación de una mezcla mediante cambios físicos",
   },
   {
-    label: 'Práctica 4 | Identificación de metales por ensaye a la flama',
+    label: "Práctica 4 | Identificación de metales por ensaye a la flama",
   },
   {
-    label: 'Práctica 5 | Compuestos iónicos y covalentes',
+    label: "Práctica 5 | Compuestos iónicos y covalentes",
   },
   {
-    label: 'Práctica 6 | Enlace Metálico',
+    label: "Práctica 6 | Enlace Metálico",
   },
   {
-    label: 'Práctica 7 | Estudio sobre los diferentes tipos de reacciones',
+    label: "Práctica 7 | Estudio sobre los diferentes tipos de reacciones",
   },
   {
-    label: 'Práctica 8 | Undefined',
+    label: "Práctica 8 | Undefined",
   },
   {
-    label: 'Práctica 9 | Undefined',
+    label: "Práctica 9 | Undefined",
   },
   {
-    label: 'Práctica 10 | Reacciones de oxidación-reducción',
+    label: "Práctica 10 | Reacciones de oxidación-reducción",
   },
   {
-    label: 'Práctica 11 | Ley de las proporciones definidas',
+    label: "Práctica 11 | Ley de las proporciones definidas",
   },
   {
-    label: 'Práctica 12 | Ley de la conservación de la materia',
+    label: "Práctica 12 | Ley de la conservación de la materia",
   },
   {
-    label: 'Práctica 13 | Agua de hidratación',
+    label: "Práctica 13 | Agua de hidratación",
   },
   {
-    label: 'Práctica 14 | Determinación de pesos atómicos',
+    label: "Práctica 14 | Determinación de pesos atómicos",
   },
   {
-    label: 'Práctica 15 | Estequiometría',
+    label: "Práctica 15 | Estequiometría",
   },
   {
-    label: 'Práctica 16 | Estequiometría en la sintesis de NaCI',
+    label: "Práctica 16 | Estequiometría en la sintesis de NaCI",
   },
   {
-    label: 'Práctica 17 | Reactivo limitante',
+    label: "Práctica 17 | Reactivo limitante",
   },
   {
-    label: 'Práctica 18 | Concentración de soluciones',
+    label: "Práctica 18 | Concentración de soluciones",
   },
   {
-    label: 'Práctica 19 | Valoración de soluciones I',
+    label: "Práctica 19 | Valoración de soluciones I",
   },
   {
-    label: 'Práctica 20 | Valoración de soluciones II',
+    label: "Práctica 20 | Valoración de soluciones II",
   },
   {
-    label: 'Práctica 21 | Peso equivalente del acido fosfórico',
+    label: "Práctica 21 | Peso equivalente del acido fosfórico",
   },
   {
-    label: 'Práctica 22 | Peso equivalente de un metal',
+    label: "Práctica 22 | Peso equivalente de un metal",
   },
   {
-    label: 'Práctica personalizada',
+    label: "Práctica personalizada",
   },
 ];
 
@@ -145,45 +149,34 @@ export const CrearNuevaSolicitud = () => {
   }, [fetchData, uid]);
 
   return (
-    <Box
-      component="section"
-      sx={{ display: "flex", flexDirection: "column", gap: "20px" }}
-    >
-      <div className="title">
-        <h1>
-          Crear{' '}
-          <span style={{ color: theme.palette.primary.main }}>
-            nueva solicitud
-          </span>
-        </h1>
-      </div>
-      <Box className="subtitle" sx={{ alignSelf: "center" }}>
-        <h1>
-          Para crear una <span className="color_en_texto">nueva solicitud</span>{' '}
-          llena los siguientes campos
-        </h1>
-      </Box>
-
+    <Box className={classes["new-request"]}>
+      <Typography variant="h1">
+        Crear <TextEmphasis>nueva solicitud</TextEmphasis>
+      </Typography>
+      <Typography variant="body1">
+        Para crear una <TextEmphasis>nueva solicitud</TextEmphasis> llena los
+        siguientes campos
+      </Typography>
       <Accordion>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
+          expandIcon={<ExpandMore />}
           aria-controls="panel1a-content"
           id="panel1a-header"
           sx={{
             backgroundColor: "#f2f5f2",
           }}
         >
-          <Typography>Primer paso</Typography>
+          <Typography variant="body1">Primer paso</Typography>
         </AccordionSummary>
         <div className="centerComboBox">
           <AccordionDetails>
             <Box
               component="form"
               sx={{
-                '& .MuiTextField-root': {
-                  minWidth: 'fit-content',
-                  maxWidth: '32ch',
-                  alignSelf: 'center',
+                "& .MuiTextField-root": {
+                  minWidth: "fit-content",
+                  maxWidth: "32ch",
+                  alignSelf: "center",
                 },
                 display: "flex",
                 flexDirection: "column",
@@ -254,7 +247,7 @@ export const CrearNuevaSolicitud = () => {
 
       <Accordion>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
+          expandIcon={<ExpandMore />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
@@ -262,7 +255,7 @@ export const CrearNuevaSolicitud = () => {
         </AccordionSummary>
         <div className="centerComboBox">
           <AccordionDetails>
-            <TableContainer component={Paper}>
+            <TableContainer>
               <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
@@ -276,7 +269,7 @@ export const CrearNuevaSolicitud = () => {
                     <TableRow
                       key={row.name}
                       sx={{
-                        '&:last-child td, &:last-child th': { border: 0 },
+                        "&:last-child td, &:last-child th": { border: 0 },
                       }}
                     >
                       <TableCell component="th" scope="row">

@@ -1,62 +1,38 @@
-import { CustomButton } from '../../components';
-import { Link } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
+import { Box, TextField, Typography } from "@mui/material";
 
-const CssTextField = styled(TextField)({
-  '& label.Mui-focused': {
-    color: '#00C795',
-  },
-  '& .MuiInput-underline:after': {
-    borderBottomColor: '#00C795',
-  },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: 'light',
-    },
-    '&:hover fieldset': {
-      borderColor: 'black',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#00C795',
-    },
-  },
-});
+import { CenteredCard } from "../../components/UI/CenteredCard";
+import { LinkButton } from "../../components/UI/LinkButton";
+import { LoginBackground } from "../../components/UI/LoginBackground";
 
 export const Recuperacion = () => {
-  const content = (
-    <div className="fondo">
-      <div className="backgroundWhiteSmoke"></div>
-      <div className="box">
-        <h2>Recuperar contraseña</h2>
-        <div className="espacioTexto">
-          <p>Ingresa el correo con el que estás registrado en el sistema</p>
-        </div>
-        <div className="inputCorreo">
-          <CssTextField
-            name="Inpt_email"
-            type="email"
-            placeholder="correo@email.com"
-            label="Correo electrónico"
-            id="Inpt_email"
-            style={{ width: 340 }}
-            required
-          />
-        </div>
-        <div className="botonesRecuperar">
-          <div className="Volver">
-            <Link to="/">
-              <CustomButton text="Volver"></CustomButton>
-            </Link>
-          </div>
-          <div className="confirmarCorreoRecuperar">
-            <Link to="/vista-maestro/crear-nueva-solicitud">
-              <CustomButton text="Siguiente"></CustomButton>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
+  return (
+    <LoginBackground>
+      <CenteredCard>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <Typography variant="h5" fontWeight="bold">
+            Recuperar contraseña
+          </Typography>
+          <Box>
+            <Typography variant="body1">
+              Ingresa el correo con el que estás registrado en el sistema
+            </Typography>
+            <TextField
+              name="Inpt_email"
+              type="email"
+              label="Correo electrónico"
+              id="Inpt_email"
+              fullWidth
+              required
+            />
+          </Box>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <LinkButton to="/login">Atrás</LinkButton>
+            <LinkButton to="/vista-maestro/crear-nueva-solicitud">
+              Siguiente
+            </LinkButton>
+          </Box>
+        </Box>
+      </CenteredCard>
+    </LoginBackground>
   );
-  return content;
 };

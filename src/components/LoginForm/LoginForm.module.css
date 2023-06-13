@@ -1,34 +1,24 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
-html * {
-  padding: 0;
-  margin: 0;
-  font-family: 'Nunito' !important;
-  font-weight: 500 !important;
-  font-size: 1.5rem;
-}
-
 .backquimica {
-  background-image: url('../../assets/img/background.jpg');
+  background-image: url("../../assets/img/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
 }
 
-.backgroundWhiteSmoke {
-  margin-top: 50vh;
+.lower-background {
+  margin-top: 50%;
   width: 100%;
-  height: 50vh;
-  background: white;
+  height: 50%;
+  background: whitesmoke;
   display: flex;
   justify-content: center;
 }
 
-.fondo {
-  background-image: url('../../assets/img/background.jpg');
+.login-background {
+  background-image: url("../../assets/img/background.jpg");
   width: 100%;
-  height: 50vh;
+  height: 50%;
   background-size: cover;
   display: flex;
 }
@@ -37,21 +27,32 @@ html * {
   text-align: center;
 }
 
-.card_logo {
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  background: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 10px 20px;
+
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+
+.card-logo {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 28px 0;
 }
 
-.card_logo h1 {
+.card-logo h1 {
   text-align: center;
   font-size: 32px;
-  color: #00c795;
+  text-transform: uppercase;
 }
 
-.card_logo img {
+.card-logo img {
   object-fit: cover;
   height: 100px;
   width: 75px;
@@ -92,93 +93,47 @@ html * {
   color: #666666;
 }
 
-.recuperar {
-  margin-right: 8px;
+.forgot-password {
   text-align: right;
-  font-size: 16px;
-  font-weight: 400;
+}
 
-  color: #00c795;
-}
-.ayuda {
+.trouble-signing {
   text-align: center;
-  font-size: 16px;
-  font-weight: 400;
-  color: #00c795;
 }
-.ayuda a {
-  color: #00c795;
-}
-.recuperar a {
-  color: #00c795;
-}
+
 #espacio_enlace_ayuda a {
   color: #00c795;
 }
 
-a:-webkit-any-link {
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.login_form {
+.login-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.5rem;
 }
 
-.login_form h2 {
+.login-form h2 {
   font-size: 24px;
-  margin: 8px 0 4px;
+  margin: 4px 0;
 }
 
-.login_button {
-  border-radius: 13px;
-  background-color: #00c795;
-  padding: 10px 32px;
-  font-size: 20px;
-  text-transform: none;
+.login-button {
   align-self: center;
   width: 140px;
-  height: 45px;
 }
 
-.copyright_box {
+.copyright-box {
+  margin-top: 1rem;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  bottom: 10px;
-}
 
-.copyright_box h1 {
   font-size: 14px;
   font-weight: 200;
   color: #888888;
 }
 
-.copyright_box img {
-  margin-top: 4px;
-  width: 15%;
-}
-
-.copyright {
-  white-space: nowrap;
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.copyright h1 {
-  font-size: 14px;
-  font-weight: 200;
-  margin-top: -10px;
-  color: #888888;
-}
-.copyright img {
-  margin-bottom: -25px;
-  width: 20%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.copyright-box img {
+  width: 48px;
 }

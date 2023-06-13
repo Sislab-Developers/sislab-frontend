@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useAppContext } from "../AppContext";
+import { useAppContext } from "../AppContext.jsx";
 
 export const useLoading = () => {
   const { dispatch } = useAppContext();

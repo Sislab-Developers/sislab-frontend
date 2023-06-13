@@ -1,44 +1,49 @@
-import * as React from 'react';
-import { CustomButton } from '../../components';
-import { Link } from 'react-router-dom';
-import style from './Ayuda.module.scss';
+import { Link } from "react-router-dom";
 
-export const Ayuda = () => {
-  const content = (
-    <div className={style.fondo}>
-      <div className={style.backgroundWhiteSmoke} />
-      <div className={style.box}>
-        <h2>¿Estás registrado?</h2>
+import { Box, Typography } from "@mui/material";
 
-        <p>
-          Te recordamos que esta aplicación es sólo para el uso del personal de
-          la Universidad de Sonora.
-        </p>
-        <p>
-          El personal del Departamento de Ciencias Químico Biológicas debe de
-          otorgarte tus credenciales para poder acceder.
-        </p>
+import { TextEmphasis } from "../../components/TextEmphasis";
+import { LinkButton } from "../../components/UI/LinkButton";
+import { CenteredCard } from "../../components/UI/CenteredCard";
 
-        <h2>¿No puedes iniciar sesión?</h2>
+import classes from "./Ayuda.module.css";
 
-        <p>Si necesitas recuperar tu contraseña</p>
-        <div id="espacioEnlaceAyuda">
-          <Link to="/recuperaracion">haz click aquí</Link>
-        </div>
-        <p>
-          Si presentas problemas para iniciar sesión puedes mandar un correo a
-          la siguiente dirección: soporte@sislab.com.mx
-        </p>
+export const Ayuda = () => (
+  <Box className={classes["background"]}>
+    <CenteredCard>
+      <Box className={classes["container"]}>
+        <Typography variant="h5" fontWeight="bold">
+          ¿Estás registrado?
+        </Typography>
+        <Box>
+          <Typography variant="body1">
+            Te recordamos que esta aplicación es sólo para el uso del personal
+            de la Universidad de Sonora.
+          </Typography>
+          <Typography variant="body1">
+            El personal del Departamento de Ciencias Químico Biológicas debe de
+            otorgarte tus credenciales para poder acceder.
+          </Typography>
+        </Box>
 
-        <div className={style.botones_recuperar}>
-          <div className="Volver">
-            <Link to="/">
-              <CustomButton text="Volver"></CustomButton>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-  return content;
-};
+        <Typography variant="h5" fontWeight="bold">
+          ¿No puedes iniciar sesión?
+        </Typography>
+        <Box>
+          <Typography variant="body1">
+            Si necesitas recuperar tu contraseña{" "}
+            <Link to="/recuperaracion">haz click aquí</Link>.
+          </Typography>
+          <Typography variant="body1">
+            Si presentas problemas para iniciar sesión puedes mandar un correo a
+            la siguiente dirección:{" "}
+            <TextEmphasis>soporte@sislab.com.mx</TextEmphasis>
+          </Typography>
+        </Box>
+        <LinkButton to="/login" sx={{ margin: "0 auto" }}>
+          Atrás
+        </LinkButton>
+      </Box>
+    </CenteredCard>
+  </Box>
+);
