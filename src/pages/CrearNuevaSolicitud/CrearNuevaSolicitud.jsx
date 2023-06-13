@@ -19,6 +19,7 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Stack,
 } from "@mui/material";
 
 import AuthContext from "../../context/AuthContext";
@@ -120,10 +121,10 @@ const practicas = [
 export const CrearNuevaSolicitud = () => {
   const [grupos, setGrupos] = useState();
   const [selected, setSelected] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [index, setIndex] = useState(0);
 
-  console.log(selected);
-  console.log(index);
+  const chipDelete = () => {};
 
   const theme = useTheme();
 
@@ -250,6 +251,9 @@ export const CrearNuevaSolicitud = () => {
           expandIcon={<ExpandMore />}
           aria-controls="panel1a-content"
           id="panel1a-header"
+          sx={{
+            backgroundColor: "#f2f5f2",
+          }}
         >
           <Typography>Reactivos</Typography>
         </AccordionSummary>
@@ -260,8 +264,8 @@ export const CrearNuevaSolicitud = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell>Reactivos</TableCell>
-                    <TableCell align="right">Cantidad</TableCell>
-                    <TableCell align="right">Medida</TableCell>
+                    <TableCell align="center">Cantidad</TableCell>
+                    <TableCell align="center">Medida</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -283,12 +287,177 @@ export const CrearNuevaSolicitud = () => {
               </Table>
             </TableContainer>
             <br></br>
-            <br></br>
             <div id="boton-confirmar">
               <CustomButton text="Confirmar"></CustomButton>
             </div>
           </AccordionDetails>
         </div>
+      </Accordion>
+
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMore />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+          sx={{
+            backgroundColor: "#f2f5f2",
+          }}
+        >
+          <Typography>Equipo</Typography>
+        </AccordionSummary>
+        <div className="centerComboBox">
+          <AccordionDetails>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                gridGap: "10px",
+                marginBottom: "20px",
+              }}
+            >
+              <Chip
+                sx={{
+                  height: "auto",
+                  "& .MuiChip-label": {
+                    display: "block",
+                    whiteSpace: "normal",
+                  },
+                }}
+                label="This is a chip that has multiple lines."
+                color="primary"
+                onDelete={chipDelete}
+              />
+
+              <Chip
+                sx={{
+                  height: "auto",
+                  "& .MuiChip-label": {
+                    display: "block",
+                    whiteSpace: "normal",
+                  },
+                }}
+                label="This is a chip that has multiple lines."
+                color="primary"
+                onDelete={chipDelete}
+              />
+
+              <Chip
+                sx={{
+                  height: "auto",
+                  "& .MuiChip-label": {
+                    display: "block",
+                    whiteSpace: "normal",
+                  },
+                }}
+                label="This is a chip that has multiple lines."
+                color="primary"
+                onDelete={chipDelete}
+              />
+
+              <Chip
+                sx={{
+                  height: "auto",
+                  "& .MuiChip-label": {
+                    display: "block",
+                    whiteSpace: "normal",
+                  },
+                }}
+                label="This is a chip that has multiple lines."
+                color="primary"
+                onDelete={chipDelete}
+              />
+
+              <Chip
+                sx={{
+                  height: "auto",
+                  "& .MuiChip-label": {
+                    display: "block",
+                    whiteSpace: "normal",
+                  },
+                }}
+                label="This is a chip that has multiple lines."
+                color="primary"
+                onDelete={chipDelete}
+              />
+
+              <Chip
+                sx={{
+                  height: "auto",
+                  "& .MuiChip-label": {
+                    display: "block",
+                    whiteSpace: "normal",
+                  },
+                }}
+                label="simon we "
+                color="primary"
+                onDelete={chipDelete}
+              />
+
+              <Chip
+                sx={{
+                  height: "auto",
+                  "& .MuiChip-label": {
+                    display: "block",
+                    whiteSpace: "normal",
+                  },
+                }}
+                label="This is a chip that has multiple lines."
+                color="primary"
+                onDelete={chipDelete}
+              />
+            </Box>
+
+            <div id="boton-confirmar">
+              <CustomButton text="Confirmar"></CustomButton>
+            </div>
+          </AccordionDetails>
+        </div>
+      </Accordion>
+
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMore />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+          sx={{
+            backgroundColor: "#f2f5f2",
+          }}
+        >
+          <Typography>Residuos</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Reactivos</TableCell>
+                  <TableCell align="center">Cantidad</TableCell>
+                  <TableCell align="center">Medida</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow
+                    key={row.name}
+                    sx={{
+                      "&:last-child td, &:last-child th": { border: 0 },
+                    }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {row.name}
+                    </TableCell>
+                    <TableCell align="center">{row.carbs}</TableCell>
+                    <TableCell align="center">{row.protein}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <br />
+          <div id="boton-confirmar">
+            <CustomButton text="Confirmar"></CustomButton>
+          </div>
+        </AccordionDetails>
       </Accordion>
     </Box>
   );
