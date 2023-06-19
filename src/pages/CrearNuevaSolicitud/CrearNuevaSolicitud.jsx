@@ -1,7 +1,4 @@
 import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   Typography,
   TextField,
   Box,
@@ -11,17 +8,16 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  MenuItem,
+  MenuItem, Button,
 } from "@mui/material";
-import { ExpandMore } from "@mui/icons-material";
 
-import { CustomButton } from "../../components";
+import { StyledAccordion } from "../../components/UI/StyledAccordion";
 import { TextEmphasis } from "../../components/TextEmphasis";
 
 import classes from "./MakeRequest.module.css";
 
 function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+  return {name, calories, fat, carbs, protein};
 }
 
 const rows = [
@@ -105,110 +101,83 @@ const practicas = [
 ];
 
 export const CrearNuevaSolicitud = () => {
-  // const theme = useTheme();
-
-  const content = (
+  return (
     <Box className={classes["new-request"]}>
       <Typography variant="h1">
         Crear <TextEmphasis>nueva solicitud</TextEmphasis>
       </Typography>
       <Typography variant="body1">
-        Para crear una <TextEmphasis>nueva solicitud</TextEmphasis> llena los
-        siguientes campos
+        Para crear una <TextEmphasis>nueva solicitud</TextEmphasis>, llena los
+        siguientes campos:
       </Typography>
 
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMore />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
+      <StyledAccordion label="Primer paso">
+        <Box
+          className={classes["accordion-content"]}
+          component="form"
+          noValidate
+          autoComplete="off"
+          menuprops={{
+            disableScrollLock: true,
+          }}
         >
-          <Typography variant="body1">Primer paso</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Box
-            component="form"
-            noValidate
-            autoComplete="off"
-            menuprops={{
-              disableScrollLock: true,
-            }}
+          <Typography variant="h2" fontWeight="bold">
+            Práctica<i className="ri-information-line"></i>
+          </Typography>
+          <TextField
+            id="outlined-select-currency"
+            select
+            fullWidth
+            label="Práctica"
+            helperText="Selecciona una de las prácticas"
+            defaultValue=""
           >
-            <p>
-              Práctica <i className="ri-information-line"></i>
-            </p>
-            <TextField
-              id="outlined-select-currency"
-              select
-              fullWidth
-              label="Práctica"
-              helperText="Selecciona una de las prácticas"
-              defaultValue=""
-            >
-              {practicas.map((option) => (
-                <MenuItem key={option.label} value={option.label}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <br></br>
-            <br></br>
-            <div id="boton-confirmar">
-              <CustomButton text="Confirmar"></CustomButton>
-            </div>
-            <br></br>
-            <br></br>
-          </Box>
-        </AccordionDetails>
-      </Accordion>
+            {practicas.map((option) => (
+              <MenuItem key={option.label} value={option.label}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+          <Button variant="contained" sx={{mx: "auto"}}>Confirmar</Button>
+        </Box>
+      </StyledAccordion>
 
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMore />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Reactivos</Typography>
-        </AccordionSummary>
-        <div className="centerComboBox">
-          <AccordionDetails>
-            <TableContainer>
-              <Table aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Reactivos</TableCell>
-                    <TableCell align="right">Cantidad</TableCell>
-                    <TableCell align="right">Medida</TableCell>
+      <StyledAccordion label="Reactivos">
+        <Box className={classes["accordion-content"]}>
+          <TableContainer>
+            <Table aria-label="simple table">
+              <TableHead className={classes["table-head"]}>
+                <TableRow>
+                  <TableCell>Reactivos</TableCell>
+                  <TableCell align="right">Cantidad</TableCell>
+                  <TableCell align="right">Medida</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow
+                    key={row.name}
+                    sx={{
+                      "&:last-child td, &:last-child th": {border: 0},
+                    }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {row.name}
+                    </TableCell>
+                    <TableCell align="right">
+                      {row.carbs}
+                    </TableCell>
+                    <TableCell align="right">
+                      {row.protein}
+                    </TableCell>
                   </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.map((row) => (
-                    <TableRow
-                      key={row.name}
-                      sx={{
-                        "&:last-child td, &:last-child th": { border: 0 },
-                      }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="center">{row.carbs}</TableCell>
-                      <TableCell align="center">{row.protein}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <br></br>
-            <br></br>
-            <div id="boton-confirmar">
-              <CustomButton text="Confirmar"></CustomButton>
-            </div>
-          </AccordionDetails>
-        </div>
-      </Accordion>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Button variant="contained" sx={{mx: "auto"}}>Confirmar</Button>
+        </Box>
+      </StyledAccordion>
     </Box>
   );
-
-  return content;
 };

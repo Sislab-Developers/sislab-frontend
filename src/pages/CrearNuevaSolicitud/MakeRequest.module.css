@@ -2,3 +2,18 @@
   font-size: 2em;
   font-weight: bold;
 }
+
+.accordion-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.accordion-content h2 {
+  font-size: 1.6em;
+}
+
+.table-head > tr > th {
+  font-size: 1em;
+  font-weight: bold;
+}
