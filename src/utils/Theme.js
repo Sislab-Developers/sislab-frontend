@@ -10,6 +10,17 @@ export const theme = createTheme({
   },
   typography: {
     fontFamily: ["Nunito", "sans-serif"].join(","),
+    h1: {
+      fontSize: "2em",
+      fontWeight: "bold",
+    },
+    h2: {
+      fontSize: "1.8em",
+      fontWeight: "bold",
+    },
+    h3: {
+      fontSize: "1.4em",
+    },
   },
   maxWidth: "600px",
   components: {
@@ -48,16 +59,23 @@ export const theme = createTheme({
           },
           "&:last-of-type": {
             borderRadius: "12px",
-          }
-        }
-      }
+          },
+        },
+      },
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          borderRadius: "12px",
+        },
+      },
     },
     MuiTableContainer: {
       styleOverrides: {
         root: {
           fontVariantNumeric: "tabular-nums",
-        }
-      }
+        },
+      },
     },
   },
 });
