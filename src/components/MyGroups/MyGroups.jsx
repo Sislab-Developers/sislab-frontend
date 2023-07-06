@@ -1,39 +1,15 @@
-import { useCallback, useContext, useEffect, useState } from "react";
-
 import { Box, Skeleton, Typography } from "@mui/material";
 
 import { TextEmphasis } from "../TextEmphasis";
-
-import { currentSemester, getToken } from "../../utils";
-import AuthContext from "../../context/AuthContext";
-import { getGrupos } from "../../api/fetch";
 import { GroupItem } from "./GroupItem/GroupItem";
 import { GroupsForm } from "./Form/GroupsForm";
 
+import { useGroupsData } from "../../hooks/useGroupsData";
+
+import { currentSemester } from "../../utils";
+
 export const MyGroups = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [groups, setGroups] = useState([]);
-  const [total, setTotal] = useState(0);
-
-  const authCtx = useContext(AuthContext);
-  const { uid } = getToken(authCtx.token, true);
-
-  const fetchGroups = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const groupsRes = await getGrupos(uid);
-      setGroups([...groupsRes.grupos]);
-      setTotal(groupsRes.grupos.length);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [uid]);
-
-  useEffect(() => {
-    fetchGroups();
-  }, [fetchGroups]);
+  const { groups, total, isLoading, fetchGroups } = useGroupsData();
 
   const addedGroupCallback = () => fetchGroups();
 

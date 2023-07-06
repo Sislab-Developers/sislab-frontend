@@ -1,4 +1,4 @@
-import instance from '../utils/axiosConfig';
+import instance from "../utils/axiosConfig";
 
 export const getGrupos = async (uid) => {
   try {
@@ -16,6 +16,10 @@ export const getLaboratorios = async () => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const getAssignments = async () => {
+  return await instance.get("practicas");
 };
 
 export const getCarreras = async () => {

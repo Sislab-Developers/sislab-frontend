@@ -8,16 +8,19 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  MenuItem, Button,
+  MenuItem,
+  Button,
 } from "@mui/material";
 
 import { StyledAccordion } from "../../components/UI/StyledAccordion";
 import { TextEmphasis } from "../../components/TextEmphasis";
 
 import classes from "./MakeRequest.module.css";
+import { useGroupsData } from "../../hooks/useGroupsData";
+import { RequestForm } from "../../components/NewRequest/RequestForm";
 
 function createData(name, calories, fat, carbs, protein) {
-  return {name, calories, fat, carbs, protein};
+  return { name, calories, fat, carbs, protein };
 }
 
 const rows = [
@@ -51,10 +54,10 @@ const practicas = [
     label: "Práctica 7 | Estudio sobre los diferentes tipos de reacciones",
   },
   {
-    label: "Práctica 8 | Undefined",
+    label: "Práctica 8",
   },
   {
-    label: "Práctica 9 | Undefined",
+    label: "Práctica 9",
   },
   {
     label: "Práctica 10 | Reacciones de oxidación-reducción",
@@ -75,7 +78,7 @@ const practicas = [
     label: "Práctica 15 | Estequiometría",
   },
   {
-    label: "Práctica 16 | Estequiometría en la sintesis de NaCI",
+    label: "Práctica 16 | Estequiometría en la síntesis de NaCl",
   },
   {
     label: "Práctica 17 | Reactivo limitante",
@@ -90,19 +93,18 @@ const practicas = [
     label: "Práctica 20 | Valoración de soluciones II",
   },
   {
-    label: "Práctica 21 | Peso equivalente del acido fosfórico",
+    label: "Práctica 21 | Peso equivalente del ácido fosfórico",
   },
   {
     label: "Práctica 22 | Peso equivalente de un metal",
   },
-  {
-    label: "Práctica personalizada",
-  },
 ];
 
 export const CrearNuevaSolicitud = () => {
+  const { groups, total, isLoading, fetchGroups } = useGroupsData();
+
   return (
-    <Box className={classes["new-request"]}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
       <Typography variant="h1">
         Crear <TextEmphasis>nueva solicitud</TextEmphasis>
       </Typography>
@@ -111,7 +113,9 @@ export const CrearNuevaSolicitud = () => {
         siguientes campos:
       </Typography>
 
-      <StyledAccordion label="Primer paso">
+      <RequestForm />
+
+      {/* <StyledAccordion label="Primer paso">
         <Box
           className={classes["accordion-content"]}
           component="form"
@@ -138,7 +142,9 @@ export const CrearNuevaSolicitud = () => {
               </MenuItem>
             ))}
           </TextField>
-          <Button variant="contained" sx={{mx: "auto"}}>Confirmar</Button>
+          <Button variant="contained" sx={{ mx: "auto" }}>
+            Confirmar
+          </Button>
         </Box>
       </StyledAccordion>
 
@@ -158,26 +164,24 @@ export const CrearNuevaSolicitud = () => {
                   <TableRow
                     key={row.name}
                     sx={{
-                      "&:last-child td, &:last-child th": {border: 0},
+                      "&:last-child td, &:last-child th": { border: 0 },
                     }}
                   >
                     <TableCell component="th" scope="row">
                       {row.name}
                     </TableCell>
-                    <TableCell align="right">
-                      {row.carbs}
-                    </TableCell>
-                    <TableCell align="right">
-                      {row.protein}
-                    </TableCell>
+                    <TableCell align="right">{row.carbs}</TableCell>
+                    <TableCell align="right">{row.protein}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
-          <Button variant="contained" sx={{mx: "auto"}}>Confirmar</Button>
+          <Button variant="contained" sx={{ mx: "auto" }}>
+            Confirmar
+          </Button>
         </Box>
-      </StyledAccordion>
+      </StyledAccordion> */}
     </Box>
   );
 };
