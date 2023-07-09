@@ -5,6 +5,7 @@ export const theme = createTheme({
     mode: "light",
     primary: {
       main: "#00c795",
+      translucid: "#00c79535",
       contrastText: "#ffffff",
     },
     secondary: {
@@ -36,7 +37,7 @@ export const theme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
-        root: {
+        contained: {
           textTransform: "none",
           backgroundColor: "#00c795",
           borderRadius: "12px",

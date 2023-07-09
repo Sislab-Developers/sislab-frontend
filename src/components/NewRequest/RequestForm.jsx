@@ -274,6 +274,7 @@ export const RequestForm = () => {
               {groups &&
                 groups.map((group, index) => (
                   <GroupChip
+                    clickable
                     key={group.uid}
                     label={group.nombre}
                     selected={index === selectedGroup}

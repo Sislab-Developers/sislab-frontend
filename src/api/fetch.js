@@ -58,7 +58,41 @@ export const getHoras = async () => {
   }
 };
 
+export const getRequests = async () => {
+  return await instance.get("solicitudes");
+};
+
+export const getRequestsByProf = async (uid) => {
+  return await instance.get("solicitudes/by-prof", {
+    params: { profId: uid },
+  });
+};
+
+export const getRequestsByProfAndDate = async (uid, date) => {
+  return await instance.get("solicitudes/by-prof-and-date", {
+    params: {
+      profId: uid,
+      date: new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
+      ).getTime(),
+    },
+  });
+};
+
+export const getRequestsByDate = async (date) => {
+  return await instance.get("solicitudes/by-date", {
+    params: {
+      date: new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
+      ).getTime(),
+    },
+  });
+};
+
 export const postRequest = async (data) => {
-  const response = await instance.post("solicitudes", data);
-  return response;
+  return await instance.post("solicitudes", data);
 };
