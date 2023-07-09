@@ -5,17 +5,13 @@ import { DateCalendar, PickersDay } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-import { dayMap } from "../../utils";
-
 export const Calendar = ({
   value,
-  groupDay,
   onChange,
+  shouldDisableDate,
   disablePast = false,
   disabled = false,
 }) => {
-  const shouldDisableDate = (date) => date.getDay() !== dayMap[groupDay];
-
   return (
     <LocalizationProvider adapterLocale={es} dateAdapter={AdapterDateFns}>
       <DateCalendar
@@ -43,7 +39,18 @@ const HighlightedDay = ({ day, disabled, ...other }) => {
     <PickersDay
       day={day}
       disabled={disabled}
-      sx={{ border: `2px solid ${theme.palette.primary.main}` }}
+      sx={{
+        backgroundColor: `${theme.palette.secondary.main}`,
+        color: "white",
+        "&:hover": {
+          backgroundColor: `${theme.palette.secondary.main}`,
+          opacity: 0.8,
+        },
+        "&:focus": {
+          backgroundColor: `${theme.palette.secondary.main}`,
+          opacity: 1,
+        },
+      }}
       {...other}
     />
   );

@@ -308,6 +308,9 @@ export const RequestForm = () => {
           </InfoLabel>
           <Calendar
             disablePast
+            shouldDisableDate={(date) =>
+              date.getDay() !== dayMap[groups[selectedGroup]?.dia]
+            }
             value={selectedDate}
             groupDay={groups[selectedGroup]?.dia}
             disabled={!groups}
