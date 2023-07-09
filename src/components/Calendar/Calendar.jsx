@@ -5,23 +5,21 @@ import { DateCalendar, PickersDay } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-const dayMap = {
-  Domingo: 0,
-  Lunes: 1,
-  Martes: 2,
-  Miércoles: 3,
-  Jueves: 4,
-  Viernes: 5,
-  Sábado: 6,
-};
+import { dayMap } from "../../utils";
 
-export const Calendar = ({ value, groupDay, onChange, disabled = true }) => {
+export const Calendar = ({
+  value,
+  groupDay,
+  onChange,
+  disablePast = false,
+  disabled = false,
+}) => {
   const shouldDisableDate = (date) => date.getDay() !== dayMap[groupDay];
 
   return (
     <LocalizationProvider adapterLocale={es} dateAdapter={AdapterDateFns}>
       <DateCalendar
-        disablePast
+        disablePast={disablePast}
         views={["day"]}
         disabled={disabled}
         value={value || new Date()}

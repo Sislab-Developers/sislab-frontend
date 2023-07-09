@@ -57,3 +57,8 @@ export const getHoras = async () => {
     console.log(error);
   }
 };
+
+export const postRequest = async (data) => {
+  const response = await instance.post("solicitudes", data);
+  return response;
+};

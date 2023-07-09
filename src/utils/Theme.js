@@ -7,6 +7,12 @@ export const theme = createTheme({
       main: "#00c795",
       contrastText: "#ffffff",
     },
+    error: {
+      main: "#ff3a20",
+    },
+    grey: {
+      main: "#f5f5f5",
+    },
   },
   typography: {
     fontFamily: ["Nunito", "sans-serif"].join(","),
@@ -42,7 +48,7 @@ export const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          backgroundColor: "#F5F5F5 ",
+          backgroundColor: "#F5F5F5",
         },
       },
     },

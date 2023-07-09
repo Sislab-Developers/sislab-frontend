@@ -4,16 +4,31 @@ import {
   AccordionDetails,
   AccordionSummary,
   Typography,
+  useTheme,
 } from "@mui/material";
 
 export const RequestStep = ({
   expanded = false,
-  onChange,
   stepLabel,
+  done = false,
+  error = false,
+  onChange,
   children,
 }) => {
+  const theme = useTheme();
+
   return (
-    <Accordion expanded={expanded} onChange={onChange}>
+    <Accordion
+      expanded={expanded}
+      onChange={onChange}
+      sx={{
+        border: error
+          ? `1px solid ${theme.palette.error.main}`
+          : done
+          ? `1px solid ${theme.palette.primary.main}`
+          : `1px solid #ccc`,
+      }}
+    >
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography>{stepLabel}</Typography>
       </AccordionSummary>

@@ -6,5 +6,6 @@ export const GroupChip = ({ label, selected, onClick }) => (
     onClick={onClick}
     clickable
     color={selected ? "primary" : "default"}
+    sx={{ mx: "0.25rem" }}
   />
 );
