@@ -4,21 +4,15 @@ import { TextEmphasis } from "../TextEmphasis";
 import { GroupItem } from "./GroupItem/GroupItem";
 import { GroupsForm } from "./Form/GroupsForm";
 
-import { useGroupsData } from "../../hooks/useGroupsData";
-
-import { currentSemester } from "../../utils";
+import { useGroupsByPeriodData } from "../../hooks/useGroupsData";
 
 export const MyGroups = () => {
-  const { groups, total, isLoading, fetchGroups } = useGroupsData();
+  const { groups, total, isLoading, fetchGroups } = useGroupsByPeriodData();
 
   const addedGroupCallback = () => fetchGroups();
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-      <Typography variant="h1">
-        Mis <TextEmphasis>grupos</TextEmphasis>
-      </Typography>
-      <Typography variant="h2">Semestre {currentSemester}</Typography>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
       {total === 0 && (
         <Typography variant="body1">
           Llena este formulario para crear tu primer{" "}
@@ -27,7 +21,9 @@ export const MyGroups = () => {
       )}
       {isLoading && <GroupsSkeleton />}
       {total !== 0 &&
-        groups.map((group) => <GroupItem key={group.uid} group={group} />)}
+        groups.map((group, index) => (
+          <GroupItem key={group.uid} group={group} index={index + 1} />
+        ))}
       <GroupsForm total={total} onAddGroup={addedGroupCallback} />
     </Box>
   );

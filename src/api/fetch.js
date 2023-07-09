@@ -1,21 +1,20 @@
 import instance from "../utils/axiosConfig";
 
 export const getGrupos = async (uid) => {
-  try {
-    const response = await instance.get(`grupos/${uid}`);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await instance.get(`grupos/professor/${uid}`);
+  return response;
+};
+
+export const getGroupsByPeriod = async (uid, period) => {
+  const response = await instance.get("grupos/period", {
+    params: { profId: uid, period },
+  });
+  return response;
 };
 
 export const getLaboratorios = async () => {
-  try {
-    const response = await instance.get(`laboratorios/`);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await instance.get(`laboratorios/`);
+  return response;
 };
 
 export const getAssignments = async () => {
@@ -23,39 +22,23 @@ export const getAssignments = async () => {
 };
 
 export const getCarreras = async () => {
-  try {
-    const response = await instance.get(`carreras/`);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await instance.get(`carreras/`);
+  return response;
 };
 
 export const getMaterias = async () => {
-  try {
-    const response = await instance.get(`materias/`);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await instance.get(`materias/`);
+  return response;
 };
 
 export const getDias = async () => {
-  try {
-    const response = await instance.get(`dias/`);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await instance.get(`dias/`);
+  return response;
 };
 
 export const getHoras = async () => {
-  try {
-    const response = await instance.get(`horas/`);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await instance.get(`horas/`);
+  return response;
 };
 
 export const getRequests = async () => {

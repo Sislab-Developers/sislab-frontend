@@ -13,6 +13,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { Send } from "@mui/icons-material";
 
 import { RequestStep } from "./RequestStep";
 import { GroupChip } from "./GroupChip";
@@ -24,9 +25,8 @@ import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 
 import { useGroupsData } from "../../hooks/useGroupsData";
 import { useAssignmentsData } from "../../hooks/useAssignmentsData";
-import { dayMap, getToken } from "../../utils";
+import { formatGroupName, getToken } from "../../utils";
 import { CustomReagents } from "./CustomReagents";
-import { Send } from "@mui/icons-material";
 import { TextEmphasis } from "../TextEmphasis";
 import { EquipmentChip } from "./EquipmentChip";
 import { EquipmentForm } from "./EquipmentForm";
@@ -138,10 +138,7 @@ export const RequestForm = () => {
       ]);
     }
 
-    if (
-      selectedGroup &&
-      selectedDate.getDay() !== dayMap[groups[selectedGroup]?.dia]
-    ) {
+    if (selectedGroup && selectedDate.getDay() !== groups[selectedGroup]?.dia) {
       isValid = false;
       setGroupErrors((prev) => [
         ...prev,
@@ -226,7 +223,7 @@ export const RequestForm = () => {
             <Typography>{requestResponse.message}</Typography>
             <Typography>
               Puedes consultar el estado de la solicitud en la sección{" "}
-              <TextEmphasis>Consultar solicitudes</TextEmphasis>.
+              <TextEmphasis>Solicitudes creadas</TextEmphasis>.
             </Typography>
           </>
         ),
@@ -276,7 +273,7 @@ export const RequestForm = () => {
                   <GroupChip
                     clickable
                     key={group.uid}
-                    label={group.nombre}
+                    label={formatGroupName(index + 1, group.dia, group.hora)}
                     selected={index === selectedGroup}
                     onClick={handleGroupChange.bind(null, index)}
                   />
@@ -310,7 +307,7 @@ export const RequestForm = () => {
           <Calendar
             disablePast
             shouldDisableDate={(date) =>
-              date.getDay() !== dayMap[groups[selectedGroup]?.dia]
+              date.getDay() !== groups[selectedGroup]?.dia
             }
             value={selectedDate}
             groupDay={groups[selectedGroup]?.dia}

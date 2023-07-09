@@ -1,13 +1,13 @@
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
-
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
 
 import { GroupChip } from "../NewRequest/GroupChip";
+import { formatAssignment, formatGroupName, fullDateFormat } from "../../utils";
 
-export const RequestItem = ({ request }) => {
+export const RequestItem = ({ request, index }) => {
   const theme = useTheme();
+
+  const { assignmentId: assignment, groupId: group, requestDate } = request;
 
   return (
     <Box
@@ -36,7 +36,10 @@ export const RequestItem = ({ request }) => {
             Solicitud creada
           </Typography>
         </Box>
-        <GroupChip label={request.groupId.nombre} selected />
+        <GroupChip
+          label={formatGroupName(index, group.dia, group.hora)}
+          selected
+        />
       </Box>
       <Box
         sx={{
@@ -49,22 +52,18 @@ export const RequestItem = ({ request }) => {
         }}
       >
         <Typography color="primary" fontWeight="bold">
-          {`Práctica ${request.assignmentId.number}: ${request.assignmentId.name}`}
-          .
+          {formatAssignment(assignment)}.
         </Typography>
         <Typography color="primary">
-          <strong>Laboratorio:</strong> {request.groupId.laboratorio}
+          <strong>Laboratorio:</strong> {group.laboratorio}.
         </Typography>
         <Typography color="primary">
-          <strong>Fecha:</strong>{" "}
-          {format(new Date(request.requestDate), "dd 'de' MMMM 'del' yyyy", {
-            locale: es,
-          })}
+          <strong>Fecha:</strong> {fullDateFormat(requestDate)}.
         </Typography>
       </Box>
-      <Button variant="text" sx={{ fontWeight: "bold" }}>
+      {/* <Button variant="text" sx={{ fontWeight: "bold" }}>
         Ver detalles
-      </Button>
+      </Button> */}
     </Box>
   );
 };

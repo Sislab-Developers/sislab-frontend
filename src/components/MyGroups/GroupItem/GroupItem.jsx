@@ -9,8 +9,11 @@ import {
   Typography,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
+import { days, formatGroupName, formatTime } from "../../../utils";
+import { TextEmphasis } from "../../TextEmphasis";
+import { InfoLabel } from "../../InfoLabel/InfoLabel";
 
-export const GroupItem = ({ group }) => {
+export const GroupItem = ({ group, index }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpansion = () => setExpanded((prev) => !prev);
@@ -26,14 +29,18 @@ export const GroupItem = ({ group }) => {
       onChange={handleExpansion}
     >
       <AccordionSummary expandIcon={<ExpandMore />}>
-        <Typography variant="body1">{group.nombre}</Typography>
+        <Typography>
+          <TextEmphasis>
+            {formatGroupName(index, group.dia, group.hora)}
+          </TextEmphasis>
+        </Typography>
       </AccordionSummary>
 
       <AccordionDetails>
         <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5em" }}>
-          <Typography variant="h3">
-            Laboratorio<i className="ri-information-line"></i>
-          </Typography>
+          <InfoLabel tooltip="El laboratorio asignado a este grupo.">
+            Laboratorio
+          </InfoLabel>
           <TextField
             required
             disabled
@@ -42,9 +49,9 @@ export const GroupItem = ({ group }) => {
             defaultValue={group.laboratorio}
           />
 
-          <Typography variant="h3">
-            Carrera<i className="ri-information-line"></i>
-          </Typography>
+          <InfoLabel tooltip="La carrera a la que pertenece el grupo.">
+            Carrera
+          </InfoLabel>
           <TextField
             disabled
             required
@@ -53,9 +60,7 @@ export const GroupItem = ({ group }) => {
             label="Carrera"
           />
 
-          <Typography variant="h3">
-            Materia<i className="ri-information-line"></i>
-          </Typography>
+          <InfoLabel tooltip="La materia asignada al grupo.">Materia</InfoLabel>
           <TextField
             name="materia"
             disabled
@@ -64,9 +69,9 @@ export const GroupItem = ({ group }) => {
             label="Materia"
           />
 
-          <Typography variant="h3">
-            Número de alumnos<i className="ri-information-line"></i>
-          </Typography>
+          <InfoLabel tooltip="El número de alumnos del grupo.">
+            Número de alumnos
+          </InfoLabel>
           <TextField
             name="alumnos"
             type="number"
@@ -76,9 +81,9 @@ export const GroupItem = ({ group }) => {
             label="Alumnos"
           />
 
-          <Typography variant="h3">
-            Número de equipos<i className="ri-information-line"></i>
-          </Typography>
+          <InfoLabel tooltip="El número de equipos que tendrá el grupo.">
+            Número de equipos
+          </InfoLabel>
           <TextField
             name="equipos"
             type="number"
@@ -88,25 +93,25 @@ export const GroupItem = ({ group }) => {
             label="Equipos"
           />
 
-          <Typography variant="h3">
-            Día de la semana<i className="ri-information-line"></i>
-          </Typography>
+          <InfoLabel tooltip="El día de la semana en el que se da la clase.">
+            Día de la semana
+          </InfoLabel>
           <TextField
             required
             disabled
             name="dia"
-            defaultValue={group.dia}
+            defaultValue={days[group.dia]}
             label="Día de la semana"
           />
 
-          <Typography variant="h3">
-            Hora de clase<i className="ri-information-line"></i>
-          </Typography>
+          <InfoLabel tooltip="La hora del día a la que se da la clase.">
+            Hora de clase
+          </InfoLabel>
           <TextField
             required
             name="hora"
             disabled
-            defaultValue={group.hora}
+            defaultValue={formatTime(group.hora)}
             label="Hora"
           />
         </Box>

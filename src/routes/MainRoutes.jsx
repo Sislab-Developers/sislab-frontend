@@ -16,8 +16,6 @@ import {
 export const MainRoutes = () => {
   const authCtx = useContext(AuthContext);
 
-  console.log("Sesión iniciada: " + authCtx.isLoggedIn);
-
   return (
     <BrowserRouter>
       <Routes>

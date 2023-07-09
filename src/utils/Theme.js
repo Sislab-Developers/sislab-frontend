@@ -57,6 +57,18 @@ export const theme = createTheme({
         },
       },
     },
+    MuiSelect: {
+      defaultProps: {
+        MenuProps: {
+          PaperProps: {
+            style: {
+              borderRadius: "0 0 12px 12px",
+              maxHeight: "200px",
+            },
+          },
+        },
+      },
+    },
     MuiAccordion: {
       styleOverrides: {
         root: {

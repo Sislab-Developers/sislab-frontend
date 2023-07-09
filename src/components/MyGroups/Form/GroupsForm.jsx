@@ -24,15 +24,8 @@ import { Modal } from "../../Modal/Modal";
 import CustomSnackbar from "../../CustomSnackBar";
 
 import { getLaboratorios, getCarreras, getMaterias } from "../../../api/fetch";
-
-const weekDays = [
-  "Lunes",
-  "Martes",
-  "Miércoles",
-  "Jueves",
-  "Viernes",
-  "Sábado",
-];
+import { currentSemester, dayMap, days, formatTime } from "../../../utils";
+import { InfoLabel } from "../../InfoLabel/InfoLabel";
 
 const dayTimes = Array.from(Array(13).keys()).map(
   (i) => `${i + 7}:00 - ${i + 9}:00`
@@ -41,7 +34,15 @@ const dayTimes = Array.from(Array(13).keys()).map(
 export const GroupsForm = ({ total = 0, onAddGroup }) => {
   const theme = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    laboratorio: "",
+    carrera: "",
+    materia: "",
+    dia: "",
+    hora: "",
+    alumnos: "",
+    equipos: "",
+  });
   const [labs, setLabs] = useState([]);
   const [careers, setCareers] = useState([]);
   const [signatures, setSignatures] = useState([]);
@@ -83,15 +84,15 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
       .post(
         `grupos`,
         {
-          nombre: `G${total + 1} | ${formData.dia} | ${formData.hora}`,
           laboratorio: formData.laboratorio,
           materia: formData.materia,
           carrera: formData.carrera,
           alumnos: formData.alumnos,
           equipos: formData.equipos,
-          dia: formData.dia,
+          dia: dayMap[formData.dia],
           hora: formData.hora,
           usuario: authCtx.user.uid,
+          period: currentSemester,
         },
         {
           headers: {
@@ -100,7 +101,6 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
         }
       )
       .then((response) => {
-        console.log(response);
         toggle();
         setLoading(true);
         setIsExpanded(false);
@@ -119,9 +119,11 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
   };
 
   const handleChange = (e) => {
-    const currentData = { ...formData };
-    currentData[e.target.name] = e.target.value;
-    setFormData(currentData);
+    setFormData((prev) => {
+      const newData = { ...prev };
+      newData[e.target.name] = e.target.value;
+      return newData;
+    });
   };
 
   return (
@@ -141,8 +143,8 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
             <Add sx={{ mx: "auto", color: "white" }} />
           ) : (
             <Typography variant="body1" sx={{ color: "white" }}>
-              {`G${total + 1} | ${formData.dia || "..."} | ${
-                formData.hora || "..."
+              {`G${total + 1} | ${formData.dia?.toUpperCase() || "..."} | ${
+                formatTime(formData.hora) || "..."
               }`}
             </Typography>
           )}
@@ -153,9 +155,9 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
             onSubmit={handleSubmit}
             sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
           >
-            <Typography variant="h3">
-              Laboratorio<i className="ri-information-line"></i>
-            </Typography>
+            <InfoLabel tooltip="Escoge el laboratorio asignado al grupo.">
+              Laboratorio
+            </InfoLabel>
             <TextField
               select
               name="laboratorio"
@@ -166,20 +168,16 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
               onChange={handleChange}
               helperText="Escribe el laboratorio"
             >
-              {labs.length !== 0 ? (
-                labs.map((lab) => (
-                  <MenuItem key={lab.uid} value={lab.laboratorio}>
-                    {lab.laboratorio}
-                  </MenuItem>
-                ))
-              ) : (
-                <div />
-              )}
+              {labs.map((lab) => (
+                <MenuItem key={lab.uid} value={lab.laboratorio}>
+                  {lab.laboratorio}
+                </MenuItem>
+              ))}
             </TextField>
 
-            <Typography variant="h3">
-              Carrera<i className="ri-information-line"></i>
-            </Typography>
+            <InfoLabel tooltip="La carrera a la que pertenece el grupo.">
+              Carrera
+            </InfoLabel>
             <TextField
               name="carrera"
               required
@@ -190,25 +188,20 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
               onChange={handleChange}
               helperText="Selecciona la carrera de este grupo"
             >
-              {careers.length !== 0 ? (
-                careers.map((career) => (
-                  <MenuItem
-                    key={career.uid}
-                    value={career.carrera}
-                    disablescrolllock="true"
-                  >
-                    {career.carrera}
-                  </MenuItem>
-                ))
-              ) : (
-                <div />
-              )}
+              {careers.map((career) => (
+                <MenuItem
+                  key={career.uid}
+                  value={career.carrera}
+                  disablescrolllock="true"
+                >
+                  {career.carrera}
+                </MenuItem>
+              ))}
             </TextField>
 
-            <Typography variant="h3">
+            <InfoLabel tooltip="La materia asignada al grupo.">
               Materia
-              <i className="ri-information-line" />
-            </Typography>
+            </InfoLabel>
             <TextField
               required
               name="materia"
@@ -219,21 +212,16 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
               onChange={handleChange}
               helperText="Selecciona la materia de este grupo"
             >
-              {signatures.length !== 0 ? (
-                signatures.map((signature) => (
-                  <MenuItem key={signature.uid} value={signature.materia}>
-                    {signature.materia}
-                  </MenuItem>
-                ))
-              ) : (
-                <div />
-              )}
+              {signatures.map((signature) => (
+                <MenuItem key={signature.uid} value={signature.materia}>
+                  {signature.materia}
+                </MenuItem>
+              ))}
             </TextField>
 
-            <Typography variant="h3">
+            <InfoLabel tooltip="El número de alumnos que tiene el grupo.">
               Número de alumnos
-              <i className="ri-information-line" />
-            </Typography>
+            </InfoLabel>
             <TextField
               name="alumnos"
               required
@@ -245,10 +233,9 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
               helperText="Escribe el número de alumnos"
             />
 
-            <Typography variant="h3">
+            <InfoLabel tooltip="El número de equipos que tendrá el grupo.">
               Número de equipos
-              <i className="ri-information-line" />
-            </Typography>
+            </InfoLabel>
             <TextField
               required
               name="equipos"
@@ -260,10 +247,9 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
               helperText="Escribe el número de equipos"
             />
 
-            <Typography variant="h3">
+            <InfoLabel tooltip="El día de la semana que se da la clase.">
               Día de la semana
-              <i className="ri-information-line" />
-            </Typography>
+            </InfoLabel>
             <TextField
               required
               name="dia"
@@ -274,20 +260,16 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
               onChange={handleChange}
               helperText="Selecciona el día de la semana"
             >
-              {!loading ? (
-                weekDays.map((day) => (
-                  <MenuItem key={day} value={day}>
-                    {day}
-                  </MenuItem>
-                ))
-              ) : (
-                <div />
-              )}
+              {days.map((day) => (
+                <MenuItem key={day} value={day}>
+                  {day}
+                </MenuItem>
+              ))}
             </TextField>
 
-            <Typography variant="h3">
-              Hora de clase<i className="ri-information-line"></i>
-            </Typography>
+            <InfoLabel tooltip="La hora a la que se da la clase.">
+              Hora de clase
+            </InfoLabel>
             <TextField
               required
               name="hora"
@@ -298,15 +280,11 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
               onChange={handleChange}
               helperText="Selecciona la hora de clase de este grupo"
             >
-              {!loading ? (
-                dayTimes.map((time) => (
-                  <MenuItem key={time} value={time}>
-                    {time}
-                  </MenuItem>
-                ))
-              ) : (
-                <div />
-              )}
+              {dayTimes.map((time, index) => (
+                <MenuItem key={time} value={index + 7}>
+                  {time}
+                </MenuItem>
+              ))}
             </TextField>
             <Button
               sx={{ mx: "auto" }}

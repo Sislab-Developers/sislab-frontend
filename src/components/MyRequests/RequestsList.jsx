@@ -1,14 +1,16 @@
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Skeleton, Typography } from "@mui/material";
 
 import { TextEmphasis } from "../TextEmphasis";
 import { useRequestsByProfDate } from "../../hooks/useRequests";
 import { RequestItem } from "./RequestItem";
+import { useGroupsByPeriodData } from "../../hooks/useGroupsData";
 
 export const RequestsList = ({ date, hasRequests }) => {
-  const { requests, isLoading } = useRequestsByProfDate(date);
+  const { groups, isLoading: groupsLoading } = useGroupsByPeriodData();
+  const { requests, isLoading: requestsLoading } = useRequestsByProfDate(date);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
@@ -21,9 +23,17 @@ export const RequestsList = ({ date, hasRequests }) => {
             </TextEmphasis>
             :
           </Typography>
-          {!isLoading &&
+          {(requestsLoading || groupsLoading) && <RequestSkeleton />}
+          {!requestsLoading &&
+            !groupsLoading &&
             requests.map((request) => (
-              <RequestItem request={request} key={request._id} />
+              <RequestItem
+                request={request}
+                index={groups.findIndex(
+                  (group) => group.uid === request.groupId.uid
+                )}
+                key={request._id}
+              />
             ))}
         </>
       ) : (
@@ -34,4 +44,20 @@ export const RequestsList = ({ date, hasRequests }) => {
       )}
     </Box>
   );
+};
+
+const RequestSkeleton = () => {
+  return Array.from(Array(3).keys()).map((i) => (
+    <Skeleton
+      key={i}
+      variant="rectangular"
+      animation="pulse"
+      sx={{
+        width: "100%",
+        height: "150px",
+        animationDelay: `${i * 0.08}s`,
+        animationDuration: "1s",
+      }}
+    />
+  ));
 };
