@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+
 import { MyGroups } from "../../components/MyGroups/MyGroups";
 import { TextEmphasis } from "../../components/TextEmphasis";
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Box } from "@mui/material";
+import { Box, LinearProgress } from "@mui/material";
 
 import { Calendar } from "../Calendar/Calendar";
 
@@ -30,6 +30,7 @@ export const MyRequests = () => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+      {isLoading && <LinearProgress />}
       <Calendar
         disablePast
         value={selectedDate}

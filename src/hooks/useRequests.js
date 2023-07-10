@@ -1,33 +1,39 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useState } from "react";
 
-import AuthContext from "../context/AuthContext";
 import { getToken } from "../utils";
 import { getRequestsByProf, getRequestsByProfAndDate } from "../api/fetch";
+import AuthContext from "../context/AuthContext";
+import ModalContext from "../context/Modal/ModalContext";
 
 export const useRequestsByProf = () => {
   const [requests, setRequests] = useState([]);
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const { updateContent } = useContext(ModalContext);
 
   const authCtx = useContext(AuthContext);
   const { uid } = getToken(authCtx.token, true);
 
-  const fetchRequests = useCallback(async () => {
+  const fetchRequests = async () => {
     setIsLoading(true);
     try {
       const requestsRes = await getRequestsByProf(uid);
       setRequests([...requestsRes.requests]);
       setTotal(requestsRes.requests.length);
     } catch (error) {
-      console.error(error);
+      updateContent({
+        title: "Error",
+        body: `Ocurrió un error al obtener las solicitudes. Detalles: ${error.message}`,
+      });
     } finally {
       setIsLoading(false);
     }
-  }, [uid]);
+  };
 
   useEffect(() => {
     fetchRequests();
-  }, [fetchRequests]);
+  }, []);
 
   return {
     requests,
@@ -41,26 +47,30 @@ export const useRequestsByProfDate = (date) => {
   const [requests, setRequests] = useState([]);
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const { updateContent } = useContext(ModalContext);
 
   const authCtx = useContext(AuthContext);
   const { uid } = getToken(authCtx.token, true);
 
-  const fetchRequests = useCallback(async () => {
+  const fetchRequests = async () => {
     setIsLoading(true);
     try {
       const requestsRes = await getRequestsByProfAndDate(uid, date);
       setRequests([...requestsRes.requests]);
       setTotal(requestsRes.requests.length);
     } catch (error) {
-      console.error(error);
+      updateContent({
+        title: "Error",
+        body: `Ocurrió un error al obtener las solicitudes. Detalles: ${error.message}`,
+      });
     } finally {
       setIsLoading(false);
     }
-  }, [uid, date]);
+  };
 
   useEffect(() => {
     fetchRequests();
-  }, [fetchRequests]);
+  }, []);
 
   return {
     requests,

@@ -5,8 +5,6 @@ import {
   Button,
   Box,
   Typography,
-  Card,
-  CardContent,
   IconButton,
   InputAdornment,
   TextField,
@@ -112,7 +110,7 @@ export const LoginForm = ({
       <Box className={classes["copyright-box"]}>
         <img src={LogoCSIPRO} alt="Logo de CSI Pro" />
         <Typography variant="body1">
-          <small>Desarrollado por &copy; CSI PRO 2023</small>
+          <small>Desarrollado por CSI PRO&trade; 2023</small>
         </Typography>
       </Box>
     </>

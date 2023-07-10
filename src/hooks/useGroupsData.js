@@ -1,13 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { currentSemester, getToken } from "../utils";
 import { getGroupsByPeriod, getGrupos } from "../api/fetch";
+import ModalContext from "../context/Modal/ModalContext";
 
 export const useGroupsData = () => {
   const [groups, setGroups] = useState([]);
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { updateContent } = useContext(ModalContext);
   const authCtx = useContext(AuthContext);
   const { uid } = getToken(authCtx.token, true);
 
@@ -18,7 +21,10 @@ export const useGroupsData = () => {
       setGroups([...groupsRes.grupos]);
       setTotal(groupsRes.grupos.length);
     } catch (error) {
-      console.error(error);
+      updateContent({
+        title: "Error",
+        body: `Ocurrió un error al obtener los grupos. Detalles: ${error.message}`,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -26,7 +32,7 @@ export const useGroupsData = () => {
 
   useEffect(() => {
     fetchGroups();
-  }, [fetchGroups]);
+  }, []);
 
   return {
     groups,
@@ -41,6 +47,7 @@ export const useGroupsByPeriodData = (period = currentSemester) => {
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { updateContent } = useContext(ModalContext);
   const authCtx = useContext(AuthContext);
   const { uid } = getToken(authCtx.token, true);
 
@@ -51,7 +58,10 @@ export const useGroupsByPeriodData = (period = currentSemester) => {
       setGroups([...groupsRes.grupos]);
       setTotal(groupsRes.grupos.length);
     } catch (error) {
-      console.error(error);
+      updateContent({
+        title: "Error",
+        body: `Ocurrió un error al obtener los grupos. Detalles: ${error.message}`,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -59,7 +69,7 @@ export const useGroupsByPeriodData = (period = currentSemester) => {
 
   useEffect(() => {
     fetchGroups();
-  }, [fetchGroups]);
+  }, []);
 
   return {
     groups,

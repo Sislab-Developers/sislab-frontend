@@ -14,9 +14,9 @@ export const MyGroups = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
       {total === 0 && (
-        <Typography variant="body1">
-          Llena este formulario para crear tu primer{" "}
-          <TextEmphasis>grupo</TextEmphasis>:
+        <Typography>
+          Llena este formulario para crear tu{" "}
+          <TextEmphasis>primer grupo</TextEmphasis>:
         </Typography>
       )}
       {isLoading && <GroupsSkeleton />}

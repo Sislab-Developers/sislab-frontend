@@ -1,4 +1,5 @@
-import { useState, useCallback, useEffect, useContext } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect, useContext } from "react";
 
 import {
   Box,
@@ -26,6 +27,7 @@ import CustomSnackbar from "../../CustomSnackBar";
 import { getLaboratorios, getCarreras, getMaterias } from "../../../api/fetch";
 import { currentSemester, dayMap, days, formatTime } from "../../../utils";
 import { InfoLabel } from "../../InfoLabel/InfoLabel";
+import ModalContext from "../../../context/Modal/ModalContext";
 
 const dayTimes = Array.from(Array(13).keys()).map(
   (i) => `${i + 7}:00 - ${i + 9}:00`
@@ -48,13 +50,14 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
   const [signatures, setSignatures] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const { updateContent } = useContext(ModalContext);
   const { setOpen, setMessage, setSeverity } = useContext(SnackbarContext);
 
   const { isShowing, toggle } = useModal();
 
   const authCtx = useContext(AuthContext);
 
-  const fetchData = useCallback(async () => {
+  const fetchData = async () => {
     setLoading(true);
     try {
       const [laboratoriosResponse, carrerasResponse, materiasResponse] =
@@ -63,15 +66,20 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
       setCareers(carrerasResponse?.carreras);
       setSignatures(materiasResponse?.materias);
     } catch (error) {
-      console.error(error);
+      updateContent({
+        title: "Error",
+        body: `Ocurrió un error al obtener los datos del formulario. Detalles: ${
+          error.msg ? error.msg : error.errors[0].msg
+        }`,
+      });
     } finally {
       setLoading(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   const handleExpanded = () => {
     setIsExpanded((isExpanded) => !isExpanded);
@@ -107,10 +115,15 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
         setFormData({});
       })
       .catch((error) => {
-        console.log(error);
         setOpen(true);
         setSeverity("error");
         setMessage(error.msg ? error.msg : error.errors[0].msg);
+        updateContent({
+          title: "Error",
+          body: `Ocurrió un error al crear el grupo. Detalles: ${
+            error.msg ? error.msg : error.errors[0].msg
+          }`,
+        });
       })
       .finally(() => {
         setLoading(false);
