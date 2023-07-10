@@ -267,18 +267,27 @@ export const RequestForm = () => {
           {groupsLoading ? (
             <LinearProgress />
           ) : (
-            <Tabs variant="scrollable" value={selectedGroup}>
-              {groups &&
-                groups.map((group, index) => (
-                  <GroupChip
-                    clickable
-                    key={group.uid}
-                    label={formatGroupName(index + 1, group.dia, group.hora)}
-                    selected={index === selectedGroup}
-                    onClick={handleGroupChange.bind(null, index)}
-                  />
-                ))}
-            </Tabs>
+            <>
+              {groups.length < 1 ? (
+                <Typography>
+                  No hay grupos disponibles. Dirígete a la sección de{" "}
+                  <TextEmphasis>Mis grupos</TextEmphasis> para agregar tu primer
+                  grupo.
+                </Typography>
+              ) : (
+                <Tabs variant="scrollable" value={selectedGroup}>
+                  {groups.map((group, index) => (
+                    <GroupChip
+                      clickable
+                      key={group.uid}
+                      label={formatGroupName(index + 1, group.dia, group.hora)}
+                      selected={index === selectedGroup}
+                      onClick={handleGroupChange.bind(null, index)}
+                    />
+                  ))}
+                </Tabs>
+              )}
+            </>
           )}
 
           <InfoLabel tooltip="Escoge la práctica que se llevará a cabo.">

@@ -51,7 +51,6 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
   const [loading, setLoading] = useState(false);
 
   const { updateContent } = useContext(ModalContext);
-  const { setOpen, setMessage, setSeverity } = useContext(SnackbarContext);
 
   const { isShowing, toggle } = useModal();
 
@@ -87,6 +86,7 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     instance
       .post(
@@ -109,25 +109,22 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
         }
       )
       .then((response) => {
-        toggle();
-        setLoading(true);
+        updateContent({
+          title: "Grupo creado",
+          body: response.message,
+        });
         setIsExpanded(false);
         setFormData({});
+        onAddGroup();
       })
       .catch((error) => {
-        setOpen(true);
-        setSeverity("error");
-        setMessage(error.msg ? error.msg : error.errors[0].msg);
         updateContent({
           title: "Error",
-          body: `Ocurrió un error al crear el grupo. Detalles: ${
-            error.msg ? error.msg : error.errors[0].msg
-          }`,
+          body: `Ocurrió un error al crear el grupo. Detalles: ${error.message}`,
         });
       })
       .finally(() => {
         setLoading(false);
-        onAddGroup();
       });
   };
 
