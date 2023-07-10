@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { currentSemester, getToken } from "../utils";
@@ -28,11 +27,11 @@ export const useGroupsData = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [uid]);
+  }, [uid, updateContent]);
 
   useEffect(() => {
     fetchGroups();
-  }, []);
+  }, [fetchGroups]);
 
   return {
     groups,
@@ -65,11 +64,11 @@ export const useGroupsByPeriodData = (period = currentSemester) => {
     } finally {
       setIsLoading(false);
     }
-  }, [uid, period]);
+  }, [uid, period, updateContent]);
 
   useEffect(() => {
     fetchGroups();
-  }, []);
+  }, [fetchGroups]);
 
   return {
     groups,

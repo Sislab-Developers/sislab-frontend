@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 import { getAssignments } from "../api/fetch";
 import ModalContext from "../context/Modal/ModalContext";
@@ -9,7 +8,7 @@ export const useAssignmentsData = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { updateContent } = useContext(ModalContext);
 
-  const fetchAssignments = async () => {
+  const fetchAssignments = useCallback(async () => {
     setIsLoading(true);
     try {
       const assignmentsRes = await getAssignments();
@@ -22,11 +21,11 @@ export const useAssignmentsData = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [updateContent]);
 
   useEffect(() => {
     fetchAssignments();
-  }, []);
+  }, [fetchAssignments]);
 
   return {
     assignments,

@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 import { getToken } from "../utils";
 import { getRequestsByProf, getRequestsByProfAndDate } from "../api/fetch";
@@ -15,7 +14,7 @@ export const useRequestsByProf = () => {
   const authCtx = useContext(AuthContext);
   const { uid } = getToken(authCtx.token, true);
 
-  const fetchRequests = async () => {
+  const fetchRequests = useCallback(async () => {
     setIsLoading(true);
     try {
       const requestsRes = await getRequestsByProf(uid);
@@ -29,11 +28,11 @@ export const useRequestsByProf = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [uid, updateContent]);
 
   useEffect(() => {
     fetchRequests();
-  }, []);
+  }, [fetchRequests]);
 
   return {
     requests,
@@ -52,7 +51,7 @@ export const useRequestsByProfDate = (date) => {
   const authCtx = useContext(AuthContext);
   const { uid } = getToken(authCtx.token, true);
 
-  const fetchRequests = async () => {
+  const fetchRequests = useCallback(async () => {
     setIsLoading(true);
     try {
       const requestsRes = await getRequestsByProfAndDate(uid, date);
@@ -66,11 +65,11 @@ export const useRequestsByProfDate = (date) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [uid, date, updateContent]);
 
   useEffect(() => {
     fetchRequests();
-  }, []);
+  }, [fetchRequests]);
 
   return {
     requests,

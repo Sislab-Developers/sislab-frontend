@@ -23,7 +23,7 @@ import { InfoLabel } from "../InfoLabel/InfoLabel";
 import { Table } from "../Table/Table";
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 
-import { useGroupsData } from "../../hooks/useGroupsData";
+import { useGroupsByPeriodData } from "../../hooks/useGroupsData";
 import { useAssignmentsData } from "../../hooks/useAssignmentsData";
 import { formatGroupName, getToken } from "../../utils";
 import { CustomReagents } from "./CustomReagents";
@@ -58,7 +58,7 @@ export const RequestForm = () => {
     content: null,
   });
 
-  const { groups, isLoading: groupsLoading } = useGroupsData();
+  const { groups, isLoading: groupsLoading } = useGroupsByPeriodData();
   const { assignments, isLoading: assignmentsLoading } = useAssignmentsData();
 
   useEffect(() => {

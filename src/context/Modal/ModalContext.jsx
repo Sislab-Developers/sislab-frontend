@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { createContext, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 
 const ModalContext = createContext({
   open: false,
@@ -12,15 +12,15 @@ export const ModalProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState(null);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOpen(false);
     setContent({ title: null, body: null });
-  };
+  }, []);
 
-  const updateContent = (newContent) => {
+  const updateContent = useCallback((newContent) => {
     setContent((prev) => ({ ...prev, ...newContent }));
     setOpen(true);
-  };
+  }, []);
 
   const value = {
     open,
