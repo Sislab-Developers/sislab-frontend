@@ -37,7 +37,7 @@ export const RequestItem = ({ request, index }) => {
           </Typography>
         </Box>
         <GroupChip
-          label={formatGroupName(index, group.dia, group.hora)}
+          label={formatGroupName(index + 1, group.dia, group.hora)}
           selected
         />
       </Box>
