@@ -34,7 +34,16 @@ export const CustomReagents = ({
       <InfoLabel tooltip="Aquí se encuentran los reactivos extra. Si cometiste un error, puedes eliminarlos haciendo clic sobre uno de ellos">
         <TextEmphasis>Reactivos</TextEmphasis> personalizados
       </InfoLabel>
-      <Table headTitles={["Reactivo", "Cantidad", "Medida", ""]}>
+      <Table
+        tableHead={
+          <TableRow>
+            <TableCell>Reactivo</TableCell>
+            <TableCell align="right">Cantidad</TableCell>
+            <TableCell align="right">Medida</TableCell>
+            <TableCell align="right"></TableCell>
+          </TableRow>
+        }
+      >
         {reagents.length > 0 ? (
           reagents.map((reagent, index) => (
             <TableRow key={`Custom reagent ${index}: ${reagent.reagent}`}>

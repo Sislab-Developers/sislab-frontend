@@ -13,7 +13,7 @@ import { PendingRequestsList } from "./PendingRequestsList";
 
 export const PendingRequests = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  // const { requests, isLoading } = useRequestsByProf();
+
   const requestsQuery = useQuery({
     queryKey: ["pending-requests"],
     queryFn: getPendingRequests,
@@ -36,7 +36,19 @@ export const PendingRequests = () => {
   };
 
   if (requestsQuery.isLoading) {
-    return <CircularProgress />;
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   if (requestsQuery.isError) {

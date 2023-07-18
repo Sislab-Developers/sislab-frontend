@@ -30,7 +30,16 @@ export const CustomWaste = ({ waste = [], onAddWaste, onDeleteWaste }) => {
       <Typography>
         <TextEmphasis>Residuos</TextEmphasis> personalizados
       </Typography>
-      <Table headTitles={["Residuo", "Envase", "Tratamiento", ""]}>
+      <Table
+        tableHead={
+          <TableRow>
+            <TableCell>Residuo</TableCell>
+            <TableCell align="right">Envase</TableCell>
+            <TableCell align="right">Tratamiento</TableCell>
+            <TableCell align="right"></TableCell>
+          </TableRow>
+        }
+      >
         {waste.length > 0 ? (
           waste.map((waste) => (
             <TableRow key={waste.residue}>

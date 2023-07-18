@@ -13,6 +13,7 @@ import {
   Login,
 } from "../pages";
 import { AdminRequests } from "../pages/AdminRequests/AdminRequests.jsx";
+import { UsersPage } from "../pages/UsersPage/UsersPage.jsx";
 
 export const MainRoutes = () => {
   const authCtx = useContext(AuthContext);
@@ -62,7 +63,7 @@ export const MainRoutes = () => {
             element={<Navigate to="/solicitudes" />}
           />
           <Route index path="/admin/solicitudes" element={<AdminRequests />} />
-          <Route index path="/admin/usuarios" element={<p>Usuarios</p>} />
+          <Route index path="/admin/usuarios" element={<UsersPage />} />
           <Route
             index
             path="/admin/notificaciones"

@@ -346,7 +346,15 @@ export const RequestForm = () => {
                 Reactivos de esta práctica
               </InfoLabel>
               {selectedAssignment.reagents.groups.length < 1 && (
-                <Table>
+                <Table
+                  tableHead={
+                    <TableRow>
+                      <TableCell>Reactivo</TableCell>
+                      <TableCell align="right">Cantidad</TableCell>
+                      <TableCell align="right">Unidad</TableCell>
+                    </TableRow>
+                  }
+                >
                   <TableRow>
                     <TableCell colSpan={3}>
                       <Typography textAlign="center">
@@ -358,7 +366,16 @@ export const RequestForm = () => {
                 </Table>
               )}
               {selectedAssignment.reagents.groups.map((group, index) => (
-                <Table key={`Reagents table ${index}`}>
+                <Table
+                  key={`Reagents table ${index}`}
+                  tableHead={
+                    <TableRow>
+                      <TableCell>Reactivo</TableCell>
+                      <TableCell align="right">Cantidad</TableCell>
+                      <TableCell align="right">Unidad</TableCell>
+                    </TableRow>
+                  }
+                >
                   {group.reagents.map((reagent) => (
                     <TableRow key={reagent.reagent}>
                       <TableCell
@@ -464,7 +481,15 @@ export const RequestForm = () => {
               <InfoLabel tooltip="Estos son los residuos predefinidos para la práctica seleccionada. Puedes agregar más si es necesario.">
                 Residuos
               </InfoLabel>
-              <Table headTitles={["Residuo", "Envase", "Tratamiento"]}>
+              <Table
+                tableHead={
+                  <TableRow>
+                    <TableCell>Residuo</TableCell>
+                    <TableCell align="right">Envase</TableCell>
+                    <TableCell align="right">Tratamiento</TableCell>
+                  </TableRow>
+                }
+              >
                 {selectedAssignment.waste.length < 1 ? (
                   <TableRow>
                     <TableCell colSpan={3}>

@@ -41,6 +41,11 @@ export const getHoras = async () => {
   return response;
 };
 
+export const getUsers = async () => {
+  const response = await instance.get(`usuarios/`);
+  return response;
+};
+
 export const getRequests = async () => {
   return await instance.get("solicitudes");
 };

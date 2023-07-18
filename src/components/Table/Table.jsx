@@ -3,15 +3,10 @@ import {
   Table as MUITable,
   TableHead,
   TableBody,
-  TableRow,
-  TableCell,
   useTheme,
 } from "@mui/material";
 
-export const Table = ({
-  headTitles = ["Reactivos", "Cantidad", "Medida"],
-  children,
-}) => {
+export const Table = ({ tableHead, children }) => {
   const theme = useTheme();
 
   return (
@@ -22,18 +17,13 @@ export const Table = ({
       }}
     >
       <MUITable>
-        <TableHead sx={{ backgroundColor: theme.palette.primary.main }}>
-          <TableRow>
-            {headTitles.map((title, index) => (
-              <TableCell
-                key={title}
-                align={index > 0 ? "right" : "inherit"}
-                sx={{ color: "white", fontWeight: "bold" }}
-              >
-                {title}
-              </TableCell>
-            ))}
-          </TableRow>
+        <TableHead
+          sx={{
+            backgroundColor: theme.palette.primary.main,
+            "& > tr > th": { color: "white", fontWeight: "bold" },
+          }}
+        >
+          {tableHead}
         </TableHead>
         <TableBody>{children}</TableBody>
       </MUITable>
