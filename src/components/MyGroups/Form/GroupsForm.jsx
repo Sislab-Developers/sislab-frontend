@@ -19,7 +19,6 @@ import check from "../../../assets/img/check.svg";
 
 import instance from "../../../utils/axiosConfig";
 import AuthContext from "../../../context/AuthContext.jsx";
-import SnackbarContext from "../../../context/SnackBar/SnackBarContext";
 import { useModal } from "../../../hooks/useModal";
 import { Modal } from "../../Modal/Modal";
 import CustomSnackbar from "../../CustomSnackBar";

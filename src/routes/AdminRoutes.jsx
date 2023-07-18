@@ -1,8 +1,13 @@
 import { useContext } from "react";
-import AuthContext from "../context/AuthContext.jsx";
+
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { Layout } from "../components";
+
 import { MasInformacion } from "../pages";
+import { AdminRequests } from "../pages/AdminRequests/AdminRequests.jsx";
+
+import { Layout } from "../components";
+
+import AuthContext from "../context/AuthContext.jsx";
 
 export const AdminRoutes = () => {
   const authCtx = useContext(AuthContext);
@@ -21,7 +26,7 @@ export const AdminRoutes = () => {
         >
           <Route index path="/*" element={<Navigate to="/" />} />
           <Route index path="/" element={<Navigate to="/solicitudes" />} />
-          <Route index path="/solicitudes" element={<p>Solicitudes</p>} />
+          <Route index path="/solicitudes" element={<AdminRequests />} />
           <Route index path="/usuarios" element={<p>Usuarios</p>} />
           <Route index path="/notificaciones" element={<p>Notificaciones</p>} />
           <Route index path="/mas-informacion" element={<MasInformacion />} />

@@ -1,6 +1,6 @@
 import { es } from "date-fns/locale";
 
-import { useTheme } from "@mui/material";
+import { alpha, useTheme } from "@mui/material";
 import { DateCalendar, PickersDay } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -12,6 +12,8 @@ export const Calendar = ({
   disablePast = false,
   disabled = false,
 }) => {
+  const theme = useTheme();
+
   return (
     <LocalizationProvider adapterLocale={es} dateAdapter={AdapterDateFns}>
       <DateCalendar
@@ -22,7 +24,14 @@ export const Calendar = ({
         onChange={onChange}
         shouldDisableDate={shouldDisableDate}
         slots={{ day: HighlightedDay }}
-        sx={{ maxWidth: "100%" }}
+        sx={{
+          maxWidth: "100%",
+          border: `1px ${
+            disabled ? "rgba(0, 0, 0, 0.26)" : theme.palette.primary.main
+          } solid`,
+          borderRadius: "8px",
+          backgroundColor: alpha(theme.palette.primary.main, 0.05),
+        }}
       />
     </LocalizationProvider>
   );

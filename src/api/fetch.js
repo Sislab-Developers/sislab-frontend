@@ -45,6 +45,10 @@ export const getRequests = async () => {
   return await instance.get("solicitudes");
 };
 
+export const getPendingRequests = async () => {
+  return await instance.get("solicitudes/pending");
+};
+
 export const getRequestsByProf = async (uid) => {
   return await instance.get("solicitudes/by-prof", {
     params: { profId: uid },

@@ -2,8 +2,6 @@ import { useContext } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
-import AuthContext from "../../../context/AuthContext.jsx";
-
 import {
   Box,
   Drawer,
@@ -12,13 +10,24 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-  useTheme,
 } from "@mui/material";
+import {
+  CheckCircle,
+  CheckCircleOutline,
+  Group,
+  GroupOutlined,
+  Info,
+  InfoOutlined,
+  Logout,
+  Notifications,
+  NotificationsOutlined,
+} from "@mui/icons-material";
+
+import AuthContext from "../../../context/AuthContext.jsx";
 
 const AdminDrawer = (props) => {
   const { variant, open, onClose } = props;
 
-  const theme = useTheme();
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,15 +45,9 @@ const AdminDrawer = (props) => {
       >
         <ListItemIcon>
           {isSelected("solicitudes") ? (
-            <i
-              className="ri-checkbox-circle-fill"
-              style={{ color: theme.palette.primary.main }}
-            />
+            <CheckCircle color="primary" />
           ) : (
-            <i
-              className="ri-checkbox-circle-line"
-              style={{ color: theme.palette.primary.main }}
-            />
+            <CheckCircleOutline color="primary" />
           )}
         </ListItemIcon>
         <ListItemText
@@ -64,15 +67,9 @@ const AdminDrawer = (props) => {
       >
         <ListItemIcon>
           {isSelected("usuarios") ? (
-            <i
-              className="ri-group-fill"
-              style={{ color: theme.palette.primary.main }}
-            />
+            <Group color="primary" />
           ) : (
-            <i
-              className="ri-group-line"
-              style={{ color: theme.palette.primary.main }}
-            />
+            <GroupOutlined color="primary" />
           )}
         </ListItemIcon>
         <ListItemText
@@ -84,6 +81,7 @@ const AdminDrawer = (props) => {
         />
       </ListItemButton>
       <ListItemButton
+        disabled
         onClick={() => {
           navigate("/admin/notificaciones");
           onClose();
@@ -92,15 +90,9 @@ const AdminDrawer = (props) => {
       >
         <ListItemIcon>
           {isSelected("notificaciones") ? (
-            <i
-              className="ri-notification-fill"
-              style={{ color: theme.palette.primary.main }}
-            />
+            <Notifications color="primary" />
           ) : (
-            <i
-              className="ri-notification-line"
-              style={{ color: theme.palette.primary.main }}
-            />
+            <NotificationsOutlined color="primary" />
           )}
         </ListItemIcon>
         <ListItemText
@@ -120,15 +112,9 @@ const AdminDrawer = (props) => {
       >
         <ListItemIcon>
           {isSelected("mas-informacion") ? (
-            <i
-              className="ri-information-fill"
-              style={{ color: theme.palette.primary.main }}
-            />
+            <Info color="primary" />
           ) : (
-            <i
-              className="ri-information-line"
-              style={{ color: theme.palette.primary.main }}
-            />
+            <InfoOutlined color="primary" />
           )}
         </ListItemIcon>
         <ListItemText
@@ -180,14 +166,7 @@ const AdminDrawer = (props) => {
                 onClose();
               }}
             >
-              <ListItemIcon>
-                {
-                  <i
-                    className="ri-logout-box-line"
-                    style={{ color: theme.palette.primary.main }}
-                  />
-                }
-              </ListItemIcon>
+              <ListItemIcon>{<Logout color="primary" />}</ListItemIcon>
               <ListItemText primary="Cerrar sesión" />
             </ListItemButton>
           </Box>

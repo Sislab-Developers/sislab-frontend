@@ -12,6 +12,7 @@ import {
   Ayuda,
   Login,
 } from "../pages";
+import { AdminRequests } from "../pages/AdminRequests/AdminRequests.jsx";
 
 export const MainRoutes = () => {
   const authCtx = useContext(AuthContext);
@@ -60,7 +61,7 @@ export const MainRoutes = () => {
             path="/admin/"
             element={<Navigate to="/solicitudes" />}
           />
-          <Route index path="/admin/solicitudes" element={<p>Solicitudes</p>} />
+          <Route index path="/admin/solicitudes" element={<AdminRequests />} />
           <Route index path="/admin/usuarios" element={<p>Usuarios</p>} />
           <Route
             index

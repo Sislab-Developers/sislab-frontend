@@ -5,6 +5,12 @@ export const currentSemester = `${new Date().getFullYear()}-${
   new Date().getMonth() <= 5 ? "1" : "2"
 }`;
 
+export const formatProfName = (name, surname, surname2) => {
+  if (!name || !surname) return null;
+
+  return `${name} ${surname} ${surname2 || ""}`;
+};
+
 export const formatGroupName = (index, day, time) =>
   `G${index} | ${days[day].toUpperCase()} | ${formatTime(time)}`;
 
@@ -26,6 +32,14 @@ export const fullDateFormat = (date) => {
   if (!date) return null;
 
   return format(new Date(date), "dd 'de' MMMM 'del' yyyy", {
+    locale: es,
+  });
+};
+
+export const fullDateTimeFormat = (date) => {
+  if (!date) return null;
+
+  return format(new Date(date), "EEEE dd 'de' MMMM 'del' yyyy 'a las' HH:mm", {
     locale: es,
   });
 };
