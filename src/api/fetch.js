@@ -88,3 +88,7 @@ export const getRequestsByDate = async (date) => {
 export const postRequest = async (data) => {
   return await instance.post("solicitudes", data);
 };
+
+export const postUser = async (data) => {
+  return await instance.post("usuarios", data);
+};

@@ -19,8 +19,8 @@ import {
   Info,
   InfoOutlined,
   Logout,
-  Notifications,
-  NotificationsOutlined,
+  // Notifications,
+  // NotificationsOutlined,
 } from "@mui/icons-material";
 
 import AuthContext from "../../../context/AuthContext.jsx";
@@ -80,7 +80,7 @@ const AdminDrawer = (props) => {
           }}
         />
       </ListItemButton>
-      <ListItemButton
+      {/* <ListItemButton
         disabled
         onClick={() => {
           navigate("/admin/notificaciones");
@@ -102,7 +102,7 @@ const AdminDrawer = (props) => {
             color: isSelected("notificaciones") ? "primary" : "inherit",
           }}
         />
-      </ListItemButton>
+      </ListItemButton> */}
       <ListItemButton
         onClick={() => {
           navigate("/admin/mas-informacion");

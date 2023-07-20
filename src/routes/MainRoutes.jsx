@@ -14,6 +14,7 @@ import {
 } from "../pages";
 import { AdminRequests } from "../pages/AdminRequests/AdminRequests.jsx";
 import { UsersPage } from "../pages/UsersPage/UsersPage.jsx";
+import { CreateUser } from "../pages/CreateUser/CreateUser.jsx";
 
 export const MainRoutes = () => {
   const authCtx = useContext(AuthContext);
@@ -56,7 +57,7 @@ export const MainRoutes = () => {
             )
           }
         >
-          <Route index path="/admin/*" element={<Navigate to="/" />} />
+          {/* <Route index path="/admin/*" element={<Navigate to="/" />} /> */}
           <Route
             index
             path="/admin/"
@@ -64,11 +65,12 @@ export const MainRoutes = () => {
           />
           <Route index path="/admin/solicitudes" element={<AdminRequests />} />
           <Route index path="/admin/usuarios" element={<UsersPage />} />
-          <Route
+          <Route path="/admin/crear-usuario" element={<CreateUser />} />
+          {/* <Route
             index
             path="/admin/notificaciones"
             element={<p>Notificaciones</p>}
-          />
+          /> */}
           <Route
             index
             path="/admin/mas-informacion"
