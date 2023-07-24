@@ -23,7 +23,7 @@ export const useRequestsByProf = () => {
     } catch (error) {
       updateContent({
         title: "Error",
-        body: `Ocurrió un error al obtener las solicitudes. Detalles: ${error.message}`,
+        content: `Ocurrió un error al obtener las solicitudes. Detalles: ${error.message}`,
       });
     } finally {
       setIsLoading(false);
@@ -60,7 +60,7 @@ export const useRequestsByProfDate = (date) => {
     } catch (error) {
       updateContent({
         title: "Error",
-        body: `Ocurrió un error al obtener las solicitudes. Detalles: ${error.message}`,
+        content: `Ocurrió un error al obtener las solicitudes. Detalles: ${error.message}`,
       });
     } finally {
       setIsLoading(false);

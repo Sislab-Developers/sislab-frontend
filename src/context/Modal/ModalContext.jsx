@@ -3,7 +3,7 @@ import { createContext, useCallback, useState } from "react";
 
 const ModalContext = createContext({
   open: false,
-  content: { title: null, body: null },
+  content: { title: null, content: null },
   onClose: () => {},
   updateContent: (content) => {},
 });
@@ -14,7 +14,7 @@ export const ModalProvider = ({ children }) => {
 
   const handleClose = useCallback(() => {
     setOpen(false);
-    setContent({ title: null, body: null });
+    setContent({ title: null, content: null });
   }, []);
 
   const updateContent = useCallback((newContent) => {

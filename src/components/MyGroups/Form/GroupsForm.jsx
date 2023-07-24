@@ -66,7 +66,7 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
     } catch (error) {
       updateContent({
         title: "Error",
-        body: `Ocurrió un error al obtener los datos del formulario. Detalles: ${
+        content: `Ocurrió un error al obtener los datos del formulario. Detalles: ${
           error.msg ? error.msg : error.errors[0].msg
         }`,
       });
@@ -110,7 +110,7 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
       .then((response) => {
         updateContent({
           title: "Grupo creado",
-          body: response.message,
+          content: response.message,
         });
         setIsExpanded(false);
         setFormData({});
@@ -119,7 +119,7 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
       .catch((error) => {
         updateContent({
           title: "Error",
-          body: `Ocurrió un error al crear el grupo. Detalles: ${error.message}`,
+          content: `Ocurrió un error al crear el grupo. Detalles: ${error.message}`,
         });
       })
       .finally(() => {

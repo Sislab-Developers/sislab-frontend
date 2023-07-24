@@ -29,7 +29,7 @@ const MainComponent = () => {
         <DialogTitle>{content?.title || "Error"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {content?.body || "Ocurrió un error inesperado"}
+            {content?.content || "Ocurrió un error inesperado"}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

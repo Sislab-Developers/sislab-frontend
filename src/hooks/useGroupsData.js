@@ -22,7 +22,7 @@ export const useGroupsData = () => {
     } catch (error) {
       updateContent({
         title: "Error",
-        body: `Ocurrió un error al obtener los grupos. Detalles: ${error.message}`,
+        content: `Ocurrió un error al obtener los grupos. Detalles: ${error.message}`,
       });
     } finally {
       setIsLoading(false);
@@ -59,7 +59,7 @@ export const useGroupsByPeriodData = (period = currentSemester) => {
     } catch (error) {
       updateContent({
         title: "Error",
-        body: `Ocurrió un error al obtener los grupos. Detalles: ${error.message}`,
+        content: `Ocurrió un error al obtener los grupos. Detalles: ${error.message}`,
       });
     } finally {
       setIsLoading(false);

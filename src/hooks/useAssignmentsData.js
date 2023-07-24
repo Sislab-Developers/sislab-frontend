@@ -16,7 +16,7 @@ export const useAssignmentsData = () => {
     } catch (error) {
       updateContent({
         title: "Error",
-        body: `Ocurrió un error al obtener las prácticas. Detalles: ${error.message}`,
+        content: `Ocurrió un error al obtener las prácticas. Detalles: ${error.message}`,
       });
     } finally {
       setIsLoading(false);

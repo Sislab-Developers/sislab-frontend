@@ -25,8 +25,6 @@ const Form = () => {
       navigate("/admin/usuarios");
     },
     onError: (error) => {
-      console.log(error);
-
       const { errors } = error;
       updateContent({
         title: "Error al crear el usuario",
@@ -37,12 +35,22 @@ const Form = () => {
                 {err.msg}
               </Typography>
             ))}
+            <Typography lineHeight="1">
+              <small>
+                Si consideras que hay un problema con el formulario, favor de
+                comunicarse con los desarrolladores
+              </small>
+            </Typography>
           </>
         ),
       });
     },
   });
-  const { control, handleSubmit } = useForm();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmitUser = (data) => {
     console.log(data);
@@ -60,7 +68,7 @@ const Form = () => {
       sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
     >
       <Controller
-        name="user-name"
+        name="nombre"
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
@@ -70,11 +78,12 @@ const Form = () => {
             label="Nombre"
             placeholder="Escribe el nombre del usuario"
             type="text"
+            helperText={errors["nombre"] && "Este campo es requerido"}
           />
         )}
       />
       <Controller
-        name="user-surname"
+        name="apellidoPaterno"
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
@@ -84,11 +93,12 @@ const Form = () => {
             label="Apellido paterno"
             placeholder="Escribe el apellido paterno del usuario"
             type="text"
+            helperText={errors["apellidoPaterno"] && "Este campo es requerido"}
           />
         )}
       />
       <Controller
-        name="user-surname-2"
+        name="apellidoMaterno"
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
@@ -98,11 +108,12 @@ const Form = () => {
             label="Apellido materno"
             placeholder="Escribe el apellido materno del usuario"
             type="text"
+            helperText={errors["apellidoMaterno"] && "Este campo es requerido"}
           />
         )}
       />
       <Controller
-        name="user-email"
+        name="correo"
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
@@ -112,11 +123,12 @@ const Form = () => {
             label="Correo electrónico"
             placeholder="Escribe el correo electrónico del usuario"
             type="email"
+            helperText={errors["correo"] && "Este campo es requerido"}
           />
         )}
       />
       <Controller
-        name="user-role"
+        name="rol"
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
@@ -127,6 +139,7 @@ const Form = () => {
             label="Rol de usuario"
             placeholder="Selecciona el rol del usuario"
             type="text"
+            helperText={errors["rol"] && "Este campo es requerido"}
           >
             <MenuItem value="MAESTRO">Maestro</MenuItem>
             <MenuItem value="ADMIN">Técnico</MenuItem>
