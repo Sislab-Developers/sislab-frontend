@@ -30,7 +30,7 @@ export const RequestsList = ({ date, hasRequests }) => {
               <RequestItem
                 request={request}
                 index={groups.findIndex(
-                  (group) => group.uid === request.groupId.uid
+                  (group) => group._id === request.groupId._id
                 )}
                 key={request._id}
               />

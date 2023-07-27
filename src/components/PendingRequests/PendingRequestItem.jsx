@@ -56,7 +56,7 @@ export const PendingRequestItem = ({ request }) => {
           >
             <Typography color="primary" fontWeight="bold">{`Práctica ${
               assignment.number
-            } | ${group.laboratorio} | ${formatTime(group.hora)}`}</Typography>
+            } | ${group.lab} | ${formatTime(group.time)}`}</Typography>
             <ExpandMore
               color={isExpanded ? "default" : "primary"}
               sx={{
@@ -72,11 +72,7 @@ export const PendingRequestItem = ({ request }) => {
               >
                 <Typography>
                   <TextEmphasis>Creada por:</TextEmphasis>{" "}
-                  {formatProfName(
-                    prof.nombre,
-                    prof.apellidoPaterno,
-                    prof.apellidoMaterno
-                  )}
+                  {formatProfName(prof.name, prof.surname)}
                 </Typography>
                 <Typography>
                   <TextEmphasis>Fecha de creación:</TextEmphasis>{" "}
@@ -87,10 +83,10 @@ export const PendingRequestItem = ({ request }) => {
                   {`Práctica ${assignment.number} | ${assignment.name}`}
                 </Typography>
                 <Typography>
-                  <TextEmphasis>Carrera:</TextEmphasis> {group.carrera}
+                  <TextEmphasis>Carrera:</TextEmphasis> {group.career}
                 </Typography>
                 <Typography>
-                  <TextEmphasis>Laboratorio:</TextEmphasis> {group.laboratorio}
+                  <TextEmphasis>Laboratorio:</TextEmphasis> {group.lab}
                 </Typography>
                 <Typography>
                   <TextEmphasis>Día solicitado:</TextEmphasis>{" "}
@@ -98,7 +94,7 @@ export const PendingRequestItem = ({ request }) => {
                 </Typography>
                 <Typography>
                   <TextEmphasis>Hora de clase:</TextEmphasis>{" "}
-                  {formatTime(group.hora)}
+                  {formatTime(group.time)}
                 </Typography>
                 {customReagents.length > 0 && (
                   <>

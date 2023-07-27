@@ -37,7 +37,7 @@ export const RequestItem = ({ request, index }) => {
           </Typography>
         </Box>
         <GroupChip
-          label={formatGroupName(index + 1, group.dia, group.hora)}
+          label={formatGroupName(index + 1, group.day, group.time)}
           selected
         />
       </Box>
@@ -55,7 +55,7 @@ export const RequestItem = ({ request, index }) => {
           {formatAssignment(assignment)}.
         </Typography>
         <Typography color="primary">
-          <strong>Laboratorio:</strong> {group.laboratorio}.
+          <strong>Laboratorio:</strong> {group.lab}.
         </Typography>
         <Typography color="primary">
           <strong>Fecha:</strong> {fullDateFormat(requestDate)}.

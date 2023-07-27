@@ -53,37 +53,45 @@ export const UpdateUserDialog = ({ user, isOpen, onClose }) => {
 
   if (isLoading) {
     return (
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "0.5rem",
-        }}
-      >
-        <CircularProgress />
-        <Typography textAlign="center">Obteniendo datos</Typography>
-      </Box>
+      <Dialog open={isOpen} onClose={onClose}>
+        <DialogContent sx={{ width: { xs: "85vw", sm: "300px" } }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
+            <CircularProgress />
+            <Typography textAlign="center">Obteniendo datos</Typography>
+          </Box>
+        </DialogContent>
+      </Dialog>
     );
   }
 
   if (isError) {
     return (
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "0.5rem",
-        }}
-      >
-        <Typography textAlign="center">
-          Ocurrió un error al obtener los datos.
-        </Typography>
-        <ErrorMessage textAlign="center">{error.message}</ErrorMessage>
-      </Box>
+      <Dialog open={isOpen} onClose={onClose}>
+        <DialogContent sx={{ width: { xs: "85vw", sm: "300px" } }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
+            <Typography textAlign="center">
+              Ocurrió un error al obtener los datos.
+            </Typography>
+            <ErrorMessage textAlign="center">{error.message}</ErrorMessage>
+          </Box>
+        </DialogContent>
+      </Dialog>
     );
   }
 

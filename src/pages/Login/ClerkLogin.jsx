@@ -1,15 +1,11 @@
 import { Box, useTheme } from "@mui/material";
 
-import { SignIn, useAuth } from "@clerk/clerk-react";
+import { SignIn } from "@clerk/clerk-react";
 
 import loginBg from "../../assets/img/background.jpg";
 
 export const ClerkLogin = () => {
   const theme = useTheme();
-  const { isSignedIn, signOut } = useAuth();
-  console.log(isSignedIn);
-
-  // signOut();
 
   return (
     <Box

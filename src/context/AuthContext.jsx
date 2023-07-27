@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAuth, useUser } from "@clerk/clerk-react";
 
 import { getLoggedUser, createUser } from "../api/fetch";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AuthContext = createContext({
   user: {
@@ -28,6 +29,8 @@ const AuthContext = createContext({
 export const AuthContextProvider = (props) => {
   const { userId } = useAuth();
   const { user } = useUser();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const queryClient = useQueryClient();
   const {
@@ -70,6 +73,20 @@ export const AuthContextProvider = (props) => {
     mutationError,
     refetch,
   };
+
+  if (data && data.user) {
+    if (
+      data.user.role.name === "Administrador" &&
+      !/\/app\/admin/i.test(location.pathname)
+    ) {
+      navigate("/app/admin");
+    } else if (
+      data.user.role.name === "Profesor" &&
+      /\/admin/i.test(location.pathname)
+    ) {
+      navigate("/app");
+    }
+  }
 
   return (
     <AuthContext.Provider value={contextValue}>

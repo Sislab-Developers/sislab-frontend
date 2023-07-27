@@ -33,13 +33,14 @@ import { EquipmentForm } from "./EquipmentForm";
 import { CustomWaste } from "./CustomWaste";
 import AuthContext from "../../context/AuthContext";
 import { postRequest } from "../../api/fetch";
+import { useUser } from "@clerk/clerk-react";
 
 const noAssignmentError = "Debes seleccionar una práctica.";
 
 export const RequestForm = () => {
   const theme = useTheme();
 
-  const authCtx = useContext(AuthContext);
+  const { user } = useUser();
 
   const [currentStep, setCurrentStep] = useState(false);
 
@@ -138,7 +139,7 @@ export const RequestForm = () => {
       ]);
     }
 
-    if (selectedGroup && selectedDate.getDay() !== groups[selectedGroup]?.dia) {
+    if (selectedGroup && selectedDate.getDay() !== groups[selectedGroup]?.day) {
       isValid = false;
       setGroupErrors((prev) => [
         ...prev,
@@ -196,8 +197,8 @@ export const RequestForm = () => {
     }
 
     const requestBody = {
-      profId: getToken(authCtx.token, true).uid,
-      groupId: groups[selectedGroup].uid,
+      profId: user.id,
+      groupId: groups[selectedGroup]._id,
       assignmentId: selectedAssignment._id,
       requestDate: new Date(
         selectedDate.getFullYear(),
@@ -279,8 +280,8 @@ export const RequestForm = () => {
                   {groups.map((group, index) => (
                     <GroupChip
                       clickable
-                      key={group.uid}
-                      label={formatGroupName(index + 1, group.dia, group.hora)}
+                      key={group.__htmlid}
+                      label={formatGroupName(index + 1, group.day, group.time)}
                       selected={index === selectedGroup}
                       onClick={handleGroupChange.bind(null, index)}
                     />
@@ -316,10 +317,10 @@ export const RequestForm = () => {
           <Calendar
             disablePast
             shouldDisableDate={(date) =>
-              date.getDay() !== groups[selectedGroup]?.dia
+              date.getDay() !== groups[selectedGroup]?.day
             }
             value={selectedDate}
-            groupDay={groups[selectedGroup]?.dia}
+            groupDay={groups[selectedGroup]?.day}
             disabled={!groups}
             onChange={handleDateChange}
           />

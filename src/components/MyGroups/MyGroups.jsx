@@ -22,7 +22,7 @@ export const MyGroups = () => {
       {isLoading && <GroupsSkeleton />}
       {total !== 0 &&
         groups.map((group, index) => (
-          <GroupItem key={group.uid} group={group} index={index + 1} />
+          <GroupItem key={group._id} group={group} index={index + 1} />
         ))}
       <GroupsForm total={total} onAddGroup={addedGroupCallback} />
     </Box>

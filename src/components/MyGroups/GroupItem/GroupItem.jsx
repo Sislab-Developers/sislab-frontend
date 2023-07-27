@@ -31,7 +31,7 @@ export const GroupItem = ({ group, index }) => {
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography>
           <TextEmphasis>
-            {formatGroupName(index, group.dia, group.hora)}
+            {formatGroupName(index, group.day, group.time)}
           </TextEmphasis>
         </Typography>
       </AccordionSummary>
@@ -46,7 +46,7 @@ export const GroupItem = ({ group, index }) => {
             disabled
             name="laboratorio"
             label="Laboratorio"
-            defaultValue={group.laboratorio}
+            defaultValue={group.lab}
           />
 
           <InfoLabel tooltip="La carrera a la que pertenece el grupo.">
@@ -56,7 +56,7 @@ export const GroupItem = ({ group, index }) => {
             disabled
             required
             name="carrera"
-            defaultValue={group.carrera}
+            defaultValue={group.career}
             label="Carrera"
           />
 
@@ -65,7 +65,7 @@ export const GroupItem = ({ group, index }) => {
             name="materia"
             disabled
             required
-            defaultValue={group.materia}
+            defaultValue={group.signature}
             label="Materia"
           />
 
@@ -77,7 +77,7 @@ export const GroupItem = ({ group, index }) => {
             type="number"
             required
             disabled
-            defaultValue={group.alumnos || ""}
+            defaultValue={group.students || ""}
             label="Alumnos"
           />
 
@@ -89,7 +89,7 @@ export const GroupItem = ({ group, index }) => {
             type="number"
             required
             disabled
-            defaultValue={group.equipos || ""}
+            defaultValue={group.teams || ""}
             label="Equipos"
           />
 
@@ -100,7 +100,7 @@ export const GroupItem = ({ group, index }) => {
             required
             disabled
             name="dia"
-            defaultValue={days[group.dia]}
+            defaultValue={days[group.day]}
             label="Día de la semana"
           />
 
@@ -111,7 +111,7 @@ export const GroupItem = ({ group, index }) => {
             required
             name="hora"
             disabled
-            defaultValue={formatTime(group.hora)}
+            defaultValue={formatTime(group.time)}
             label="Hora"
           />
         </Box>

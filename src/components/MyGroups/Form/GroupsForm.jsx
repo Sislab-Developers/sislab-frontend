@@ -18,7 +18,6 @@ import { Add } from "@mui/icons-material";
 import check from "../../../assets/img/check.svg";
 
 import instance from "../../../utils/axiosConfig";
-import AuthContext from "../../../context/AuthContext.jsx";
 import { useModal } from "../../../hooks/useModal";
 import { Modal } from "../../Modal/Modal";
 import CustomSnackbar from "../../CustomSnackBar";
@@ -27,6 +26,7 @@ import { getLaboratorios, getCarreras, getMaterias } from "../../../api/fetch";
 import { currentSemester, dayMap, days, formatTime } from "../../../utils";
 import { InfoLabel } from "../../InfoLabel/InfoLabel";
 import ModalContext from "../../../context/Modal/ModalContext";
+import { useUser } from "@clerk/clerk-react";
 
 const dayTimes = Array.from(Array(13).keys()).map(
   (i) => `${i + 7}:00 - ${i + 9}:00`
@@ -53,7 +53,7 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
 
   const { isShowing, toggle } = useModal();
 
-  const authCtx = useContext(AuthContext);
+  const { user } = useUser();
 
   const fetchData = async () => {
     setLoading(true);
@@ -88,25 +88,17 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
     setLoading(true);
 
     instance
-      .post(
-        `grupos`,
-        {
-          laboratorio: formData.laboratorio,
-          materia: formData.materia,
-          carrera: formData.carrera,
-          alumnos: formData.alumnos,
-          equipos: formData.equipos,
-          dia: dayMap[formData.dia],
-          hora: formData.hora,
-          usuario: authCtx.user.uid,
-          period: currentSemester,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${authCtx.token}`,
-          },
-        }
-      )
+      .post(`grupos`, {
+        lab: formData.laboratorio,
+        career: formData.carrera,
+        signature: formData.materia,
+        students: formData.alumnos,
+        teams: formData.equipos,
+        day: dayMap[formData.dia],
+        time: formData.hora,
+        prof: user.id,
+        period: currentSemester,
+      })
       .then((response) => {
         updateContent({
           title: "Grupo creado",
@@ -117,6 +109,7 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
         onAddGroup();
       })
       .catch((error) => {
+        console.log(error);
         updateContent({
           title: "Error",
           content: `Ocurrió un error al crear el grupo. Detalles: ${error.message}`,
@@ -235,6 +228,7 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
               name="alumnos"
               required
               type="number"
+              onWheel={(e) => e.target.blur()}
               label="Número de alumnos"
               disabled={loading}
               value={formData.alumnos || ""}
@@ -249,6 +243,7 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
               required
               name="equipos"
               type="number"
+              onWheel={(e) => e.target.blur()}
               label="Número de equipos"
               disabled={loading}
               value={formData.equipos || ""}

@@ -1,5 +1,3 @@
-import { useContext } from "react";
-
 import { useLocation, useNavigate } from "react-router-dom";
 
 import {
@@ -23,12 +21,14 @@ import {
   // NotificationsOutlined,
 } from "@mui/icons-material";
 
-import AuthContext from "../../../context/AuthContext.jsx";
+import { useAuth, useUser } from "@clerk/clerk-react";
 
 const AdminDrawer = (props) => {
   const { variant, open, onClose } = props;
 
-  const authCtx = useContext(AuthContext);
+  const { user } = useUser();
+  const { signOut } = useAuth();
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -154,15 +154,14 @@ const AdminDrawer = (props) => {
         >
           <Box sx={{ mt: "8px" }}>
             <Typography variant="h6" sx={{ px: "16px" }}>
-              {authCtx.user && `Hola ${authCtx.user.name}`}
+              {user && `Hola, ${user.firstName}`}
             </Typography>
             <Box component="nav">{navButtons}</Box>
           </Box>
           <Box>
             <ListItemButton
               onClick={() => {
-                authCtx.logout();
-                navigate("/login");
+                signOut();
                 onClose();
               }}
             >

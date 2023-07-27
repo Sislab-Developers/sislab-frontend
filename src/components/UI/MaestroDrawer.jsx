@@ -153,7 +153,7 @@ const MaestroDrawer = (props) => {
         >
           <Box sx={{ mt: "8px" }}>
             <Typography variant="h6" sx={{ px: "16px" }}>
-              {user && `Saludos, ${user?.firstName}`}
+              {user && `Hola, ${user?.firstName}`}
             </Typography>
             <Box component="nav">{navButtons}</Box>
           </Box>
