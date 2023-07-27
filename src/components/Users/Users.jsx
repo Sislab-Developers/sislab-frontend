@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, TextField } from "@mui/material";
+import { Box, CircularProgress, TextField } from "@mui/material";
 import { UsersTable } from "./UsersTable";
 import { useQuery } from "@tanstack/react-query";
 import { getUsers } from "../../api/fetch";
@@ -6,17 +6,11 @@ import { ErrorMessage } from "../ErrorMessage";
 import { toast } from "react-hot-toast";
 import { Controller, useForm } from "react-hook-form";
 import { formatProfName } from "../../utils";
-import { useNavigate } from "react-router-dom";
 
 export const Users = () => {
-  const navigate = useNavigate();
   const { control, watch } = useForm();
 
   const usersQuery = useQuery({ queryKey: ["users"], queryFn: getUsers });
-
-  const handleCreateUser = () => {
-    navigate("/admin/crear-usuario");
-  };
 
   if (usersQuery.isLoading) {
     return (
@@ -46,11 +40,7 @@ export const Users = () => {
 
     if (!userFilter) return true;
 
-    const userFullName = formatProfName(
-      user.nombre,
-      user.apellidoPaterno,
-      user.apellidoMaterno
-    );
+    const userFullName = formatProfName(user.name, user.surname);
 
     return userFullName.toLowerCase().includes(userFilter.toLowerCase());
   });
@@ -77,13 +67,6 @@ export const Users = () => {
             />
           )}
         />
-        <Button
-          variant="contained"
-          onClick={handleCreateUser}
-          sx={{ flexShrink: 0 }}
-        >
-          Crear usuario
-        </Button>
       </Box>
       <UsersTable users={filteredUsers} />
     </Box>

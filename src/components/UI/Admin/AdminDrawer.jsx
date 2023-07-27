@@ -38,7 +38,7 @@ const AdminDrawer = (props) => {
     <List>
       <ListItemButton
         onClick={() => {
-          navigate("/admin/solicitudes");
+          navigate("/app/admin/solicitudes");
           onClose();
         }}
         selected={isSelected("solicitudes")}
@@ -60,7 +60,7 @@ const AdminDrawer = (props) => {
       </ListItemButton>
       <ListItemButton
         onClick={() => {
-          navigate("/admin/usuarios");
+          navigate("/app/admin/usuarios");
           onClose();
         }}
         selected={isSelected("usuarios")}
@@ -105,7 +105,7 @@ const AdminDrawer = (props) => {
       </ListItemButton> */}
       <ListItemButton
         onClick={() => {
-          navigate("/admin/mas-informacion");
+          navigate("/app/admin/mas-informacion");
           onClose();
         }}
         selected={isSelected("mas-informacion")}

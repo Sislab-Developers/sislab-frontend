@@ -14,18 +14,14 @@ import {
 } from "../pages";
 import { AdminRequests } from "../pages/AdminRequests/AdminRequests.jsx";
 import { UsersPage } from "../pages/UsersPage/UsersPage.jsx";
-import { CreateUser } from "../pages/CreateUser/CreateUser.jsx";
 import {
   ClerkProvider,
   RedirectToSignIn,
-  SignIn,
-  SignUp,
   SignedIn,
   SignedOut,
 } from "@clerk/clerk-react";
 import { ClerkLogin } from "../pages/Login/ClerkLogin.jsx";
 import { ClerkSignup } from "../pages/Signup/ClerkSignup.jsx";
-import { VerifyEmail } from "../pages/Signup/VerifyEmail.jsx";
 import { esES } from "@clerk/localizations";
 
 if (!import.meta.env.VITE_APP_CLERK_PUBLISHABLE_KEY) {

@@ -2,7 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { Box, Button, MenuItem, TextField, Typography } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postUser } from "../../api/fetch";
+import { createUser } from "../../api/fetch";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -19,7 +19,7 @@ const Form = () => {
 
   const { mutateAsync } = useMutation({
     mutationKey: ["create-user"],
-    mutationFn: (userData) => postUser(userData),
+    mutationFn: (userData) => createUser(userData),
     onSuccess: () => {
       queryClient.invalidateQueries("users");
       navigate("/admin/usuarios");

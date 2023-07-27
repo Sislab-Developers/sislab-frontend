@@ -1,46 +1,43 @@
-import { Box, IconButton, TableCell, TableRow } from "@mui/material";
-import { Edit } from "@mui/icons-material";
+import { Box, TableCell, TableRow } from "@mui/material";
 
 import { Table } from "../Table/Table";
 
-import { formatProfName } from "../../utils";
+import { UserItem } from "./UserItem";
+import { useUser } from "@clerk/clerk-react";
 
 export const UsersTable = ({ users }) => {
+  const { user } = useUser();
+
+  // eslint-disable-next-line no-unused-vars
+  users.sort((a, _) => {
+    if (a._id === user.id) return -1;
+
+    return 1;
+  });
+
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-      <Table
-        headTitles={["Nombre", "Rol", "Editar"]}
-        tableHead={
-          <TableRow>
-            <TableCell>Nombre</TableCell>
-            <TableCell>Rol</TableCell>
-            <TableCell align="right">Editar</TableCell>
-          </TableRow>
-        }
-      >
-        {users.length === 0 && (
-          <TableRow>
-            <TableCell colSpan={3}>No hay usuarios registrados.</TableCell>
-          </TableRow>
-        )}
-        {users.map((user) => (
-          <TableRow key={user._id}>
-            <TableCell>
-              {formatProfName(
-                user.nombre,
-                user.apellidoPaterno,
-                user.apellidoMaterno
-              )}
-            </TableCell>
-            <TableCell>{user.rol}</TableCell>
-            <TableCell align="right">
-              <IconButton>
-                <Edit color="primary" />
-              </IconButton>
-            </TableCell>
-          </TableRow>
-        ))}
-      </Table>
-    </Box>
+    <>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+        <Table
+          tableHead={
+            <TableRow>
+              <TableCell>Nombre</TableCell>
+              <TableCell>Rol</TableCell>
+              <TableCell>Estado</TableCell>
+              <TableCell align="right">Acciones</TableCell>
+            </TableRow>
+          }
+        >
+          {users.length === 0 && (
+            <TableRow>
+              <TableCell colSpan={3}>No hay usuarios registrados.</TableCell>
+            </TableRow>
+          )}
+          {users.map((userRecord) => (
+            <UserItem key={userRecord._id} userRecord={userRecord} />
+          ))}
+        </Table>
+      </Box>
+    </>
   );
 };

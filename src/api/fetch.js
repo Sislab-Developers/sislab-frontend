@@ -50,6 +50,10 @@ export const getRequests = async () => {
   return await instance.get("solicitudes");
 };
 
+export const getRoles = async () => {
+  return await instance.get("roles");
+};
+
 export const getPendingRequests = async () => {
   return await instance.get("solicitudes/pending");
 };
@@ -94,8 +98,27 @@ export const postRequest = async (data) => {
  * @param {{userId: string, name: string, surname: string}} data
  * @returns A promise with the API response, which can be either the user's data, status messages or error messages.
  */
-export const postUser = async (data) => {
+export const createUser = async (data) => {
   return await instance.post("usuarios", { ...data });
+};
+
+/**
+ * Updates the user's role on the database.
+ * @param {{userId: string, role: string, status: boolean}} data The body of the request.
+ * @returns A promise with the API response, which can be either the user's data, status messages or error messages.
+ */
+export const updateUser = async (data) => {
+  return await instance.put("usuarios/update-role", { ...data });
+};
+
+/**
+ * Deletes the user from the database.
+ * @param {string} uid The user-to-delete's ID.
+ * @param {{ userId: string }} data The body of the request, containing the logged user's ID.
+ * @returns A promise with the API response, indicating whether the operation was successful or not.
+ */
+export const deleteUser = async (uid, data) => {
+  return await instance.delete(`usuarios/${uid}`, { data: { ...data } });
 };
 
 /**

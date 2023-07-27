@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 
 import { useAuth, useUser } from "@clerk/clerk-react";
 
@@ -121,7 +121,14 @@ const Layout = () => {
   return (
     <>
       {user.role.name === "Profesor" && <MaestroLayout />}
-      {user.role.name === "Administrador" && <AdminLayout />}
+      {user.role.name === "Administrador" && (
+        <>
+          <AdminLayout />
+          <Routes>
+            <Route path="/app" element={<Navigate to="/app/admin" />} />
+          </Routes>
+        </>
+      )}
       <MainContent>
         <Toaster toastOptions={{ position: "bottom-center" }} />
         <Outlet />

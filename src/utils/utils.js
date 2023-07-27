@@ -1,25 +1,51 @@
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
+/**
+ * This constant returns the current period.
+ */
 export const currentSemester = `${new Date().getFullYear()}-${
   new Date().getMonth() <= 5 ? "1" : "2"
 }`;
 
-export const formatProfName = (name, surname, surname2) => {
+/**
+ * This function formats a professor's name.
+ * @param {string} name
+ * @param {string} surname
+ * @returns {string} Formatted full name.
+ */
+export const formatProfName = (name, surname) => {
   if (!name || !surname) return null;
 
-  return `${name} ${surname} ${surname2 || ""}`;
+  return `${name} ${surname}`;
 };
 
+/**
+ * This function formats a group's name.
+ * @param {number} index
+ * @param {number} day
+ * @param {number} time
+ * @returns {string} Formatted group name.
+ */
 export const formatGroupName = (index, day, time) =>
   `G${index} | ${days[day].toUpperCase()} | ${formatTime(time)}`;
 
+/**
+ * This function formats a group's timeslot.
+ * @param {number | undefined} time
+ * @returns {string} Formatted time.
+ */
 export const formatTime = (time) => {
   if (!time) return null;
 
   return `${time}:00 - ${time + 2}:00`;
 };
 
+/**
+ * This function formats an assignment's name.
+ * @param {{ number: number, name: string }} assignment
+ * @returns {string} Formatted assignment name.
+ */
 export const formatAssignment = (assignment) => {
   if (!assignment) return null;
 
@@ -28,6 +54,11 @@ export const formatAssignment = (assignment) => {
   return `Práctica ${number}: ${name}`;
 };
 
+/**
+ * This function formats a date.
+ * @param {number | Date | string | undefined} date
+ * @returns {string} A formatted date.
+ */
 export const fullDateFormat = (date) => {
   if (!date) return null;
 
@@ -36,6 +67,11 @@ export const fullDateFormat = (date) => {
   });
 };
 
+/**
+ * This function formats a date and time.
+ * @param {Date | number | string | undefined} date
+ * @returns {string} A formatted date and time.
+ */
 export const fullDateTimeFormat = (date) => {
   if (!date) return null;
 

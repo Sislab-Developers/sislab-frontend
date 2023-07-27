@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { useAuth, useUser } from "@clerk/clerk-react";
 
-import { getLoggedUser, postUser } from "../api/fetch";
+import { getLoggedUser, createUser } from "../api/fetch";
 
 const AuthContext = createContext({
   user: {
@@ -50,7 +50,7 @@ export const AuthContextProvider = (props) => {
   } = useMutation({
     mutationKey: ["logged-user-data", "post"],
     mutationFn: () =>
-      postUser({ userId, name: user.firstName, surname: user.lastName }),
+      createUser({ userId, name: user.firstName, surname: user.lastName }),
     onSuccess: () => queryClient.invalidateQueries("logged-user-data"),
     retry: false,
   });

@@ -44,6 +44,11 @@ export const theme = createTheme({
           borderRadius: "12px",
           fontSize: "1.2em",
         },
+        outlined: {
+          textTransform: "none",
+          borderRadius: "12px",
+          fontSize: "1.2em",
+        },
       },
     },
     MuiInputBase: {
