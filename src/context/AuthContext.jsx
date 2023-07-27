@@ -1,102 +1,78 @@
-import { createContext, useState } from "react";
-import LogoutNotice from "../components/LogoutNotice";
+import { createContext } from "react";
 
-let logoutTimer;
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { useAuth, useUser } from "@clerk/clerk-react";
+
+import { getLoggedUser, postUser } from "../api/fetch";
 
 const AuthContext = createContext({
-  token: null,
-  isLoggedIn: false,
   user: {
-    uid: null,
-    rol: null,
-    nombre: null,
-    apellidoPaterno: null,
-    apellidoMaterno: null,
-    correo: null,
+    role: {
+      name: null,
+    },
     createdAt: null,
     updatedAt: null,
-    estado: false,
+    status: false,
   },
-  login: (
-    accessToken,
-    refreshToken,
-    expirationDate,
-    keepLoggedIn,
-    userData
-  ) => {},
-  logout: () => {},
+  isQueryLoading: false,
+  isQueryFetching: false,
+  isQueryError: false,
+  queryError: null,
+  isMutationLoading: false,
+  isMutationError: false,
+  mutationError: null,
+  refetch: () => {},
 });
 
-const calcRemainingTime = (expirationDate) => {
-  const current = new Date().getTime();
-  const expirationTime = new Date(expirationDate).getTime();
-
-  return expirationTime - current;
-};
-
 export const AuthContextProvider = (props) => {
-  // const authData = retrieveAuthData();
+  const { userId } = useAuth();
+  const { user } = useUser();
 
-  const [showNotice, setShowNotice] = useState(false);
-  const [token, setToken] = useState(null);
-  const [user, setUser] = useState(null);
-  const isLoggedIn = !!token;
+  const queryClient = useQueryClient();
+  const {
+    isError: isQueryError,
+    isLoading: isQueryLoading,
+    isFetching: isQueryFetching,
+    data,
+    error: queryError,
+    refetch,
+  } = useQuery({
+    queryKey: ["logged-user-data"],
+    queryFn: () => getLoggedUser(userId),
+    retry: false,
+  });
+  const {
+    isLoading: isMutationLoading,
+    isError: isMutationError,
+    error: mutationError,
+    mutate,
+  } = useMutation({
+    mutationKey: ["logged-user-data", "post"],
+    mutationFn: () =>
+      postUser({ userId, name: user.firstName, surname: user.lastName }),
+    onSuccess: () => queryClient.invalidateQueries("logged-user-data"),
+    retry: false,
+  });
 
-  const loggedOutNotice = () => {
-    setShowNotice(true);
-  };
-
-  const logoutHandler = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("expiresIn");
-    setToken(null);
-    setShowNotice(false);
-
-    if (logoutTimer) {
-      clearTimeout(logoutTimer);
-    }
-  };
-
-  const loginHandler = (
-    accessToken,
-    refreshToken,
-    expirationDate,
-    keepLoggedIn,
-    userData
-  ) => {
-    if (keepLoggedIn) localStorage.setItem("token", accessToken);
-
-    localStorage.setItem("refreshToken", refreshToken);
-    localStorage.setItem("expiresIn", expirationDate);
-    setToken(accessToken);
-    setUser(userData);
-
-    const remaining = calcRemainingTime(expirationDate);
-    // console.log(remaining);
-    logoutTimer = setTimeout(loggedOutNotice, remaining);
-  };
+  if (!isQueryFetching && !isMutationLoading && (queryError || !data)) {
+    mutate();
+  }
 
   const contextValue = {
-    token: token,
-    isLoggedIn: isLoggedIn,
-    login: loginHandler,
-    logout: logoutHandler,
-    user: user,
+    user: data?.user,
+    isQueryError,
+    isQueryLoading,
+    isQueryFetching,
+    queryError,
+    isMutationLoading,
+    isMutationError,
+    mutationError,
+    refetch,
   };
-
-  // if (authData.duration) {
-  //   logoutTimer = setTimeout(loggedOutNotice, authData.duration);
-  // }
 
   return (
     <AuthContext.Provider value={contextValue}>
-      <LogoutNotice
-        open={showNotice}
-        onClose={() => setShowNotice(false)}
-        onLogin={loginHandler}
-        onLogout={logoutHandler}
-      />
       {props.children}
     </AuthContext.Provider>
   );

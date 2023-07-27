@@ -1,9 +1,10 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 
-import { getToken } from "../utils";
-import { getRequestsByProf, getRequestsByProfAndDate } from "../api/fetch";
-import AuthContext from "../context/AuthContext";
+import { useUser } from "@clerk/clerk-react";
+
 import ModalContext from "../context/Modal/ModalContext";
+
+import { getRequestsByProf, getRequestsByProfAndDate } from "../api/fetch";
 
 export const useRequestsByProf = () => {
   const [requests, setRequests] = useState([]);
@@ -11,13 +12,12 @@ export const useRequestsByProf = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { updateContent } = useContext(ModalContext);
 
-  const authCtx = useContext(AuthContext);
-  const { uid } = getToken(authCtx.token, true);
+  const { user } = useUser();
 
   const fetchRequests = useCallback(async () => {
     setIsLoading(true);
     try {
-      const requestsRes = await getRequestsByProf(uid);
+      const requestsRes = await getRequestsByProf(user.id);
       setRequests([...requestsRes.requests]);
       setTotal(requestsRes.requests.length);
     } catch (error) {
@@ -28,7 +28,7 @@ export const useRequestsByProf = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [uid, updateContent]);
+  }, [user, updateContent]);
 
   useEffect(() => {
     fetchRequests();
@@ -48,13 +48,12 @@ export const useRequestsByProfDate = (date) => {
   const [isLoading, setIsLoading] = useState(false);
   const { updateContent } = useContext(ModalContext);
 
-  const authCtx = useContext(AuthContext);
-  const { uid } = getToken(authCtx.token, true);
+  const { user } = useUser();
 
   const fetchRequests = useCallback(async () => {
     setIsLoading(true);
     try {
-      const requestsRes = await getRequestsByProfAndDate(uid, date);
+      const requestsRes = await getRequestsByProfAndDate(user.id, date);
       setRequests([...requestsRes.requests]);
       setTotal(requestsRes.requests.length);
     } catch (error) {
@@ -65,7 +64,7 @@ export const useRequestsByProfDate = (date) => {
     } finally {
       setIsLoading(false);
     }
-  }, [uid, date, updateContent]);
+  }, [user, date, updateContent]);
 
   useEffect(() => {
     fetchRequests();

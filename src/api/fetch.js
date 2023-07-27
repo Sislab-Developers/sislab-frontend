@@ -89,6 +89,20 @@ export const postRequest = async (data) => {
   return await instance.post("solicitudes", data);
 };
 
+/**
+ * Creates the user on the database.
+ * @param {{userId: string, name: string, surname: string}} data
+ * @returns A promise with the API response, which can be either the user's data, status messages or error messages.
+ */
 export const postUser = async (data) => {
-  return await instance.post("usuarios", data);
+  return await instance.post("usuarios", { ...data });
+};
+
+/**
+ * Gets the user's data from the API.
+ * @param {string} uid
+ * @returns A promise with the API response, which can be either the user's data or error messages.
+ */
+export const getLoggedUser = async (uid) => {
+  return await instance.get(`usuarios/${uid}`);
 };

@@ -27,28 +27,64 @@
     <title>SISLAB | Sistema para solicitudes de laboratorios</title>
 
     <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
       * {
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
       }
 
       body,
       html {
-        height: 100%;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        font-family: "Nunito", sans-serif;
       }
 
-      body * {
-        font-family: "Nunito", sans-serif;
+      img,
+      picture,
+      video,
+      canvas,
+      svg {
+        display: block;
+        max-width: 100%;
+      }
+
+      input,
+      button,
+      textarea,
+      select {
+        font: inherit;
+      }
+
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        overflow-wrap: break-word;
+      }
+
+      #root,
+      #__next {
+        isolation: isolate;
+      }
+
+      #root {
+        display: flex;
+        min-height: 100vh;
       }
 
       body a {
         text-decoration: none;
         color: #00c795;
-      }
-
-      #root {
-        height: 100%;
+        font-family: "Nunito", sans-serif;
       }
     </style>
   </head>

@@ -1,9 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { useLoading } from "../../context/hooks";
-import AuthContext from "../../context/AuthContext.jsx";
+import { useAuth, useUser } from "@clerk/clerk-react";
 
-import { getToken } from "../../utils";
 import {
   Box,
   Drawer,
@@ -13,7 +11,6 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
 import {
   AddCircle,
   AddCircleOutline,
@@ -25,26 +22,15 @@ import {
   InfoOutlined,
   Logout,
 } from "@mui/icons-material";
-import instance from "../../utils/axiosConfig";
 
 const MaestroDrawer = (props) => {
   const { variant, open, onClose } = props;
 
-  const authCtx = useContext(AuthContext);
-  const [user, setUser] = useState(null);
+  const { user } = useUser();
+  const { signOut } = useAuth();
+
   const navigate = useNavigate();
   const location = useLocation();
-
-  const { run, stop } = useLoading();
-  const uid = getToken(authCtx.token, true).uid;
-
-  useEffect(() => {
-    run();
-    instance.get(`/usuarios/${uid}`).then((res) => {
-      setUser(res);
-      stop();
-    });
-  }, [run, stop, uid]);
 
   const isSelected = (path) => RegExp(path).test(location.pathname);
 
@@ -52,7 +38,7 @@ const MaestroDrawer = (props) => {
     <List>
       <ListItemButton
         onClick={() => {
-          navigate("/mis-grupos");
+          navigate("/app/mis-grupos");
           onClose();
         }}
         selected={isSelected("mis-grupos")}
@@ -74,7 +60,7 @@ const MaestroDrawer = (props) => {
       </ListItemButton>
       <ListItemButton
         onClick={() => {
-          navigate("/nueva-solicitud");
+          navigate("/app/nueva-solicitud");
           onClose();
         }}
         selected={isSelected("nueva-solicitud")}
@@ -96,7 +82,7 @@ const MaestroDrawer = (props) => {
       </ListItemButton>
       <ListItemButton
         onClick={() => {
-          navigate("/solicitudes-creadas");
+          navigate("/app/solicitudes-creadas");
           onClose();
         }}
         selected={isSelected("solicitudes-creadas")}
@@ -118,7 +104,7 @@ const MaestroDrawer = (props) => {
       </ListItemButton>
       <ListItemButton
         onClick={() => {
-          navigate("/mas-informacion");
+          navigate("/app/mas-informacion");
           onClose();
         }}
         selected={isSelected("mas-informacion")}
@@ -167,14 +153,14 @@ const MaestroDrawer = (props) => {
         >
           <Box sx={{ mt: "8px" }}>
             <Typography variant="h6" sx={{ px: "16px" }}>
-              {user && `Saludos, ${user.nombre}`}
+              {user && `Saludos, ${user?.firstName}`}
             </Typography>
             <Box component="nav">{navButtons}</Box>
           </Box>
           <Box>
             <ListItemButton
               onClick={() => {
-                authCtx.logout();
+                signOut();
                 navigate("/login");
                 onClose();
               }}

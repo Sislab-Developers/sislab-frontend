@@ -56,7 +56,7 @@ export const MaestroHeader = (props) => {
         <h1 className="userName">Saludos {user.nombre}</h1>
         <ul className="nav-sections">
           <div id={props.colorMisGrupos} className="mis-grupos">
-            <Link to="/mis-grupos">
+            <Link to="/app/mis-grupos">
               <li>
                 <i className="ri-group-line"></i>Mis grupos
               </li>

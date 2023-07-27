@@ -3,7 +3,7 @@ import { useState } from "react";
 import MainAppBar from "./MainAppBar";
 import MaestroDrawer from "./MaestroDrawer";
 
-const MaestroLayout = (props) => {
+const MaestroLayout = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 

@@ -1,8 +1,12 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import AuthContext from "../context/AuthContext";
-import { currentSemester, getToken } from "../utils";
-import { getGroupsByPeriod, getGrupos } from "../api/fetch";
+
+import { useUser } from "@clerk/clerk-react";
+
 import ModalContext from "../context/Modal/ModalContext";
+
+import { getGroupsByPeriod, getGrupos } from "../api/fetch";
+
+import { currentSemester } from "../utils";
 
 export const useGroupsData = () => {
   const [groups, setGroups] = useState([]);
@@ -10,13 +14,12 @@ export const useGroupsData = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { updateContent } = useContext(ModalContext);
-  const authCtx = useContext(AuthContext);
-  const { uid } = getToken(authCtx.token, true);
+  const { user } = useUser();
 
   const fetchGroups = useCallback(async () => {
     setIsLoading(true);
     try {
-      const groupsRes = await getGrupos(uid);
+      const groupsRes = await getGrupos(user.id);
       setGroups([...groupsRes.grupos]);
       setTotal(groupsRes.grupos.length);
     } catch (error) {
@@ -27,7 +30,7 @@ export const useGroupsData = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [uid, updateContent]);
+  }, [user, updateContent]);
 
   useEffect(() => {
     fetchGroups();
@@ -47,13 +50,12 @@ export const useGroupsByPeriodData = (period = currentSemester) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { updateContent } = useContext(ModalContext);
-  const authCtx = useContext(AuthContext);
-  const { uid } = getToken(authCtx.token, true);
+  const { user } = useUser();
 
   const fetchGroups = useCallback(async () => {
     setIsLoading(true);
     try {
-      const groupsRes = await getGroupsByPeriod(uid, period);
+      const groupsRes = await getGroupsByPeriod(user.id, period);
       setGroups([...groupsRes.grupos]);
       setTotal(groupsRes.grupos.length);
     } catch (error) {
@@ -64,7 +66,7 @@ export const useGroupsByPeriodData = (period = currentSemester) => {
     } finally {
       setIsLoading(false);
     }
-  }, [uid, period, updateContent]);
+  }, [user, period, updateContent]);
 
   useEffect(() => {
     fetchGroups();

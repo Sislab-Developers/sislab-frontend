@@ -154,7 +154,7 @@ const AdminDrawer = (props) => {
         >
           <Box sx={{ mt: "8px" }}>
             <Typography variant="h6" sx={{ px: "16px" }}>
-              {authCtx.user && `Hola ${authCtx.user.nombre}`}
+              {authCtx.user && `Hola ${authCtx.user.name}`}
             </Typography>
             <Box component="nav">{navButtons}</Box>
           </Box>

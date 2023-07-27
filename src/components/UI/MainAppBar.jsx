@@ -8,8 +8,7 @@ const MainAppBar = (props) => {
 
   return (
     <AppBar
-      component="header"
-      position="sticky"
+      elevation={0}
       sx={{
         zIndex: theme.zIndex.drawer + 1,
       }}
@@ -28,7 +27,6 @@ const MainAppBar = (props) => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            mt: "-2px",
           }}
         >
           <img src={sislabLogo} alt="Logo de Sislab" />

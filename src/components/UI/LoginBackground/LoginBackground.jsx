@@ -1,7 +1,21 @@
 import { Box } from "@mui/material";
 
-import classes from "./LoginBackground.module.css";
+import { CenteredCard } from "../CenteredCard";
 
-export const LoginBackground = ({ children }) => {
-  return <Box className={classes["login-background"]}>{children}</Box>;
-};
+import loginBg from "../../../assets/img/background.jpg";
+
+export const LoginBackground = ({ children }) => (
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundImage: `url(${loginBg})`,
+      backgroundSize: "cover",
+      minWidth: "100%",
+    }}
+  >
+    <CenteredCard>{children}</CenteredCard>
+  </Box>
+);

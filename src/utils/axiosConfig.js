@@ -1,5 +1,4 @@
 import Axios from "axios";
-import { getToken } from "./authServices";
 
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
@@ -14,18 +13,18 @@ const instance = Axios.create({
   },
 });
 
-instance.interceptors.request.use(
-  async (config) => {
-    const token = await getToken();
+// instance.interceptors.request.use(
+//   async (config) => {
+//     const token = await getToken();
 
-    if (token) {
-      config.headers.Authorization = ` Bearer ${token}`;
-    }
+//     if (token) {
+//       config.headers.Authorization = ` Bearer ${token}`;
+//     }
 
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+//     return config;
+//   },
+//   (error) => Promise.reject(error)
+// );
 
 instance.interceptors.response.use(
   async (response) => {
