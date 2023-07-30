@@ -1,8 +1,11 @@
 import { format } from "date-fns";
 
+import { isMobile } from "react-device-detect";
+
 import {
   Document,
   Font,
+  PDFDownloadLink,
   PDFViewer,
   Page,
   StyleSheet,
@@ -11,6 +14,7 @@ import {
 } from "@react-pdf/renderer";
 
 import { formatProfName, formatTimeslot } from "../../utils";
+import { useTheme } from "@mui/material";
 
 Font.register({
   family: "Open Sans",
@@ -31,7 +35,7 @@ const styles = StyleSheet.create({
   },
 
   ticket: {
-    border: "2px solid black",
+    // border: "2px solid black",
     width: "80mm",
     fontFamily: "Open Sans",
     fontSize: 10,
@@ -196,6 +200,53 @@ const styles = StyleSheet.create({
 });
 
 export const PDFTest = ({ requests = {}, requestsDate = new Date() }) => {
+  const theme = useTheme();
+  const formattedReqsDate = format(requestsDate, "dd/LL/yyyy");
+
+  const ticketDoc = (
+    <Document
+      title={`SISLAB Solicitudes - ${formattedReqsDate}`}
+      author="SISLAB"
+      language="es"
+    >
+      <Page size="A4" style={styles.page}>
+        <View style={styles.ticket}>
+          <TicketHeader />
+          <Text>{`${format(
+            new Date(),
+            "dd/LL/yyyy HH:mm"
+          )} - Solicitudes ${formattedReqsDate}`}</Text>
+          {Object.values(requests).map((assignment) => (
+            <Assignment
+              key={assignment.assignment._id}
+              assignment={assignment}
+            />
+          ))}
+          <View style={styles.footer}>
+            <Text>sislab.vercel.app</Text>
+          </View>
+        </View>
+      </Page>
+    </Document>
+  );
+
+  if (isMobile) {
+    return (
+      <PDFDownloadLink
+        document={ticketDoc}
+        fileName={`SISLAB Solicitudes - ${formattedReqsDate}`}
+        style={{
+          color: "white",
+          padding: "8px 16px",
+          background: theme.palette.primary.main,
+          borderRadius: "8px",
+        }}
+      >
+        Descargar PDF
+      </PDFDownloadLink>
+    );
+  }
+
   return (
     <PDFViewer
       width="95%"
@@ -203,26 +254,7 @@ export const PDFTest = ({ requests = {}, requestsDate = new Date() }) => {
       showToolbar={true}
       style={{ borderRadius: "8px" }}
     >
-      <Document>
-        <Page size="A4" style={styles.page}>
-          <View style={styles.ticket}>
-            <TicketHeader />
-            <Text>{`${format(
-              new Date(),
-              "dd/LL/yyyy HH:mm"
-            )} - Solicitudes ${format(requestsDate, "dd/LL/yyyy")}`}</Text>
-            {Object.values(requests).map((assignment) => (
-              <Assignment
-                key={assignment.assignment._id}
-                assignment={assignment}
-              />
-            ))}
-            <View style={styles.footer}>
-              <Text>sislab.vercel.app</Text>
-            </View>
-          </View>
-        </Page>
-      </Document>
+      {ticketDoc}
     </PDFViewer>
   );
 };

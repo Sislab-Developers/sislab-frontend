@@ -2,8 +2,6 @@ import { Dialog, DialogContent, Typography } from "@mui/material";
 import { PDFTest } from "./PDFTest";
 
 export const PDFModal = ({ isOpen, onClose, requests, date }) => {
-  console.log(requests);
-
   const transformedData = requests.reduce((acc, request) => {
     const {
       assignmentId: { _id, ...assignmentFields },
@@ -33,13 +31,11 @@ export const PDFModal = ({ isOpen, onClose, requests, date }) => {
     return acc;
   }, {});
 
-  console.log(transformedData);
-
   return (
     <Dialog
       open={isOpen}
       onClose={onClose}
-      PaperProps={{ sx: { width: "90%", height: "90%" } }}
+      PaperProps={{ sx: { width: { sm: "90%" }, height: { sm: "90%" } } }}
     >
       <DialogContent
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
