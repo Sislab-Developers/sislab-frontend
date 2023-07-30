@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-import { days, formatGroupName, formatTime } from "../../../utils";
+import { days, formatGroupName, formatTimeslot } from "../../../utils";
 import { TextEmphasis } from "../../TextEmphasis";
 import { InfoLabel } from "../../InfoLabel/InfoLabel";
 
@@ -111,7 +111,7 @@ export const GroupItem = ({ group, index }) => {
             required
             name="hora"
             disabled
-            defaultValue={formatTime(group.time)}
+            defaultValue={formatTimeslot(group.time)}
             label="Hora"
           />
         </Box>

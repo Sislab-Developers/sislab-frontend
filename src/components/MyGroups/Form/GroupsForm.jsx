@@ -23,7 +23,7 @@ import { Modal } from "../../Modal/Modal";
 import CustomSnackbar from "../../CustomSnackBar";
 
 import { getLaboratorios, getCarreras, getMaterias } from "../../../api/fetch";
-import { currentSemester, dayMap, days, formatTime } from "../../../utils";
+import { currentSemester, dayMap, days, formatTimeslot } from "../../../utils";
 import { InfoLabel } from "../../InfoLabel/InfoLabel";
 import ModalContext from "../../../context/Modal/ModalContext";
 import { useUser } from "@clerk/clerk-react";
@@ -146,7 +146,7 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
           ) : (
             <Typography variant="body1" sx={{ color: "white" }}>
               {`G${total + 1} | ${formData.dia?.toUpperCase() || "..."} | ${
-                formatTime(formData.hora) || "..."
+                formatTimeslot(formData.hora) || "..."
               }`}
             </Typography>
           )}

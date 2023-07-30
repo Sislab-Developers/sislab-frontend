@@ -28,14 +28,14 @@ export const formatProfName = (name, surname) => {
  * @returns {string} Formatted group name.
  */
 export const formatGroupName = (index, day, time) =>
-  `G${index} | ${days[day].toUpperCase()} | ${formatTime(time)}`;
+  `G${index} | ${days[day].toUpperCase()} | ${formatTimeslot(time)}`;
 
 /**
  * This function formats a group's timeslot.
  * @param {number | undefined} time
  * @returns {string} Formatted time.
  */
-export const formatTime = (time) => {
+export const formatTimeslot = (time) => {
   if (!time) return null;
 
   return `${time}:00 - ${time + 2}:00`;

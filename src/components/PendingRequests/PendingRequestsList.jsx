@@ -9,9 +9,12 @@ import { getRequestsByDate } from "../../api/fetch";
 import { toast } from "react-hot-toast";
 import { ErrorMessage } from "../ErrorMessage";
 import { PendingRequestItem } from "./PendingRequestItem";
+import { useState } from "react";
+import { PDFModal } from "../PDFModal/PDFModal";
 
 export const PendingRequestsList = ({ date, hasRequests }) => {
   const queryClient = useQueryClient();
+  const [open, setOpen] = useState(false);
 
   const requestsQuery = useQuery({
     queryKey: ["requests", "admin", date],
@@ -21,6 +24,8 @@ export const PendingRequestsList = ({ date, hasRequests }) => {
   if (requestsQuery.isLoading) {
     return <RequestSkeleton />;
   }
+
+  const closeModal = () => setOpen(false);
 
   if (requestsQuery.isError) {
     toast.error("Ocurrió un error al obtener las solicitudes.");
@@ -53,11 +58,17 @@ export const PendingRequestsList = ({ date, hasRequests }) => {
           ))}
           <Button
             variant="contained"
-            onClick={() => console.log("Print")}
+            onClick={() => setOpen(true)}
             sx={{ mt: "1rem", mx: { sm: "auto" } }}
           >
             Imprimir todo
           </Button>
+          <PDFModal
+            isOpen={open}
+            onClose={closeModal}
+            requests={requestsQuery.data.requests}
+            date={date}
+          />
         </>
       ) : (
         <Typography>

@@ -17,7 +17,7 @@ import { TextEmphasis } from "../TextEmphasis";
 import { ArrowRight, ExpandMore } from "@mui/icons-material";
 import {
   formatProfName,
-  formatTime,
+  formatTimeslot,
   fullDateFormat,
   fullDateTimeFormat,
 } from "../../utils";
@@ -56,7 +56,7 @@ export const PendingRequestItem = ({ request }) => {
           >
             <Typography color="primary" fontWeight="bold">{`Práctica ${
               assignment.number
-            } | ${group.lab} | ${formatTime(group.time)}`}</Typography>
+            } | ${group.lab} | ${formatTimeslot(group.time)}`}</Typography>
             <ExpandMore
               color={isExpanded ? "default" : "primary"}
               sx={{
@@ -94,7 +94,7 @@ export const PendingRequestItem = ({ request }) => {
                 </Typography>
                 <Typography>
                   <TextEmphasis>Hora de clase:</TextEmphasis>{" "}
-                  {formatTime(group.time)}
+                  {formatTimeslot(group.time)}
                 </Typography>
                 {customReagents.length > 0 && (
                   <>
