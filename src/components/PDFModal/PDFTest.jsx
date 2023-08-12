@@ -37,7 +37,7 @@ Font.register({
   family: "Inconsolata",
   fonts: [
     {
-      src: "http://fonts.gstatic.com/s/inconsolata/v15/7bMKuoy6Nh0ft0SHnIGMuaCWcynf_cDxXwCLxiixG1c.ttf",
+      src: "https://fonts.gstatic.com/s/inconsolata/v15/7bMKuoy6Nh0ft0SHnIGMuaCWcynf_cDxXwCLxiixG1c.ttf",
     },
     {
       src: "https://db.onlinewebfonts.com/t/e156a118727053f0f6072d0ee05a48eb.ttf",
