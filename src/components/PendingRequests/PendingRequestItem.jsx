@@ -72,7 +72,7 @@ export const PendingRequestItem = ({ request }) => {
               >
                 <Typography>
                   <TextEmphasis>Creada por:</TextEmphasis>{" "}
-                  {formatProfName(prof.name, prof.surname)}
+                  {formatProfName(prof?.name, prof?.surname)}
                 </Typography>
                 <Typography>
                   <TextEmphasis>Fecha de creación:</TextEmphasis>{" "}
@@ -80,13 +80,13 @@ export const PendingRequestItem = ({ request }) => {
                 </Typography>
                 <Typography>
                   <TextEmphasis>Práctica:</TextEmphasis>{" "}
-                  {`Práctica ${assignment.number} | ${assignment.name}`}
+                  {`Práctica ${assignment?.number} | ${assignment?.name}`}
                 </Typography>
                 <Typography>
-                  <TextEmphasis>Carrera:</TextEmphasis> {group.career}
+                  <TextEmphasis>Carrera:</TextEmphasis> {group?.career}
                 </Typography>
                 <Typography>
-                  <TextEmphasis>Laboratorio:</TextEmphasis> {group.lab}
+                  <TextEmphasis>Laboratorio:</TextEmphasis> {group?.lab}
                 </Typography>
                 <Typography>
                   <TextEmphasis>Día solicitado:</TextEmphasis>{" "}
@@ -94,7 +94,7 @@ export const PendingRequestItem = ({ request }) => {
                 </Typography>
                 <Typography>
                   <TextEmphasis>Hora de clase:</TextEmphasis>{" "}
-                  {formatTimeslot(group.time)}
+                  {formatTimeslot(group?.time)}
                 </Typography>
                 {customReagents.length > 0 && (
                   <>
