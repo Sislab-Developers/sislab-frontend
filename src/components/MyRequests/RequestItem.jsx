@@ -170,7 +170,7 @@ export const RequestItem = ({ request, index }) => {
               {customEquipment.length > 0 && (
                 <>
                   <Typography>
-                    <TextEmphasis>Reactivos extra:</TextEmphasis>
+                    <TextEmphasis>Equipo extra:</TextEmphasis>
                   </Typography>
                   <List disablePadding>
                     {customEquipment.map((equipment, index) => (
@@ -187,7 +187,7 @@ export const RequestItem = ({ request, index }) => {
               {customWaste.length > 0 && (
                 <>
                   <Typography>
-                    <TextEmphasis>Reactivos extra:</TextEmphasis>
+                    <TextEmphasis>Residuos extra:</TextEmphasis>
                   </Typography>
                   <List disablePadding>
                     {customWaste.map((waste, index) => (
