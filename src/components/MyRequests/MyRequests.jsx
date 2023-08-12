@@ -32,7 +32,6 @@ export const MyRequests = () => {
     <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
       {isLoading && <LinearProgress />}
       <Calendar
-        disablePast
         value={selectedDate}
         onChange={handleDateChange}
         disabled={isLoading}

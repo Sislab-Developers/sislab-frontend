@@ -2,7 +2,6 @@ import {
   Box,
   Card,
   CardActionArea,
-  CardContent,
   Collapse,
   List,
   ListItem,
