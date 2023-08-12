@@ -80,6 +80,18 @@ export const fullDateTimeFormat = (date) => {
   });
 };
 
+/**
+ * This function replaces an HTML entity (subscripts) with unicode.
+ * @param {string} text String of text that may have an HTML entity.
+ * @returns A new string with unicodes in place of HTML entities.
+ */
+export const replaceWithUnicode = (text) => {
+  return text.replace(/&#[0-9]+;/g, (entity) => {
+    const codePoint = parseInt(entity.match(/[0-9]+/));
+    return String.fromCodePoint(codePoint);
+  });
+};
+
 export const dayMap = {
   Domingo: 0,
   Lunes: 1,

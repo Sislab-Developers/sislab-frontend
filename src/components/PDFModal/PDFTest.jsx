@@ -13,7 +13,11 @@ import {
   View,
 } from "@react-pdf/renderer";
 
-import { formatProfName, formatTimeslot } from "../../utils";
+import {
+  formatProfName,
+  formatTimeslot,
+  replaceWithUnicode,
+} from "../../utils";
 import { useTheme } from "@mui/material";
 
 Font.register({
@@ -29,6 +33,19 @@ Font.register({
   ],
 });
 
+Font.register({
+  family: "Inconsolata",
+  fonts: [
+    {
+      src: "http://fonts.gstatic.com/s/inconsolata/v15/7bMKuoy6Nh0ft0SHnIGMuaCWcynf_cDxXwCLxiixG1c.ttf",
+    },
+    {
+      src: "https://db.onlinewebfonts.com/t/e156a118727053f0f6072d0ee05a48eb.ttf",
+      fontWeight: 600,
+    },
+  ],
+});
+
 const styles = StyleSheet.create({
   page: {
     padding: "16px 0",
@@ -37,7 +54,7 @@ const styles = StyleSheet.create({
   ticket: {
     // border: "2px solid black",
     width: "80mm",
-    fontFamily: "Open Sans",
+    fontFamily: "Inconsolata",
     fontSize: 10,
     display: "flex",
     flexDirection: "column",
@@ -372,7 +389,9 @@ const Reagents = ({ reagents, professors = [] }) => {
                   key={`Reagent ${index}: ${reagent.reagent}`}
                   style={styles.itemsContentItem}
                 >
-                  <Text style={styles.itemName}>{reagent.reagent}</Text>
+                  <Text style={styles.itemName}>
+                    {replaceWithUnicode(reagent.reagent)}
+                  </Text>
                   <Text style={styles.itemQuantity}>{`${
                     reagent.quantity || "--"
                   }${reagent.unit || "--"}`}</Text>
@@ -400,9 +419,9 @@ const Reagents = ({ reagents, professors = [] }) => {
                   >
                     <Text>{`Solicitud ${profIndex + 1} | Grupo ${
                       reqIndex + 1
-                    }: ${reagent.quantity}${reagent.unit} de ${
-                      reagent.reagent
-                    }`}</Text>
+                    }: ${reagent.quantity}${
+                      reagent.unit
+                    } de ${replaceWithUnicode(reagent.reagent)}`}</Text>
                   </View>
                 );
               });
@@ -496,7 +515,9 @@ const Waste = ({ waste, professors }) => {
                 </Text>
                 <Text style={styles.wasteLabel}>
                   Residuo:{" "}
-                  <Text style={styles.wasteData}>{wasteItem.residue}</Text>
+                  <Text style={styles.wasteData}>
+                    {replaceWithUnicode(wasteItem.residue)}
+                  </Text>
                 </Text>
                 {wasteItem.treatment && (
                   <Text style={styles.wasteLabel}>
@@ -533,7 +554,9 @@ const Waste = ({ waste, professors }) => {
                     </Text>
                     <Text style={styles.wasteLabel}>
                       Residuo:{" "}
-                      <Text style={styles.wasteData}>{item.residue}</Text>
+                      <Text style={styles.wasteData}>
+                        {replaceWithUnicode(item.residue)}
+                      </Text>
                     </Text>
                     {item.treatment && (
                       <Text style={styles.wasteLabel}>
