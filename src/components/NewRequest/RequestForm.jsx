@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Box,
@@ -25,17 +25,24 @@ import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 
 import { useGroupsByPeriodData } from "../../hooks/useGroupsData";
 import { useAssignmentsData } from "../../hooks/useAssignmentsData";
-import { formatGroupName, getToken } from "../../utils";
+import { formatGroupName } from "../../utils";
 import { CustomReagents } from "./CustomReagents";
 import { TextEmphasis } from "../TextEmphasis";
 import { EquipmentChip } from "./EquipmentChip";
 import { EquipmentForm } from "./EquipmentForm";
 import { CustomWaste } from "./CustomWaste";
-import AuthContext from "../../context/AuthContext";
 import { postRequest } from "../../api/fetch";
 import { useUser } from "@clerk/clerk-react";
 
 const noAssignmentError = "Debes seleccionar una práctica.";
+
+const getDateAfterDays = (days) => {
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
+  const futureDate = new Date(currentDate);
+  futureDate.setDate(currentDate.getDate() + days);
+  return futureDate;
+};
 
 export const RequestForm = () => {
   const theme = useTheme();
@@ -311,13 +318,14 @@ export const RequestForm = () => {
             ))}
           </TextField>
 
-          <InfoLabel tooltip="Escoge la fecha en la que se llevará a cabo esta práctica. Solo se muestran fechas disponibles para el grupo seleccionado.">
+          <InfoLabel tooltip="Escoge la fecha en la que se llevará a cabo esta práctica. Solo se muestran fechas disponibles para el grupo seleccionado. La solicitud debe hacerse al menos 7 días antes de la fecha de realización de la práctica.">
             Escoge una fecha
           </InfoLabel>
           <Calendar
             disablePast
             shouldDisableDate={(date) =>
-              date.getDay() !== groups[selectedGroup]?.day
+              date.getDay() !== groups[selectedGroup]?.day ||
+              date < getDateAfterDays(7)
             }
             value={selectedDate}
             groupDay={groups[selectedGroup]?.day}
