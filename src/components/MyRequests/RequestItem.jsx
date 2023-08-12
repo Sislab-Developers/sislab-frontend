@@ -112,16 +112,14 @@ export const RequestItem = ({ request, index }) => {
           <Typography color="primary" fontWeight="bold">
             {formatAssignment(assignment)}.
           </Typography>
-          <Typography color="primary">
-            <strong>Laboratorio:</strong> {group.lab}.
+          <Typography>
+            <TextEmphasis>Laboratorio:</TextEmphasis> {group.lab}.
           </Typography>
-          <Typography color="primary">
-            <strong>Fecha:</strong> {fullDateFormat(requestDate)}.
+          <Typography>
+            <TextEmphasis>Fecha:</TextEmphasis> {fullDateFormat(requestDate)}.
           </Typography>
           <Collapse in={isExpanded} unmountOnExit>
-            <Box
-              sx={{ display: "flex", flexDirection: "column" }}
-            >
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Typography>
                 <TextEmphasis>Creada por:</TextEmphasis>{" "}
                 {formatProfName(prof?.name, prof?.surname)}
@@ -153,7 +151,7 @@ export const RequestItem = ({ request, index }) => {
                   <Typography>
                     <TextEmphasis>Reactivos extra:</TextEmphasis>
                   </Typography>
-                  <List>
+                  <List disablePadding>
                     {customReagents.map((reagent) => (
                       <ListItem
                         key={`${reagent.reagent} ${reagent.quantity} ${reagent.unit}`}
@@ -174,7 +172,7 @@ export const RequestItem = ({ request, index }) => {
                   <Typography>
                     <TextEmphasis>Reactivos extra:</TextEmphasis>
                   </Typography>
-                  <List>
+                  <List disablePadding>
                     {customEquipment.map((equipment, index) => (
                       <ListItem key={`Equipment ${equipment} ${index}`}>
                         <ListItemIcon>
@@ -191,7 +189,7 @@ export const RequestItem = ({ request, index }) => {
                   <Typography>
                     <TextEmphasis>Reactivos extra:</TextEmphasis>
                   </Typography>
-                  <List>
+                  <List disablePadding>
                     {customWaste.map((waste, index) => (
                       <ListItem
                         key={`Waste ${waste.residue} ${waste.treatment} ${index}`}
