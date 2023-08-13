@@ -1,6 +1,4 @@
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import AuthContext from "../context/AuthContext.jsx";
 import { LayoutWrapper } from "../components";
 
 import {
@@ -8,9 +6,6 @@ import {
   MisGrupos,
   SolicitudesCreadas,
   MasInformacion,
-  Recuperacion,
-  Ayuda,
-  Login,
 } from "../pages";
 import { AdminRequests } from "../pages/AdminRequests/AdminRequests.jsx";
 import { UsersPage } from "../pages/UsersPage/UsersPage.jsx";
@@ -31,7 +26,6 @@ if (!import.meta.env.VITE_APP_CLERK_PUBLISHABLE_KEY) {
 const clerkPubKey = import.meta.env.VITE_APP_CLERK_PUBLISHABLE_KEY;
 
 export const MainRoutes = () => {
-  const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
 
   return (

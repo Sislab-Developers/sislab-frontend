@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const PDFTest = ({ requests = {}, requestsDate = new Date() }) => {
+export const PDFTicket = ({ requests = {}, requestsDate = new Date() }) => {
   const theme = useTheme();
   const formattedReqsDate = format(requestsDate, "dd/LL/yyyy");
 

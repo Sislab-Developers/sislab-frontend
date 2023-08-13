@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, Typography } from "@mui/material";
-import { PDFTest } from "./PDFTest";
+import { PDFTicket } from "./PDFTicket";
 
 export const PDFModal = ({ isOpen, onClose, requests, date }) => {
   const transformedData = requests.reduce((acc, request) => {
@@ -44,7 +44,7 @@ export const PDFModal = ({ isOpen, onClose, requests, date }) => {
           <Typography>No hay solicitudes pendientes para esta fecha</Typography>
         )}
         {!!requests && (
-          <PDFTest requests={transformedData} requestsDate={date} />
+          <PDFTicket requests={transformedData} requestsDate={date} />
         )}
       </DialogContent>
     </Dialog>
