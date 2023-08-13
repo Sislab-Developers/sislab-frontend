@@ -36,6 +36,14 @@ export const theme = createTheme({
   },
   maxWidth: "600px",
   components: {
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          fontFamily: ["Fira Mono", "monospace"].join(","),
+          fontSize: "1em",
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         contained: {

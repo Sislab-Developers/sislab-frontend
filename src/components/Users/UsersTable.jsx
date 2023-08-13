@@ -30,7 +30,7 @@ export const UsersTable = ({ users }) => {
         >
           {users.length === 0 && (
             <TableRow>
-              <TableCell colSpan={3}>No hay usuarios registrados.</TableCell>
+              <TableCell colSpan={4}>No hay usuarios registrados.</TableCell>
             </TableRow>
           )}
           {users.map((userRecord) => (

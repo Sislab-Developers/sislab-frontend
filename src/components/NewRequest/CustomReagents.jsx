@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import {
   Box,
-  Button,
   IconButton,
   TableCell,
   TableRow,
@@ -50,7 +49,7 @@ export const CustomReagents = ({
               <TableCell>{reagent.reagent}</TableCell>
               <TableCell align="right">{reagent.quantity}</TableCell>
               <TableCell align="right">{reagent.unit}</TableCell>
-              <TableCell align="right" sx={{ px: "0.5rem" }}>
+              <TableCell align="right" sx={{ px: "0.5rem", minWidth: "3.5em" }}>
                 <Tooltip title="Haz clic para eliminar el reactivo">
                   <IconButton
                     size="small"
@@ -64,7 +63,7 @@ export const CustomReagents = ({
           ))
         ) : (
           <TableRow>
-            <TableCell colSpan={3}>
+            <TableCell colSpan={4}>
               <Typography textAlign="center">
                 No se han añadido <TextEmphasis>reactivos</TextEmphasis>{" "}
                 personalizados
@@ -140,7 +139,8 @@ const ReagentForm = ({ onSubmit }) => {
         border: "1px solid #ccc",
         borderRadius: "8px",
         display: "flex",
-        flexDirection: { xs: "column", sm: "row" },
+        flexDirection: "column",
+        alignItems: "center",
         gap: "0.75rem",
         padding: "0.5rem",
       }}
@@ -153,28 +153,46 @@ const ReagentForm = ({ onSubmit }) => {
           Agregar <TextEmphasis>reactivo personalizado</TextEmphasis>
         </Typography>
       )}
-      <TextField
-        label="Reactivo"
-        placeholder="ej. NaOH"
-        value={reagent}
-        onChange={handleReagentChange}
-      />
-      <TextField
-        label="Cantidad"
-        placeholder="ej. 10"
-        type="number"
-        value={quantity}
-        onChange={handleQuantityChange}
-      />
-      <TextField
-        label="Medida"
-        placeholder="ej. g"
-        value={unit}
-        onChange={handleUnitChange}
-      />
-      <Button variant="contained" onClick={handleSubmit}>
-        <Add sx={{ color: "white" }} />
-      </Button>
+      <Box
+        sx={{
+          display: "flex",
+          width: { xs: "100%", sm: "auto" },
+          flexDirection: { xs: "column", sm: "row" },
+          alignItems: { sm: "center" },
+          gap: "0.75rem",
+          mx: "auto",
+        }}
+      >
+        <TextField
+          label="Reactivo"
+          placeholder="ej. NaOH"
+          value={reagent}
+          onChange={handleReagentChange}
+        />
+        <TextField
+          label="Cantidad"
+          placeholder="ej. 10"
+          type="number"
+          value={quantity}
+          onChange={handleQuantityChange}
+        />
+        <TextField
+          label="Medida"
+          placeholder="ej. g"
+          value={unit}
+          onChange={handleUnitChange}
+        />
+        <IconButton
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{
+            backgroundColor: theme.palette.primary.main,
+            borderRadius: { xs: "8px", sm: "50%" },
+          }}
+        >
+          <Add sx={{ color: "white" }} />
+        </IconButton>
+      </Box>
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </Box>
   );

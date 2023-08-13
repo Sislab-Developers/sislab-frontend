@@ -13,11 +13,12 @@ export const MasInformacion = () => {
         <TextEmphasis>
           Sistema de solicitudes para Laboratorios (SISLAB)
         </TextEmphasis>{" "}
-        del <TextEmphasis>Departamento de Ingeniería Química</TextEmphasis> de
-        la <TextEmphasis>Universidad de Sonora</TextEmphasis>. Este sistema fue
-        desarrollado entre los años 2022 y 2023 por un dedicado grupo de
-        estudiantes pertenecientes al laboratorio{" "}
-        <TextEmphasis color="#7145d6">CSI PRO</TextEmphasis>, dentro de la
+        del{" "}
+        <TextEmphasis>Departamento de Ciencias Químico Biológicas</TextEmphasis>{" "}
+        de la <TextEmphasis>Universidad de Sonora</TextEmphasis>. Este sistema
+        fue desarrollado entre los años 2022 y 2023 por un dedicado grupo de
+        estudiantes y miembros del laboratorio{" "}
+        <TextEmphasis color="#7145d6">CSI PRO</TextEmphasis>, perteneciente a la
         carrera de{" "}
         <TextEmphasis color="#7145d6">
           Ingeniería en Sistemas de Información

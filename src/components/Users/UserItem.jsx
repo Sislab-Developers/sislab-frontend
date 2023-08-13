@@ -30,7 +30,7 @@ export const UserItem = ({ userRecord }) => {
         </TableCell>
         <TableCell>{userRecord.role.name}</TableCell>
         <TableCell>{userRecord.status ? "Activo" : "Inactivo"}</TableCell>
-        <TableCell align="right">
+        <TableCell align="right" sx={{ minWidth: "3.5em" }}>
           <Tooltip
             title={
               shouldDisableActions && "No puedes modificar tu propio usuario"

@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import {
   Box,
-  Button,
   IconButton,
   TableCell,
   TableRow,
@@ -46,7 +45,7 @@ export const CustomWaste = ({ waste = [], onAddWaste, onDeleteWaste }) => {
               <TableCell>{waste.residue}</TableCell>
               <TableCell align="right">{waste.container || "--"}</TableCell>
               <TableCell align="right">{waste.treatment || "--"}</TableCell>
-              <TableCell align="right" sx={{ px: "0.5rem" }}>
+              <TableCell align="right" sx={{ px: "0.5rem", minWidth: "3.5em" }}>
                 <Tooltip title="Haz clic para eliminar el residuo">
                   <IconButton
                     size="small"
@@ -60,7 +59,7 @@ export const CustomWaste = ({ waste = [], onAddWaste, onDeleteWaste }) => {
           ))
         ) : (
           <TableRow>
-            <TableCell colSpan={3}>
+            <TableCell colSpan={4}>
               <Typography textAlign="center">
                 No se han añadido <TextEmphasis>residuos</TextEmphasis>{" "}
                 personalizados
@@ -136,7 +135,8 @@ const WasteForm = ({ onSubmit }) => {
         border: "1px solid #ccc",
         borderRadius: "8px",
         display: "flex",
-        flexDirection: { xs: "column", sm: "row" },
+        flexDirection: "column",
+        alignItems: "center",
         gap: "0.75rem",
         padding: "0.5rem",
       }}
@@ -149,27 +149,45 @@ const WasteForm = ({ onSubmit }) => {
           Agregar <TextEmphasis>residuo personalizado</TextEmphasis>
         </Typography>
       )}
-      <TextField
-        label="Residuo"
-        placeholder="ej. HCl"
-        value={waste}
-        onChange={handleWasteChange}
-      />
-      <TextField
-        label="Envase"
-        placeholder="ej. Frasco"
-        value={container}
-        onChange={handleContainerChange}
-      />
-      <TextField
-        label="Tratamiento"
-        placeholder="ej. Neutralizar"
-        value={treatment}
-        onChange={handleTreatmentChange}
-      />
-      <Button variant="contained" onClick={handleSubmit}>
-        <Add sx={{ color: "white" }} />
-      </Button>
+      <Box
+        sx={{
+          display: "flex",
+          width: { xs: "100%", sm: "auto" },
+          flexDirection: { xs: "column", sm: "row" },
+          alignItems: { sm: "center" },
+          gap: "0.75rem",
+          mx: "auto",
+        }}
+      >
+        <TextField
+          label="Residuo"
+          placeholder="ej. HCl"
+          value={waste}
+          onChange={handleWasteChange}
+        />
+        <TextField
+          label="Envase"
+          placeholder="ej. Frasco"
+          value={container}
+          onChange={handleContainerChange}
+        />
+        <TextField
+          label="Tratamiento"
+          placeholder="ej. Neutralizar"
+          value={treatment}
+          onChange={handleTreatmentChange}
+        />
+        <IconButton
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{
+            backgroundColor: theme.palette.primary.main,
+            borderRadius: { xs: "8px", sm: "50%" },
+          }}
+        >
+          <Add sx={{ color: "white" }} />
+        </IconButton>
+      </Box>
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </Box>
   );

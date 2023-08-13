@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
-import { Box, Button, Skeleton, Typography } from "@mui/material";
+import { Box, Button, LinearProgress, Typography } from "@mui/material";
 
 import { TextEmphasis } from "../TextEmphasis";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -22,7 +22,7 @@ export const PendingRequestsList = ({ date, hasRequests }) => {
   });
 
   if (requestsQuery.isLoading) {
-    return <RequestSkeleton />;
+    return <LinearProgress />;
   }
 
   const closeModal = () => setOpen(false);
@@ -47,7 +47,7 @@ export const PendingRequestsList = ({ date, hasRequests }) => {
       {hasRequests ? (
         <>
           <Typography>
-            Estas son tus <TextEmphasis>solicitudes</TextEmphasis> para el día{" "}
+            Estas son las <TextEmphasis>solicitudes</TextEmphasis> para el día{" "}
             <TextEmphasis>
               {format(date, "EEEE dd 'de' MMMM 'del' yyyy", { locale: es })}
             </TextEmphasis>
@@ -78,20 +78,4 @@ export const PendingRequestsList = ({ date, hasRequests }) => {
       )}
     </Box>
   );
-};
-
-const RequestSkeleton = () => {
-  return Array.from(Array(3).keys()).map((i) => (
-    <Skeleton
-      key={i}
-      variant="rectangular"
-      animation="pulse"
-      sx={{
-        width: "100%",
-        height: "150px",
-        animationDelay: `${i * 0.08}s`,
-        animationDuration: "1s",
-      }}
-    />
-  ));
 };

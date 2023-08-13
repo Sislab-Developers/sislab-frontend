@@ -68,7 +68,7 @@ export const PendingRequestItem = ({ request }) => {
           <Collapse in={isExpanded} unmountOnExit>
             <CardContent>
               <Box
-                sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
+                sx={{ display: "flex", flexDirection: "column" }}
               >
                 <Typography>
                   <TextEmphasis>Creada por:</TextEmphasis>{" "}
@@ -101,7 +101,7 @@ export const PendingRequestItem = ({ request }) => {
                     <Typography>
                       <TextEmphasis>Reactivos extra:</TextEmphasis>
                     </Typography>
-                    <List>
+                    <List disablePadding>
                       {customReagents.map((reagent) => (
                         <ListItem
                           key={`${reagent.reagent} ${reagent.quantity} ${reagent.unit}`}
@@ -120,9 +120,9 @@ export const PendingRequestItem = ({ request }) => {
                 {customEquipment.length > 0 && (
                   <>
                     <Typography>
-                      <TextEmphasis>Reactivos extra:</TextEmphasis>
+                      <TextEmphasis>Equipo extra:</TextEmphasis>
                     </Typography>
-                    <List>
+                    <List disablePadding>
                       {customEquipment.map((equipment, index) => (
                         <ListItem key={`Equipment ${equipment} ${index}`}>
                           <ListItemIcon>
@@ -137,9 +137,9 @@ export const PendingRequestItem = ({ request }) => {
                 {customWaste.length > 0 && (
                   <>
                     <Typography>
-                      <TextEmphasis>Reactivos extra:</TextEmphasis>
+                      <TextEmphasis>Residuos extra:</TextEmphasis>
                     </Typography>
-                    <List>
+                    <List disablePadding>
                       {customWaste.map((waste, index) => (
                         <ListItem
                           key={`Waste ${waste.residue} ${waste.treatment} ${index}`}

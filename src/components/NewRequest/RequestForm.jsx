@@ -85,6 +85,8 @@ export const RequestForm = () => {
   }, [groupErrors]);
 
   const handleGroupChange = (index) => {
+    if (index === selectedGroup) return;
+
     setSelectedGroup(index);
 
     setSelectedAssignment("");
@@ -265,319 +267,365 @@ export const RequestForm = () => {
 
   return (
     <>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-        <RequestStep
-          stepLabel="Selecciona un grupo"
-          expanded={currentStep === 0}
-          onChange={handleAccordionChange(0)}
-          error={groupErrors.length > 0}
-        >
-          {groupsLoading ? (
-            <LinearProgress />
-          ) : (
-            <>
-              {groups.length < 1 ? (
-                <Typography>
-                  No hay grupos disponibles. Dirígete a la sección de{" "}
-                  <TextEmphasis>Mis grupos</TextEmphasis> para agregar tu primer
-                  grupo.
-                </Typography>
-              ) : (
-                <Tabs variant="scrollable" value={selectedGroup}>
-                  {groups.map((group, index) => (
-                    <GroupChip
-                      clickable
-                      key={group.__htmlid}
-                      label={formatGroupName(index + 1, group.day, group.time)}
-                      selected={index === selectedGroup}
-                      onClick={handleGroupChange.bind(null, index)}
-                    />
-                  ))}
-                </Tabs>
-              )}
-            </>
-          )}
-
-          <InfoLabel tooltip="Escoge la práctica que se llevará a cabo.">
-            Práctica
-          </InfoLabel>
-          <TextField
-            select
-            fullWidth
-            name="Práctica"
-            disabled={assignmentsLoading}
-            value={selectedAssignment._id || ""}
-            onChange={handleAssignmentChange}
-            label={assignmentsLoading ? "Cargando prácticas..." : "Práctica"}
-            helperText={"Selecciona una de las prácticas."}
-          >
-            {assignments.map((assignment) => (
-              <MenuItem key={assignment._id} value={assignment._id}>
-                {`Práctica ${assignment.number}: ${assignment.name}`}
-              </MenuItem>
-            ))}
-          </TextField>
-
-          <InfoLabel tooltip="Escoge la fecha en la que se llevará a cabo esta práctica. Solo se muestran fechas disponibles para el grupo seleccionado. La solicitud debe hacerse al menos 7 días antes de la fecha de realización de la práctica.">
-            Escoge una fecha
-          </InfoLabel>
-          <Calendar
-            disablePast
-            shouldDisableDate={(date) =>
-              date.getDay() !== groups[selectedGroup]?.day ||
-              date < getDateAfterDays(7)
-            }
-            value={selectedDate}
-            groupDay={groups[selectedGroup]?.day}
-            disabled={!groups}
-            onChange={handleDateChange}
-          />
-
-          <Button
-            variant="contained"
-            size="large"
-            sx={{ mx: { sm: "auto" } }}
-            onClick={() => setCurrentStep((prev) => prev + 1)}
-          >
-            Confirmar
-          </Button>
-        </RequestStep>
-        <RequestStep
-          stepLabel="Reactivos"
-          expanded={currentStep === 1}
-          onChange={handleAccordionChange(1)}
-        >
-          {!selectedAssignment ? (
-            <ErrorMessage>{noAssignmentError}</ErrorMessage>
-          ) : (
-            <>
-              <InfoLabel tooltip="Estos son los reactivos predefinidos para la práctica seleccionada. Puedes agregar más si es necesario.">
-                Reactivos de esta práctica
-              </InfoLabel>
-              {selectedAssignment.reagents.groups.length < 1 && (
-                <Table
-                  tableHead={
-                    <TableRow>
-                      <TableCell>Reactivo</TableCell>
-                      <TableCell align="right">Cantidad</TableCell>
-                      <TableCell align="right">Unidad</TableCell>
-                    </TableRow>
-                  }
-                >
-                  <TableRow>
-                    <TableCell colSpan={3}>
-                      <Typography textAlign="center">
-                        Esta práctica no contiene{" "}
-                        <TextEmphasis>reactivos</TextEmphasis>
-                      </Typography>
-                    </TableCell>
-                  </TableRow>
-                </Table>
-              )}
-              {selectedAssignment.reagents.groups.map((group, index) => (
-                <Table
-                  key={`Reagents table ${index}`}
-                  tableHead={
-                    <TableRow>
-                      <TableCell>Reactivo</TableCell>
-                      <TableCell align="right">Cantidad</TableCell>
-                      <TableCell align="right">Unidad</TableCell>
-                    </TableRow>
-                  }
-                >
-                  {group.reagents.map((reagent) => (
-                    <TableRow key={reagent.reagent}>
-                      <TableCell
-                        dangerouslySetInnerHTML={{ __html: reagent.reagent }}
-                      />
-                      <TableCell align="right">
-                        {reagent.quantity || "--"}
-                      </TableCell>
-                      <TableCell align="right">
-                        {reagent.unit || "--"}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </Table>
-              ))}
-              <CustomReagents
-                onAddReagent={handleSubmitCustomReagent}
-                onDeleteReagent={handleDeleteCustomReagent}
-                reagents={customReagents}
-              />
-              <Button
-                variant="contained"
-                size="large"
-                sx={{ mx: { sm: "auto" } }}
-                onClick={() => setCurrentStep((prev) => prev + 1)}
-              >
-                Confirmar
-              </Button>
-            </>
-          )}
-        </RequestStep>
-        <RequestStep
-          stepLabel="Equipo de laboratorio"
-          expanded={currentStep === 2}
-          onChange={handleAccordionChange(2)}
-        >
-          {!selectedAssignment ? (
-            <ErrorMessage>{noAssignmentError}</ErrorMessage>
-          ) : (
-            <>
-              <InfoLabel tooltip="Este es el equipamiento definido para la práctica seleccionada. Puedes agregar más si es necesario.">
-                Equipo de laboratorio
-              </InfoLabel>
-
-              <Box
-                sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
-              >
-                <Box
-                  sx={{
-                    backgroundColor: theme.palette.grey.main,
-                    height: "fit-content",
-                    width: "100%",
-                    border: "1px solid #ccc",
-                    borderRadius: "0.5rem",
-                    p: "0.5rem",
-                  }}
-                >
-                  {selectedAssignment.equipment.length < 1 &&
-                    customEquipment.length < 1 && (
-                      <Typography textAlign="center">
-                        Esta práctica no requiere{" "}
-                        <TextEmphasis>equipamiento</TextEmphasis>
-                      </Typography>
-                    )}
-                  {selectedAssignment.equipment.map((equipment) => (
-                    <EquipmentChip key={equipment} label={equipment} />
-                  ))}
-                  {customEquipment.map((equipment) => (
-                    <EquipmentChip
-                      custom
-                      key={equipment}
-                      label={equipment}
-                      onDelete={handleDeleteCustomEquipment.bind(
-                        null,
-                        equipment
-                      )}
-                    />
-                  ))}
-                </Box>
-                <EquipmentForm onSubmit={handleSubmitCustomEquipment} />
-              </Box>
-
-              <Button
-                variant="contained"
-                size="large"
-                sx={{ mx: { sm: "auto" } }}
-                onClick={() => setCurrentStep((prev) => prev + 1)}
-              >
-                Confirmar
-              </Button>
-            </>
-          )}
-        </RequestStep>
-        <RequestStep
-          stepLabel="Residuos"
-          expanded={currentStep === 3}
-          onChange={handleAccordionChange(3)}
-        >
-          {!selectedAssignment ? (
-            <ErrorMessage>{noAssignmentError}</ErrorMessage>
-          ) : (
-            <>
-              <InfoLabel tooltip="Estos son los residuos predefinidos para la práctica seleccionada. Puedes agregar más si es necesario.">
-                Residuos
-              </InfoLabel>
-              <Table
-                tableHead={
-                  <TableRow>
-                    <TableCell>Residuo</TableCell>
-                    <TableCell align="right">Envase</TableCell>
-                    <TableCell align="right">Tratamiento</TableCell>
-                  </TableRow>
-                }
-              >
-                {selectedAssignment.waste.length < 1 ? (
-                  <TableRow>
-                    <TableCell colSpan={3}>
-                      <Typography textAlign="center">
-                        Esta práctica no contiene{" "}
-                        <TextEmphasis>residuos</TextEmphasis>
-                      </Typography>
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  selectedAssignment.waste.map((waste) => (
-                    <TableRow key={waste.residue}>
-                      <TableCell
-                        dangerouslySetInnerHTML={{ __html: waste.residue }}
-                      />
-                      <TableCell align="right">
-                        {waste.container || "--"}
-                      </TableCell>
-                      <TableCell align="right">
-                        {waste.treatment || "--"}
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </Table>
-              <CustomWaste
-                waste={customWaste}
-                onAddWaste={handleSubmitCustomWaste}
-                onDeleteWaste={handleDeleteCustomWaste}
-              />
-              <Button
-                variant="contained"
-                size="large"
-                sx={{ mx: { sm: "auto" } }}
-                onClick={() => setCurrentStep(false)}
-              >
-                Confirmar
-              </Button>
-            </>
-          )}
-        </RequestStep>
-        <Button
-          variant="contained"
-          size="large"
-          sx={{ mx: { sm: "auto" } }}
-          startIcon={<Send />}
-          onClick={handleSubmitRequest}
-        >
-          Enviar solicitud
-        </Button>
-      </Box>
-      <Modal open={isModalOpen} onClose={handleCloseModal}>
+      {groupsLoading ? (
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
+            alignItems: "center",
             gap: "0.5rem",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: "whitesmoke",
-            borderRadius: "0.5rem",
-            p: "1rem",
-            width: { xs: "90%", sm: "50%" },
           }}
         >
-          {modalContent.title}
-          {modalContent.content}
-          <Button
-            variant="contained"
-            size="large"
-            sx={{ mx: { sm: "auto" } }}
-            onClick={handleCloseModal}
-          >
-            Cerrar
-          </Button>
+          <LinearProgress />
+          <Typography>Cargando grupos...</Typography>
         </Box>
-      </Modal>
+      ) : (
+        <>
+          {groups.length < 1 ? (
+            <>
+              <Typography>
+                No hay grupos disponibles. Dirígete a la sección de{" "}
+                <TextEmphasis>Mis grupos</TextEmphasis> para agregar tu primer
+                grupo.
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Box
+                sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
+              >
+                <RequestStep
+                  stepLabel="Selecciona un grupo"
+                  expanded={currentStep === 0}
+                  onChange={handleAccordionChange(0)}
+                  error={groupErrors.length > 0}
+                >
+                  {groupsLoading ? (
+                    <LinearProgress />
+                  ) : (
+                    <>
+                      {groups.length < 1 ? (
+                        <Typography>
+                          No hay grupos disponibles. Dirígete a la sección de{" "}
+                          <TextEmphasis>Mis grupos</TextEmphasis> para agregar
+                          tu primer grupo.
+                        </Typography>
+                      ) : (
+                        <Tabs variant="scrollable" value={selectedGroup}>
+                          {groups.map((group, index) => (
+                            <GroupChip
+                              clickable
+                              key={group._id}
+                              label={formatGroupName(
+                                index + 1,
+                                group.day,
+                                group.time
+                              )}
+                              selected={index === selectedGroup}
+                              onClick={handleGroupChange.bind(null, index)}
+                            />
+                          ))}
+                        </Tabs>
+                      )}
+                    </>
+                  )}
+
+                  <InfoLabel tooltip="Escoge la práctica que se llevará a cabo.">
+                    Práctica
+                  </InfoLabel>
+                  <TextField
+                    select
+                    fullWidth
+                    name="Práctica"
+                    disabled={assignmentsLoading}
+                    value={selectedAssignment._id || ""}
+                    onChange={handleAssignmentChange}
+                    label={
+                      assignmentsLoading ? "Cargando prácticas..." : "Práctica"
+                    }
+                    helperText={"Selecciona una de las prácticas."}
+                  >
+                    {assignments.map((assignment) => (
+                      <MenuItem key={assignment._id} value={assignment._id}>
+                        {`Práctica ${assignment.number}: ${assignment.name}`}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+
+                  <InfoLabel tooltip="Escoge la fecha en la que se llevará a cabo esta práctica. Solo se muestran fechas disponibles para el grupo seleccionado. La solicitud debe hacerse al menos 7 días antes de la fecha de realización de la práctica.">
+                    Escoge una fecha
+                  </InfoLabel>
+                  <Calendar
+                    disablePast
+                    shouldDisableDate={(date) =>
+                      date.getDay() !== groups[selectedGroup]?.day ||
+                      date < getDateAfterDays(7)
+                    }
+                    value={selectedDate}
+                    groupDay={groups[selectedGroup]?.day}
+                    disabled={!groups}
+                    onChange={handleDateChange}
+                  />
+
+                  <Button
+                    variant="contained"
+                    size="large"
+                    sx={{ mx: { sm: "auto" } }}
+                    onClick={() => setCurrentStep((prev) => prev + 1)}
+                  >
+                    Confirmar
+                  </Button>
+                </RequestStep>
+                <RequestStep
+                  stepLabel="Reactivos"
+                  expanded={currentStep === 1}
+                  onChange={handleAccordionChange(1)}
+                >
+                  {!selectedAssignment ? (
+                    <ErrorMessage>{noAssignmentError}</ErrorMessage>
+                  ) : (
+                    <>
+                      <InfoLabel tooltip="Estos son los reactivos predefinidos para la práctica seleccionada. Puedes agregar más si es necesario.">
+                        Reactivos de esta práctica
+                      </InfoLabel>
+                      {selectedAssignment.reagents.groups.length < 1 && (
+                        <Table
+                          tableHead={
+                            <TableRow>
+                              <TableCell>Reactivo</TableCell>
+                              <TableCell align="right">Cantidad</TableCell>
+                              <TableCell align="right">Medida</TableCell>
+                            </TableRow>
+                          }
+                        >
+                          <TableRow>
+                            <TableCell colSpan={3}>
+                              <Typography textAlign="center">
+                                Esta práctica no contiene{" "}
+                                <TextEmphasis>reactivos</TextEmphasis>
+                              </Typography>
+                            </TableCell>
+                          </TableRow>
+                        </Table>
+                      )}
+                      {selectedAssignment.reagents.groups.map(
+                        (group, index) => (
+                          <Table
+                            key={`Reagents table ${index}`}
+                            tableHead={
+                              <TableRow>
+                                <TableCell>Reactivo</TableCell>
+                                <TableCell align="right">Cantidad</TableCell>
+                                <TableCell align="right">Medida</TableCell>
+                              </TableRow>
+                            }
+                          >
+                            {group.reagents.map((reagent) => (
+                              <TableRow key={reagent.reagent}>
+                                <TableCell
+                                  dangerouslySetInnerHTML={{
+                                    __html: reagent.reagent,
+                                  }}
+                                />
+                                <TableCell align="right">
+                                  {reagent.quantity || "--"}
+                                </TableCell>
+                                <TableCell align="right">
+                                  {reagent.unit || "--"}
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </Table>
+                        )
+                      )}
+                      <CustomReagents
+                        onAddReagent={handleSubmitCustomReagent}
+                        onDeleteReagent={handleDeleteCustomReagent}
+                        reagents={customReagents}
+                      />
+                      <Button
+                        variant="contained"
+                        size="large"
+                        sx={{ mx: { sm: "auto" } }}
+                        onClick={() => setCurrentStep((prev) => prev + 1)}
+                      >
+                        Confirmar
+                      </Button>
+                    </>
+                  )}
+                </RequestStep>
+                <RequestStep
+                  stepLabel="Equipo de laboratorio"
+                  expanded={currentStep === 2}
+                  onChange={handleAccordionChange(2)}
+                >
+                  {!selectedAssignment ? (
+                    <ErrorMessage>{noAssignmentError}</ErrorMessage>
+                  ) : (
+                    <>
+                      <InfoLabel tooltip="Este es el equipamiento definido para la práctica seleccionada. Puedes agregar más si es necesario.">
+                        Equipo de laboratorio
+                      </InfoLabel>
+
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "0.5rem",
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            backgroundColor: theme.palette.grey.main,
+                            height: "fit-content",
+                            width: "100%",
+                            border: "1px solid #ccc",
+                            borderRadius: "0.5rem",
+                            p: "0.5rem",
+                          }}
+                        >
+                          {selectedAssignment.equipment.length < 1 &&
+                            customEquipment.length < 1 && (
+                              <Typography textAlign="center">
+                                Esta práctica no requiere{" "}
+                                <TextEmphasis>equipamiento</TextEmphasis>
+                              </Typography>
+                            )}
+                          {selectedAssignment.equipment.map((equipment) => (
+                            <EquipmentChip key={equipment} label={equipment} />
+                          ))}
+                          {customEquipment.map((equipment) => (
+                            <EquipmentChip
+                              custom
+                              key={equipment}
+                              label={equipment}
+                              onDelete={handleDeleteCustomEquipment.bind(
+                                null,
+                                equipment
+                              )}
+                            />
+                          ))}
+                        </Box>
+                        <EquipmentForm onSubmit={handleSubmitCustomEquipment} />
+                      </Box>
+
+                      <Button
+                        variant="contained"
+                        size="large"
+                        sx={{ mx: { sm: "auto" } }}
+                        onClick={() => setCurrentStep((prev) => prev + 1)}
+                      >
+                        Confirmar
+                      </Button>
+                    </>
+                  )}
+                </RequestStep>
+                <RequestStep
+                  stepLabel="Residuos"
+                  expanded={currentStep === 3}
+                  onChange={handleAccordionChange(3)}
+                >
+                  {!selectedAssignment ? (
+                    <ErrorMessage>{noAssignmentError}</ErrorMessage>
+                  ) : (
+                    <>
+                      <InfoLabel tooltip="Estos son los residuos predefinidos para la práctica seleccionada. Puedes agregar más si es necesario.">
+                        Residuos
+                      </InfoLabel>
+                      <Table
+                        tableHead={
+                          <TableRow>
+                            <TableCell>Residuo</TableCell>
+                            <TableCell align="right">Envase</TableCell>
+                            <TableCell align="right">Tratamiento</TableCell>
+                          </TableRow>
+                        }
+                      >
+                        {selectedAssignment.waste.length < 1 ? (
+                          <TableRow>
+                            <TableCell colSpan={3}>
+                              <Typography textAlign="center">
+                                Esta práctica no contiene{" "}
+                                <TextEmphasis>residuos</TextEmphasis>
+                              </Typography>
+                            </TableCell>
+                          </TableRow>
+                        ) : (
+                          selectedAssignment.waste.map((waste) => (
+                            <TableRow key={waste.residue}>
+                              <TableCell
+                                dangerouslySetInnerHTML={{
+                                  __html: waste.residue,
+                                }}
+                              />
+                              <TableCell align="right">
+                                {waste.container || "--"}
+                              </TableCell>
+                              <TableCell align="right">
+                                {waste.treatment || "--"}
+                              </TableCell>
+                            </TableRow>
+                          ))
+                        )}
+                      </Table>
+                      <CustomWaste
+                        waste={customWaste}
+                        onAddWaste={handleSubmitCustomWaste}
+                        onDeleteWaste={handleDeleteCustomWaste}
+                      />
+                      <Button
+                        variant="contained"
+                        size="large"
+                        sx={{ mx: { sm: "auto" } }}
+                        onClick={() => setCurrentStep(false)}
+                      >
+                        Confirmar
+                      </Button>
+                    </>
+                  )}
+                </RequestStep>
+                <Button
+                  variant="contained"
+                  size="large"
+                  sx={{ mx: { sm: "auto" } }}
+                  startIcon={<Send />}
+                  onClick={handleSubmitRequest}
+                >
+                  Enviar solicitud
+                </Button>
+              </Box>
+              <Modal open={isModalOpen} onClose={handleCloseModal}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    backgroundColor: "whitesmoke",
+                    borderRadius: "0.5rem",
+                    p: "1rem",
+                    width: { xs: "90%", sm: "50%" },
+                  }}
+                >
+                  {modalContent.title}
+                  {modalContent.content}
+                  <Button
+                    variant="contained"
+                    size="large"
+                    sx={{ mx: { sm: "auto" } }}
+                    onClick={handleCloseModal}
+                  >
+                    Cerrar
+                  </Button>
+                </Box>
+              </Modal>
+            </>
+          )}
+        </>
+      )}
     </>
   );
 };
