@@ -191,6 +191,12 @@ const styles = StyleSheet.create({
     textAlign: "right",
   },
 
+  comments: {
+    width: "100%",
+    textAlign: "left",
+    fontWeight: "bold",
+  },
+
   extras: {
     marginTop: "4px",
     width: "100%",
@@ -362,6 +368,16 @@ const Group = ({ group, index }) => {
                 .join(", ")}
             </Text>
           </Text>
+        )}
+        {group.comments.length > 0 && (
+          <View style={styles.comments}>
+            <Text>Comentarios</Text>
+            {group.comments.map((comment) => (
+              <View key={`Comment ${comment._id}`} style={styles.extrasItem}>
+                <Text style={{ fontWeight: "normal" }}>{comment.content}</Text>
+              </View>
+            ))}
+          </View>
         )}
       </View>
     </View>

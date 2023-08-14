@@ -36,6 +36,7 @@ export const PendingRequestItem = ({ request }) => {
     customEquipment,
     customWaste,
     omittedReagents,
+    comments,
   } = request;
 
   const toggleExpanded = () => {
@@ -184,6 +185,23 @@ export const PendingRequestItem = ({ request }) => {
                           <ListItemText
                             primary={`${waste.residue} | ${waste.container} | Tratamiento: ${waste.treatment}`}
                           />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </>
+                )}
+                {comments?.length > 0 && (
+                  <>
+                    <Typography>
+                      <TextEmphasis>Comentarios:</TextEmphasis>
+                    </Typography>
+                    <List disablePadding>
+                      {comments.map((comment) => (
+                        <ListItem disablePadding key={`Comment ${comment._id}`}>
+                          <ListItemIcon>
+                            <ArrowRight />
+                          </ListItemIcon>
+                          <ListItemText primary={comment.content} />
                         </ListItem>
                       ))}
                     </List>

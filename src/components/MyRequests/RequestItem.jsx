@@ -36,6 +36,7 @@ export const RequestItem = ({ request, index }) => {
     customEquipment,
     customWaste,
     omittedReagents,
+    comments,
   } = request;
 
   const theme = useTheme();
@@ -232,6 +233,23 @@ export const RequestItem = ({ request, index }) => {
                         <ListItemText
                           primary={`${waste.residue} | ${waste.container} | Tratamiento: ${waste.treatment}`}
                         />
+                      </ListItem>
+                    ))}
+                  </List>
+                </>
+              )}
+              {comments?.length > 0 && (
+                <>
+                  <Typography>
+                    <TextEmphasis>Comentarios:</TextEmphasis>
+                  </Typography>
+                  <List disablePadding>
+                    {comments.map((comment) => (
+                      <ListItem disablePadding key={`Comment ${comment._id}`}>
+                        <ListItemIcon>
+                          <ArrowRight />
+                        </ListItemIcon>
+                        <ListItemText primary={comment.content} />
                       </ListItem>
                     ))}
                   </List>

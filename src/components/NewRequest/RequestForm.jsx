@@ -35,6 +35,7 @@ import { EquipmentForm } from "./EquipmentForm";
 import { CustomWaste } from "./CustomWaste";
 import { postRequest } from "../../api/fetch";
 import { useUser } from "@clerk/clerk-react";
+import { Controller, useForm } from "react-hook-form";
 
 const noAssignmentError = "Debes seleccionar una práctica.";
 
@@ -56,6 +57,12 @@ export const RequestForm = () => {
   const [selectedGroup, setSelectedGroup] = useState(false);
   const [selectedAssignment, setSelectedAssignment] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const { control, getValues, reset } = useForm({
+    defaultValues: {
+      comment: "",
+    },
+  });
 
   const [customReagents, setCustomReagents] = useState([]);
   const [customEquipment, setCustomEquipment] = useState([]);
@@ -117,6 +124,7 @@ export const RequestForm = () => {
     setSelectedGroup(false);
     setSelectedAssignment("");
     setSelectedDate(new Date());
+    reset({ comment: "" });
 
     setCustomReagents([]);
     setCustomEquipment([]);
@@ -234,6 +242,7 @@ export const RequestForm = () => {
       customEquipment,
       customWaste,
       omittedReagents,
+      comment: getValues().comment,
     };
 
     try {
@@ -660,12 +669,46 @@ export const RequestForm = () => {
                         variant="contained"
                         size="large"
                         sx={{ mx: { sm: "auto" } }}
-                        onClick={() => setCurrentStep(false)}
+                        onClick={() => setCurrentStep(4)}
                       >
                         Confirmar
                       </Button>
                     </>
                   )}
+                </RequestStep>
+                <RequestStep
+                  stepLabel="Comentarios"
+                  expanded={currentStep === 4}
+                  onChange={handleAccordionChange(4)}
+                >
+                  <>
+                    <InfoLabel tooltip="Aquí puedes agregar un comentario acerca de tu solicitud si lo crees necesario.">
+                      Agregar un comentario
+                    </InfoLabel>
+                    <Controller
+                      name="comment"
+                      control={control}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          multiline
+                          fullWidth
+                          rows={5}
+                          variant="outlined"
+                          label="Comentario"
+                          placeholder="Escribe un comentario..."
+                        />
+                      )}
+                    />
+                    <Button
+                      variant="contained"
+                      size="large"
+                      sx={{ mx: { sm: "auto" } }}
+                      onClick={() => setCurrentStep(false)}
+                    >
+                      Confirmar
+                    </Button>
+                  </>
                 </RequestStep>
                 <Button
                   variant="contained"
