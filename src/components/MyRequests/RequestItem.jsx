@@ -164,8 +164,8 @@ export const RequestItem = ({ request, index }) => {
                         </ListItemIcon>
                         <ListItemText
                           primary={`${replaceWithUnicode(reagent.reagent)} - ${
-                            reagent.quantity
-                          }${reagent.unit}`}
+                            reagent?.quantity ?? "N/A"
+                          }${reagent?.unit ?? "N/A"}`}
                         />
                       </ListItem>
                     ))}
@@ -188,8 +188,8 @@ export const RequestItem = ({ request, index }) => {
                         </ListItemIcon>
                         <ListItemText
                           primary={`${replaceWithUnicode(reagent.reagent)} - ${
-                            reagent.quantity
-                          }${reagent.unit}`}
+                            reagent?.quantity ?? "N/A"
+                          }${reagent?.unit ?? "N/A"}`}
                         />
                       </ListItem>
                     ))}
@@ -231,7 +231,9 @@ export const RequestItem = ({ request, index }) => {
                           <ArrowRight />
                         </ListItemIcon>
                         <ListItemText
-                          primary={`${waste.residue} | ${waste.container} | Tratamiento: ${waste.treatment}`}
+                          primary={`${waste?.residue ?? "N/A"} | ${
+                            waste?.container ?? "N/A"
+                          } | Tratamiento: ${waste?.treatment ?? "N/A"}`}
                         />
                       </ListItem>
                     ))}

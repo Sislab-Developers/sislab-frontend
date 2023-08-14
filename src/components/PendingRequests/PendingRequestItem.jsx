@@ -108,18 +108,20 @@ export const PendingRequestItem = ({ request }) => {
                       <TextEmphasis>Reactivos omitidos:</TextEmphasis>
                     </Typography>
                     <List disablePadding>
-                      {omittedReagents.map((reagent) => (
+                      {omittedReagents.map((reagent, index) => (
                         <ListItem
                           disablePadding
-                          key={`${reagent.reagent} ${reagent.quantity} ${reagent.unit}`}
+                          key={`${reagent.reagent} ${reagent.quantity} ${reagent.unit} ${index}`}
                         >
                           <ListItemIcon>
                             <ArrowRight />
                           </ListItemIcon>
                           <ListItemText
                             primary={`${replaceWithUnicode(
-                              reagent.reagent
-                            )} - ${reagent.quantity}${reagent.unit}`}
+                              reagent?.reagent ?? "N/A"
+                            )} - ${reagent?.quantity ?? "N/A "}${
+                              reagent?.unit ?? "N/A"
+                            }`}
                           />
                         </ListItem>
                       ))}
@@ -132,16 +134,18 @@ export const PendingRequestItem = ({ request }) => {
                       <TextEmphasis>Reactivos extra:</TextEmphasis>
                     </Typography>
                     <List disablePadding>
-                      {customReagents.map((reagent) => (
+                      {customReagents.map((reagent, index) => (
                         <ListItem
                           disablePadding
-                          key={`${reagent.reagent} ${reagent.quantity} ${reagent.unit}`}
+                          key={`${reagent?.reagent} ${reagent?.quantity} ${reagent?.unit} ${index}`}
                         >
                           <ListItemIcon>
                             <ArrowRight />
                           </ListItemIcon>
                           <ListItemText
-                            primary={`${reagent.reagent} - ${reagent.quantity}${reagent.unit}`}
+                            primary={`${reagent?.reagent ?? "N/A"} - ${
+                              reagent?.quantity ?? "N/A "
+                            }${reagent?.unit ?? "N/A"}`}
                           />
                         </ListItem>
                       ))}
@@ -177,13 +181,15 @@ export const PendingRequestItem = ({ request }) => {
                       {customWaste.map((waste, index) => (
                         <ListItem
                           disablePadding
-                          key={`Waste ${waste.residue} ${waste.treatment} ${index}`}
+                          key={`Waste ${waste?.residue} ${waste?.treatment} ${index}`}
                         >
                           <ListItemIcon>
                             <ArrowRight />
                           </ListItemIcon>
                           <ListItemText
-                            primary={`${waste.residue} | ${waste.container} | Tratamiento: ${waste.treatment}`}
+                            primary={`${waste?.residue ?? "N/A"} | ${
+                              waste?.container ?? "N/A "
+                            } | Tratamiento: ${waste?.treatment ?? "N/A"}`}
                           />
                         </ListItem>
                       ))}

@@ -431,54 +431,66 @@ const Reagents = ({ reagents, professors = [] }) => {
           <Text>No se omitieron reactivos para esta práctica</Text>
         ) : (
           Object.values(professors).map((prof, profIndex) => {
-            const { requests } = prof;
+            const { requests, professor } = prof;
             return requests.map((request, reqIndex) => {
               const { omittedReagents } = request;
-              return omittedReagents.map((reagent, regIndex) => {
-                return (
-                  <View
-                    key={`Omitted reagents prof ${profIndex} request ${reqIndex} reagent ${regIndex}`}
-                    style={styles.extrasItem}
-                  >
-                    <Text>
-                      {`Solicitud ${profIndex + 1} | Grupo ${reqIndex + 1}: `}
-                      <Text style={{ fontWeight: "normal" }}>
-                        {replaceWithUnicode(reagent.reagent)}
-                      </Text>
+
+              return (
+                <View
+                  key={`Omitted reagents prof ${professor._id} request ${reqIndex}`}
+                  style={styles.extrasItem}
+                >
+                  <Text>
+                    {`Solicitud ${profIndex + 1} | Grupo ${reqIndex + 1}: `}
+                  </Text>
+                  {omittedReagents.map((reagent, regIndex) => (
+                    <Text
+                      key={`Omitted reagents prof ${professor._id} request ${reqIndex} reagent ${regIndex}`}
+                      style={{ fontWeight: "normal" }}
+                    >
+                      {replaceWithUnicode(reagent.reagent)}
                     </Text>
-                  </View>
-                );
-              });
+                  ))}
+                </View>
+              );
             });
           })
         )}
       </View>
       <View style={styles.extras}>
-        {/* <Text>Nota: verificar solo rellenado</Text> */}
         <Text>Extras</Text>
         {!shouldRenderExtras ? (
           <Text>No se registraron extras para esta práctica</Text>
         ) : (
           Object.values(professors).map((prof, profIndex) => {
-            const { requests } = prof;
+            const { requests, professor } = prof;
+
             return requests.map((request, reqIndex) => {
               const { customReagents } = request;
-              return customReagents.map((reagent, regIndex) => {
-                return (
+              return (
+                customReagents.length > 0 && (
                   <View
-                    key={`Extra reagents prof ${profIndex} request ${reqIndex} reagent ${regIndex}`}
+                    key={`Extra reagents prof ${professor._id} request ${request._id}`}
                     style={styles.extrasItem}
                   >
                     <Text>
                       {`Solicitud ${profIndex + 1} | Grupo ${reqIndex + 1}: `}
-                      <Text style={{ fontWeight: "normal" }}>
-                        {`${reagent.quantity}${reagent.unit} de
-                        ${replaceWithUnicode(reagent.reagent)}`}
-                      </Text>
                     </Text>
+                    {customReagents.map((reagent, regIndex) => {
+                      return (
+                        <Text
+                          key={`Extra reagents prof ${professor._id} request ${request._id} reagent ${regIndex}`}
+                          style={{ fontWeight: "normal" }}
+                        >
+                          {`${reagent.quantity}${
+                            reagent.unit
+                          } de ${replaceWithUnicode(reagent.reagent)}`}
+                        </Text>
+                      );
+                    })}
                   </View>
-                );
-              });
+                )
+              );
             });
           })
         )}
@@ -522,22 +534,32 @@ const Equipment = ({ equipment, professors }) => {
           <Text>No se registraron extras para esta práctica</Text>
         ) : (
           Object.values(professors).map((prof, profIndex) => {
-            const { requests } = prof;
+            const { requests, professor } = prof;
+
             return requests.map((request, reqIndex) => {
               const { customEquipment } = request;
-              return customEquipment.map((item, regIndex) => {
-                return (
+              return (
+                customEquipment.length > 0 && (
                   <View
-                    key={`Extra equipment prof ${profIndex} request ${reqIndex} item ${regIndex}`}
+                    key={`Extra equipment prof ${professor._id} request ${request._id}`}
                     style={styles.extrasItem}
                   >
                     <Text>
                       {`Solicitud ${profIndex + 1} | Grupo ${reqIndex + 1}: `}
-                      <Text style={{ fontWeight: "normal" }}>{item}</Text>
                     </Text>
+                    {customEquipment.map((item, regIndex) => {
+                      return (
+                        <Text
+                          key={`Extra equipment prof ${professor._id} request ${request._id} equipment ${regIndex}`}
+                          style={{ fontWeight: "normal" }}
+                        >
+                          {item}
+                        </Text>
+                      );
+                    })}
                   </View>
-                );
-              });
+                )
+              );
             });
           })
         )}
@@ -591,37 +613,48 @@ const Waste = ({ waste, professors }) => {
           <Text>No se registraron extras para esta práctica</Text>
         ) : (
           Object.values(professors).map((prof, profIndex) => {
-            const { requests } = prof;
+            const { requests, professor } = prof;
+
             return requests.map((request, reqIndex) => {
               const { customWaste } = request;
-              return customWaste.map((item, regIndex) => {
-                return (
+              return (
+                customWaste.length > 0 && (
                   <View
-                    key={`Extra waste prof ${profIndex} request ${reqIndex} item ${regIndex}`}
+                    key={`Extra waste prof ${professor._id} request ${reqIndex} item`}
                     style={styles.extrasItem}
                   >
                     <Text>{`Solicitud ${profIndex + 1} | Grupo ${
                       reqIndex + 1
                     }`}</Text>
-                    <Text style={styles.wasteLabel}>
-                      Envase:{" "}
-                      <Text style={styles.wasteData}>{item.container}</Text>
-                    </Text>
-                    <Text style={styles.wasteLabel}>
-                      Residuo:{" "}
-                      <Text style={styles.wasteData}>
-                        {replaceWithUnicode(item.residue)}
-                      </Text>
-                    </Text>
-                    {item.treatment && (
-                      <Text style={styles.wasteLabel}>
-                        Tratamiento:{" "}
-                        <Text style={styles.wasteData}>{item.treatment}</Text>
-                      </Text>
-                    )}
+                    {customWaste.map((item, regIndex) => {
+                      return (
+                        <View
+                          key={`Extra waste prof ${professor._id} request ${request._id} item ${regIndex}`}
+                        >
+                          <Text style={styles.wasteLabel}>
+                            Envase:{" "}
+                            <Text style={styles.wasteData}>
+                              {item.container}
+                            </Text>
+                          </Text>
+                          <Text style={styles.wasteLabel}>
+                            Residuo:{" "}
+                            <Text style={styles.wasteData}>
+                              {replaceWithUnicode(item.residue)}
+                            </Text>
+                          </Text>
+                          <Text style={styles.wasteLabel}>
+                            Tratamiento:{" "}
+                            <Text style={styles.wasteData}>
+                              {replaceWithUnicode(item.treatment)}
+                            </Text>
+                          </Text>
+                        </View>
+                      );
+                    })}
                   </View>
-                );
-              });
+                )
+              );
             });
           })
         )}
