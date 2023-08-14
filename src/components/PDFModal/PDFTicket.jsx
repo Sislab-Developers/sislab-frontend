@@ -182,6 +182,10 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
 
+  omitted: {
+    textDecoration: "line-through",
+  },
+
   itemQuantity: {
     maxWidth: "25%",
     textAlign: "right",
@@ -371,6 +375,10 @@ const Reagents = ({ reagents, professors = [] }) => {
     prof.requests.some((request) => request.customReagents.length > 0)
   );
 
+  const shouldRenderOmitted = Object.values(professors).some((prof) =>
+    prof.requests.some((request) => request.omittedReagents.length > 0)
+  );
+
   return (
     <View style={styles.subsection}>
       <Text style={styles.subsectionHeader}>Reactivos</Text>
@@ -402,6 +410,34 @@ const Reagents = ({ reagents, professors = [] }) => {
         </View>
       )}
       <View style={styles.extras}>
+        <Text>Omitidos</Text>
+        {!shouldRenderOmitted ? (
+          <Text>No se omitieron reactivos para esta práctica</Text>
+        ) : (
+          Object.values(professors).map((prof, profIndex) => {
+            const { requests } = prof;
+            return requests.map((request, reqIndex) => {
+              const { omittedReagents } = request;
+              return omittedReagents.map((reagent, regIndex) => {
+                return (
+                  <View
+                    key={`Omitted reagents prof ${profIndex} request ${reqIndex} reagent ${regIndex}`}
+                    style={styles.extrasItem}
+                  >
+                    <Text>
+                      {`Solicitud ${profIndex + 1} | Grupo ${reqIndex + 1}: `}
+                      <Text style={{ fontWeight: "normal" }}>
+                        {replaceWithUnicode(reagent.reagent)}
+                      </Text>
+                    </Text>
+                  </View>
+                );
+              });
+            });
+          })
+        )}
+      </View>
+      <View style={styles.extras}>
         {/* <Text>Nota: verificar solo rellenado</Text> */}
         <Text>Extras</Text>
         {!shouldRenderExtras ? (
@@ -417,11 +453,13 @@ const Reagents = ({ reagents, professors = [] }) => {
                     key={`Extra reagents prof ${profIndex} request ${reqIndex} reagent ${regIndex}`}
                     style={styles.extrasItem}
                   >
-                    <Text>{`Solicitud ${profIndex + 1} | Grupo ${
-                      reqIndex + 1
-                    }: ${reagent.quantity}${
-                      reagent.unit
-                    } de ${replaceWithUnicode(reagent.reagent)}`}</Text>
+                    <Text>
+                      {`Solicitud ${profIndex + 1} | Grupo ${reqIndex + 1}: `}
+                      <Text style={{ fontWeight: "normal" }}>
+                        {`${reagent.quantity}${reagent.unit} de
+                        ${replaceWithUnicode(reagent.reagent)}`}
+                      </Text>
+                    </Text>
                   </View>
                 );
               });
@@ -477,9 +515,10 @@ const Equipment = ({ equipment, professors }) => {
                     key={`Extra equipment prof ${profIndex} request ${reqIndex} item ${regIndex}`}
                     style={styles.extrasItem}
                   >
-                    <Text>{`Solicitud ${profIndex + 1} | Grupo ${
-                      reqIndex + 1
-                    }: ${item}`}</Text>
+                    <Text>
+                      {`Solicitud ${profIndex + 1} | Grupo ${reqIndex + 1}: `}
+                      <Text style={{ fontWeight: "normal" }}>{item}</Text>
+                    </Text>
                   </View>
                 );
               });

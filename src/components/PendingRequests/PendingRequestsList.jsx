@@ -53,9 +53,11 @@ export const PendingRequestsList = ({ date, hasRequests }) => {
             </TextEmphasis>
             :
           </Typography>
-          {requestsQuery.data.requests.map((request) => (
-            <PendingRequestItem request={request} key={request._id} />
-          ))}
+          {[...requestsQuery.data.requests]
+            .sort((reqA, reqB) => reqA.groupId.time - reqB.groupId.time)
+            .map((request) => (
+              <PendingRequestItem request={request} key={request._id} />
+            ))}
           <Button
             variant="contained"
             onClick={() => setOpen(true)}

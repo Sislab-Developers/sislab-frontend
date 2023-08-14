@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
-import { Box, Skeleton, Typography } from "@mui/material";
+import { Box, LinearProgress, Typography } from "@mui/material";
 
 import { TextEmphasis } from "../TextEmphasis";
 import { useRequestsByProfDate } from "../../hooks/useRequests";
@@ -23,18 +23,20 @@ export const RequestsList = ({ date, hasRequests }) => {
             </TextEmphasis>
             :
           </Typography>
-          {(requestsLoading || groupsLoading) && <RequestSkeleton />}
+          {(requestsLoading || groupsLoading) && <LinearProgress />}
           {!requestsLoading &&
             !groupsLoading &&
-            requests.map((request) => (
-              <RequestItem
-                request={request}
-                index={groups.findIndex(
-                  (group) => group._id === request.groupId._id
-                )}
-                key={request._id}
-              />
-            ))}
+            requests
+              .sort((reqA, reqB) => reqA.groupId.time - reqB.groupId.time)
+              .map((request) => (
+                <RequestItem
+                  request={request}
+                  index={groups.findIndex(
+                    (group) => group._id === request.groupId._id
+                  )}
+                  key={request._id}
+                />
+              ))}
         </>
       ) : (
         <Typography>
@@ -44,20 +46,4 @@ export const RequestsList = ({ date, hasRequests }) => {
       )}
     </Box>
   );
-};
-
-const RequestSkeleton = () => {
-  return Array.from(Array(3).keys()).map((i) => (
-    <Skeleton
-      key={i}
-      variant="rectangular"
-      animation="pulse"
-      sx={{
-        width: "100%",
-        height: "150px",
-        animationDelay: `${i * 0.08}s`,
-        animationDuration: "1s",
-      }}
-    />
-  ));
 };

@@ -20,6 +20,7 @@ import {
   formatTimeslot,
   fullDateFormat,
   fullDateTimeFormat,
+  replaceWithUnicode,
 } from "../../utils";
 import { useState } from "react";
 import { TextEmphasis } from "../TextEmphasis";
@@ -34,6 +35,7 @@ export const RequestItem = ({ request, index }) => {
     customReagents,
     customEquipment,
     customWaste,
+    omittedReagents,
   } = request;
 
   const theme = useTheme();
@@ -145,6 +147,30 @@ export const RequestItem = ({ request, index }) => {
                 <TextEmphasis>Hora de clase:</TextEmphasis>{" "}
                 {formatTimeslot(group?.time)}
               </Typography>
+              {omittedReagents.length > 0 && (
+                <>
+                  <Typography>
+                    <TextEmphasis>Reactivos omitidos:</TextEmphasis>
+                  </Typography>
+                  <List disablePadding>
+                    {omittedReagents.map((reagent) => (
+                      <ListItem
+                        disablePadding
+                        key={`${reagent.reagent} ${reagent.quantity} ${reagent.unit}`}
+                      >
+                        <ListItemIcon>
+                          <ArrowRight />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={`${replaceWithUnicode(reagent.reagent)} - ${
+                            reagent.quantity
+                          }${reagent.unit}`}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </>
+              )}
               {customReagents.length > 0 && (
                 <>
                   <Typography>
@@ -153,13 +179,16 @@ export const RequestItem = ({ request, index }) => {
                   <List disablePadding>
                     {customReagents.map((reagent) => (
                       <ListItem
+                        disablePadding
                         key={`${reagent.reagent} ${reagent.quantity} ${reagent.unit}`}
                       >
                         <ListItemIcon>
                           <ArrowRight />
                         </ListItemIcon>
                         <ListItemText
-                          primary={`${reagent.reagent} - ${reagent.quantity}${reagent.unit}`}
+                          primary={`${replaceWithUnicode(reagent.reagent)} - ${
+                            reagent.quantity
+                          }${reagent.unit}`}
                         />
                       </ListItem>
                     ))}
@@ -173,7 +202,10 @@ export const RequestItem = ({ request, index }) => {
                   </Typography>
                   <List disablePadding>
                     {customEquipment.map((equipment, index) => (
-                      <ListItem key={`Equipment ${equipment} ${index}`}>
+                      <ListItem
+                        disablePadding
+                        key={`Equipment ${equipment} ${index}`}
+                      >
                         <ListItemIcon>
                           <ArrowRight />
                         </ListItemIcon>
@@ -191,6 +223,7 @@ export const RequestItem = ({ request, index }) => {
                   <List disablePadding>
                     {customWaste.map((waste, index) => (
                       <ListItem
+                        disablePadding
                         key={`Waste ${waste.residue} ${waste.treatment} ${index}`}
                       >
                         <ListItemIcon>

@@ -20,6 +20,7 @@ import {
   formatTimeslot,
   fullDateFormat,
   fullDateTimeFormat,
+  replaceWithUnicode,
 } from "../../utils";
 
 export const PendingRequestItem = ({ request }) => {
@@ -34,6 +35,7 @@ export const PendingRequestItem = ({ request }) => {
     customReagents,
     customEquipment,
     customWaste,
+    omittedReagents,
   } = request;
 
   const toggleExpanded = () => {
@@ -42,7 +44,12 @@ export const PendingRequestItem = ({ request }) => {
 
   return (
     <Box component="article" width="100%">
-      <Card>
+      <Card
+        sx={{
+          border: "1px solid #ccc",
+          boxShadow: "1px 1px 4px 0 rgba(0, 0, 0, 0.24)",
+        }}
+      >
         <CardActionArea onClick={toggleExpanded}>
           <Box
             sx={{
@@ -67,9 +74,7 @@ export const PendingRequestItem = ({ request }) => {
           </Box>
           <Collapse in={isExpanded} unmountOnExit>
             <CardContent>
-              <Box
-                sx={{ display: "flex", flexDirection: "column" }}
-              >
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <Typography>
                   <TextEmphasis>Creada por:</TextEmphasis>{" "}
                   {formatProfName(prof?.name, prof?.surname)}
@@ -96,6 +101,30 @@ export const PendingRequestItem = ({ request }) => {
                   <TextEmphasis>Hora de clase:</TextEmphasis>{" "}
                   {formatTimeslot(group?.time)}
                 </Typography>
+                {omittedReagents.length > 0 && (
+                  <>
+                    <Typography>
+                      <TextEmphasis>Reactivos omitidos:</TextEmphasis>
+                    </Typography>
+                    <List disablePadding>
+                      {omittedReagents.map((reagent) => (
+                        <ListItem
+                          disablePadding
+                          key={`${reagent.reagent} ${reagent.quantity} ${reagent.unit}`}
+                        >
+                          <ListItemIcon>
+                            <ArrowRight />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={`${replaceWithUnicode(
+                              reagent.reagent
+                            )} - ${reagent.quantity}${reagent.unit}`}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </>
+                )}
                 {customReagents.length > 0 && (
                   <>
                     <Typography>
@@ -104,6 +133,7 @@ export const PendingRequestItem = ({ request }) => {
                     <List disablePadding>
                       {customReagents.map((reagent) => (
                         <ListItem
+                          disablePadding
                           key={`${reagent.reagent} ${reagent.quantity} ${reagent.unit}`}
                         >
                           <ListItemIcon>
@@ -124,7 +154,10 @@ export const PendingRequestItem = ({ request }) => {
                     </Typography>
                     <List disablePadding>
                       {customEquipment.map((equipment, index) => (
-                        <ListItem key={`Equipment ${equipment} ${index}`}>
+                        <ListItem
+                          disablePadding
+                          key={`Equipment ${equipment} ${index}`}
+                        >
                           <ListItemIcon>
                             <ArrowRight />
                           </ListItemIcon>
@@ -142,6 +175,7 @@ export const PendingRequestItem = ({ request }) => {
                     <List disablePadding>
                       {customWaste.map((waste, index) => (
                         <ListItem
+                          disablePadding
                           key={`Waste ${waste.residue} ${waste.treatment} ${index}`}
                         >
                           <ListItemIcon>

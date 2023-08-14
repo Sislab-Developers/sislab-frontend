@@ -19,6 +19,10 @@ export const theme = createTheme({
     grey: {
       main: "#f5f5f5",
     },
+    darkGrey: {
+      main: "#595959",
+      translucid: "#59595995",
+    },
   },
   typography: {
     fontFamily: ["Nunito", "sans-serif"].join(","),

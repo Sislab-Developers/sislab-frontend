@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {
   Box,
   Button,
+  IconButton,
   LinearProgress,
   MenuItem,
   Modal,
@@ -10,10 +11,11 @@ import {
   TableRow,
   Tabs,
   TextField,
+  Tooltip,
   Typography,
   useTheme,
 } from "@mui/material";
-import { Send } from "@mui/icons-material";
+import { RemoveCircleOutline, Send, Undo } from "@mui/icons-material";
 
 import { RequestStep } from "./RequestStep";
 import { GroupChip } from "./GroupChip";
@@ -58,6 +60,8 @@ export const RequestForm = () => {
   const [customReagents, setCustomReagents] = useState([]);
   const [customEquipment, setCustomEquipment] = useState([]);
   const [customWaste, setCustomWaste] = useState([]);
+
+  const [omittedReagents, setOmittedReagents] = useState([]);
 
   const [groupErrors, setGroupErrors] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -117,6 +121,8 @@ export const RequestForm = () => {
     setCustomReagents([]);
     setCustomEquipment([]);
     setCustomWaste([]);
+
+    setOmittedReagents([]);
   };
 
   const validateGroupStep = () => {
@@ -157,6 +163,16 @@ export const RequestForm = () => {
     }
 
     return isValid;
+  };
+
+  const handleOmitReagent = (reagent) => {
+    setOmittedReagents((prev) => [...prev, reagent]);
+  };
+
+  const handleRestoreReagent = (reagent) => {
+    setOmittedReagents((prev) =>
+      prev.filter((prevReagent) => prevReagent !== reagent)
+    );
   };
 
   const handleSubmitCustomReagent = (reagent) => {
@@ -217,6 +233,7 @@ export const RequestForm = () => {
       customReagents,
       customEquipment,
       customWaste,
+      omittedReagents,
     };
 
     try {
@@ -395,11 +412,12 @@ export const RequestForm = () => {
                               <TableCell>Reactivo</TableCell>
                               <TableCell align="right">Cantidad</TableCell>
                               <TableCell align="right">Medida</TableCell>
+                              <TableCell align="right">Omitir</TableCell>
                             </TableRow>
                           }
                         >
                           <TableRow>
-                            <TableCell colSpan={3}>
+                            <TableCell colSpan={4}>
                               <Typography textAlign="center">
                                 Esta práctica no contiene{" "}
                                 <TextEmphasis>reactivos</TextEmphasis>
@@ -417,24 +435,89 @@ export const RequestForm = () => {
                                 <TableCell>Reactivo</TableCell>
                                 <TableCell align="right">Cantidad</TableCell>
                                 <TableCell align="right">Medida</TableCell>
+                                <TableCell align="right">Acción</TableCell>
                               </TableRow>
                             }
                           >
-                            {group.reagents.map((reagent) => (
-                              <TableRow key={reagent.reagent}>
-                                <TableCell
-                                  dangerouslySetInnerHTML={{
-                                    __html: reagent.reagent,
-                                  }}
-                                />
-                                <TableCell align="right">
-                                  {reagent.quantity || "--"}
-                                </TableCell>
-                                <TableCell align="right">
-                                  {reagent.unit || "--"}
-                                </TableCell>
-                              </TableRow>
-                            ))}
+                            {group.reagents.map((reagent, index) => {
+                              const isOmitted = omittedReagents.some(
+                                (omitted) =>
+                                  reagent.reagent === omitted.reagent &&
+                                  reagent.quantity === omitted.quantity &&
+                                  reagent.unit === omitted.unit
+                              );
+
+                              return (
+                                <TableRow
+                                  key={`Reagent ${index}: ${reagent.reagent} | ${reagent.quantity}`}
+                                >
+                                  <TableCell
+                                    dangerouslySetInnerHTML={{
+                                      __html: reagent.reagent,
+                                    }}
+                                    sx={{
+                                      color: isOmitted
+                                        ? theme.palette.darkGrey.translucid
+                                        : "black",
+                                      textDecoration: isOmitted
+                                        ? "line-through"
+                                        : "none",
+                                    }}
+                                  />
+                                  <TableCell
+                                    align="right"
+                                    sx={{
+                                      color: isOmitted
+                                        ? theme.palette.darkGrey.translucid
+                                        : "black",
+                                      textDecoration: isOmitted
+                                        ? "line-through"
+                                        : "none",
+                                    }}
+                                  >
+                                    {reagent.quantity || "--"}
+                                  </TableCell>
+                                  <TableCell
+                                    align="right"
+                                    sx={{
+                                      color: isOmitted
+                                        ? theme.palette.darkGrey.translucid
+                                        : "black",
+                                      textDecoration: isOmitted
+                                        ? "line-through"
+                                        : "none",
+                                    }}
+                                  >
+                                    {reagent.unit || "--"}
+                                  </TableCell>
+                                  <TableCell align="right">
+                                    {isOmitted ? (
+                                      <Tooltip title="Restaurar este reactivo">
+                                        <IconButton
+                                          onClick={handleRestoreReagent.bind(
+                                            null,
+                                            reagent
+                                          )}
+                                        >
+                                          <Undo color="primary" />
+                                        </IconButton>
+                                      </Tooltip>
+                                    ) : (
+                                      <Tooltip title="Omitir este reactivo">
+                                        <IconButton
+                                          onClick={handleOmitReagent.bind(
+                                            null,
+                                            reagent
+                                          )}
+                                        >
+                                          <RemoveCircleOutline color="error" />
+                                        </IconButton>
+                                      </Tooltip>
+                                    )}
+                                  </TableCell>
+                                </TableRow>
+                              );
+                            })}
                           </Table>
                         )
                       )}
