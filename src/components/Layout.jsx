@@ -60,8 +60,8 @@ const Layout = () => {
     return (
       <LoginBackground>
         <Typography>
-          Ocurrió un error al crear tu usuario. Por favor, contacta a un
-          administrador.
+          Ocurrió un error al conectar con el servicio de autenticación. Por
+          favor, inténtalo más tarde o contacta a un administrador.
         </Typography>
         <Button variant="contained" onClick={signOut}>
           Cerrar sesión

@@ -89,6 +89,19 @@ export const getRequestsByDate = async (date) => {
   });
 };
 
+export const getRequestsByDateRange = async (start, end) => {
+  return await instance.get("solicitudes/by-date-range", {
+    params: {
+      start: new Date(
+        start.getFullYear(),
+        start.getMonth(),
+        start.getDate()
+      ).getTime(),
+      end: new Date(end.getFullYear(), end.getMonth(), end.getDate()).getTime(),
+    },
+  });
+};
+
 export const postRequest = async (data) => {
   return await instance.post("solicitudes", data);
 };
