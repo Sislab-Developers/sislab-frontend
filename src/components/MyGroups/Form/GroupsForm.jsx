@@ -67,7 +67,7 @@ export const GroupsForm = ({ total = 0, onAddGroup }) => {
       updateContent({
         title: "Error",
         content: `Ocurrió un error al obtener los datos del formulario. Detalles: ${
-          error.msg ? error.msg : error.errors[0].msg
+          error.msg ? error.msg : error?.errors[0]?.msg
         }`,
       });
     } finally {

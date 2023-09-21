@@ -66,14 +66,16 @@ export const Calendar = ({
         onChange={onChange}
         shouldDisableDate={shouldDisableDate}
         slots={{ day: weekSelection ? WeekPickersDay : HighlightedDay }}
-        slotProps={{
-          day: (ownerState) => ({
-            selectedDay: value || new Date(),
-            hoveredDay,
-            onPointerEnter: () => setHoveredDay(ownerState.day),
-            onPointerLeave: () => setHoveredDay(null),
-          }),
-        }}
+        slotProps={
+          weekSelection && {
+            day: (ownerState) => ({
+              selectedDay: value || new Date(),
+              hoveredDay,
+              onPointerEnter: () => setHoveredDay(ownerState.day),
+              onPointerLeave: () => setHoveredDay(null),
+            }),
+          }
+        }
         sx={{
           maxWidth: "100%",
           border: `1px ${
