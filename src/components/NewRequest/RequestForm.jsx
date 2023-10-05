@@ -473,7 +473,7 @@ export const RequestForm = () => {
                                         : "none",
                                       fontFamily: {
                                         xs: "Nunito, sans-serif",
-                                        sm: "inherit",
+                                        sm: "Fira Mono, monospace",
                                       },
                                     }}
                                   />
