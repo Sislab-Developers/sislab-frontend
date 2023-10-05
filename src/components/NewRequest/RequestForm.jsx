@@ -471,6 +471,10 @@ export const RequestForm = () => {
                                       textDecoration: isOmitted
                                         ? "line-through"
                                         : "none",
+                                      fontFamily: {
+                                        xs: "Nunito, sans-serif",
+                                        sm: "inherit",
+                                      },
                                     }}
                                   />
                                   <TableCell
