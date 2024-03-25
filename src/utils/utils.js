@@ -86,7 +86,7 @@ export const fullDateTimeFormat = (date) => {
  * @returns A new string with unicodes in place of HTML entities.
  */
 export const replaceWithUnicode = (text) => {
-  return text.replace(/&#[0-9]+;/g, (entity) => {
+  return text?.replace(/&#[0-9]+;/g, (entity) => {
     const codePoint = parseInt(entity.match(/[0-9]+/));
     return String.fromCodePoint(codePoint);
   });
