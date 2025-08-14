@@ -250,7 +250,7 @@ export const PDFTicket = ({ requests = {}, requestsDate = new Date() }) => {
             />
           ))}
           <View style={styles.footer}>
-            <Text>sislab.vercel.app</Text>
+            <Text>https://sislab.unison.mx</Text>
           </View>
         </View>
       </Page>
